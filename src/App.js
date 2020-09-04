@@ -16,16 +16,16 @@ class App extends Component {
        <div>
          <div class="row">
            <div class="column">
-             <img src={require('./images/crait.jpg')}></img>
+             <img class="grow" src={require('./images/crait.jpg')}></img>
            </div>
            <div class="column">
-             <img src={require('./images/tatooine.jpg')}></img>
+             <img class="grow" src={require('./images/tatooine.jpg')}></img>
            </div>
            <div class="column">
-             <img src={require('./images/endor.jpg')}></img>
+             <img class="grow" src={require('./images/endor.jpg')}></img>
            </div>
            <div class="column">
-             <img src={require('./images/hoth.jpg')}></img>
+             <img class="grow" src={require('./images/hoth.jpg')}></img>
            </div>
          </div>
        </div>

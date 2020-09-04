@@ -13,6 +13,12 @@ function Planets() {//functional component (new, uses hooks)
 		<div>
 			<h2>What type of climate do you prefer?</h2>
 
+			<button class="grow">Temperate</button>
+			<button class="grow">Frozen</button>
+			<button class="grow">Desert</button>
+			<button class="grow">Tropical</button>
+
+
 			<h2>Temperate Planets : {mild.length}</h2>
 			<h2>Frozen Planets: {frozen.length}</h2>
 			<h2>Hot Planets: {hot.length}</h2>

@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
+
+.App {
+  margin:0;
+  text-align: center;
+  font-family: 'Josefin Sans', cursive;
+  color:white;
+  background-image: linear-gradient(to bottom right,#4A235A,#154360);
+}
+h1, h3{
+  font-family: 'Staatliches', cursive;
+}
+.row{
+  padding-top:50px;
+  padding-bottom:50px;
+  display:flex;
+  justify-content: space-around;
+  
+}
+img{
+  width:150px;
+  height:200px;
+
+}
+
+
+

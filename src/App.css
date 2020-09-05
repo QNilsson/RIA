@@ -11,10 +11,12 @@
 h1{
   font-family: 'Staatliches', cursive;
   font-size:45px;
+  letter-spacing:1px;
 }
 h3{
   font-family: 'Staatliches', cursive;
   font-size:24px;
+  letter-spacing: 1.3px; 
 }
 
 .row{

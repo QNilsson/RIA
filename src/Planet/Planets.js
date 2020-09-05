@@ -8,18 +8,26 @@ const hot = planets.filter(planet => planet.climate === "hot")
 const desert = planets.filter(planet => planet.climate === "arid")
 const tropical = planets.filter(planet => planet.climate === "tropical")
 const people = planets.filter(planet => planet.residents);
+
+
+
+
+
 function Planets() {//functional component (new, uses hooks)
 	
 	return(
 		<div>
 			<h2>What type of climate do you prefer?</h2>
 
-			<button class="grow">Temperate</button>
+			<button 
+			class="grow"
+			>Temperate</button>
 			<button class="grow">Frozen</button>
 			<button class="grow">Desert</button>
 			<button class="grow">Tropical</button>
 
-
+			<div class="climate-section">
+				<div class="section">
 			<h2>Temperate Planets : {mild.length}</h2>
 			{
 				mild.map((mildplanet, index) =>{
@@ -30,6 +38,8 @@ function Planets() {//functional component (new, uses hooks)
 					)
 				})
 			}
+			</div>
+			<div class="section">
 			<h2>Frozen Planets: {frozen.length}</h2>
 			{
 				frozen.map((frozenplanet, index) =>{
@@ -40,6 +50,8 @@ function Planets() {//functional component (new, uses hooks)
 					)
 				})
 			}
+			</div>
+			<div class="section">
 			<h2>Hot Planets: {hot.length}</h2>
 			{
 				hot.map((hotplanet, index) =>{
@@ -50,6 +62,8 @@ function Planets() {//functional component (new, uses hooks)
 					)
 				})
 			}
+			</div>
+			<div class="section">
 			<h2>Desert Planets: {desert.length}</h2>
 			{
 				desert.map((desertplanet, index) =>{
@@ -58,6 +72,8 @@ function Planets() {//functional component (new, uses hooks)
 					)
 				})
 			}
+			</div>
+			<div class="section">
 			<h2>Tropical Planets: {tropical.length}</h2>
 			{
 				tropical.map((tropicalplanet,index)=>{
@@ -66,6 +82,10 @@ function Planets() {//functional component (new, uses hooks)
 					)
 				})
 			}
+			</div>
+			</div>
+
+
 			<h2>Residents: {people.length}</h2>
 		</div>
 	)

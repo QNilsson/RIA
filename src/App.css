@@ -1,17 +1,22 @@
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 
-
 .App {
-  margin:0;
   text-align: center;
-  font-family: 'Josefin Sans', cursive;
+  font-family: 'Montserrat', sans-serif;
   color:white;
   background-image: linear-gradient(to bottom right,#4A235A,#154360);
+  padding-bottom:200px;
 }
-h1, h3{
+h1{
   font-family: 'Staatliches', cursive;
+  font-size:45px;
 }
+h3{
+  font-family: 'Staatliches', cursive;
+  font-size:24px;
+}
+
 .row{
   padding-top:50px;
   padding-bottom:50px;
@@ -22,6 +27,7 @@ h1, h3{
 img{
   width:170px;
   height:240px;
+  
 }
 
 .grow { transition: all .2s ease-in-out; }
@@ -38,6 +44,36 @@ button{
   margin:10px;
   font-family: 'Staatliches', cursive;
 }
+
+.shine {
+	background: #222 -webkit-gradient(linear, left top, right top, from(#222), to(#222), color-stop(0.5, #fff)) 0 0 no-repeat;
+	-webkit-background-size: 150px;
+	color: rgba(255, 255, 255, 0.3);
+	-webkit-background-clip: text;
+	-webkit-animation-name: shine;
+	-webkit-animation-duration: 5s;
+	-webkit-animation-iteration-count: infinite;
+  text-shadow: 0 0px 0px rgba(255, 255, 255, 0.5);
+  
+  
+}
+
+
+@-webkit-keyframes shine {
+	0%, 10% {
+		background-position: -1000px;
+	}
+	20% {
+		background-position: top left;
+	}
+	90% {
+		background-position: top right;
+	}
+	100% {
+		background-position: 1000px;
+	}
+}
+
 
 
 

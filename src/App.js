@@ -13,7 +13,7 @@ class App extends Component {
       <div className="App">
         <h1 class="shine">Welcome to Star Tours</h1>
         <h3 class="shine">#1 in the Universe for Vacation Destinations</h3>
-        <p>We are currently touring your <strong>61</strong> different planets. Scroll down to plan your perfect vacation!</p>
+        <p>We are currently touring <strong>61</strong> different planets. Scroll down to plan your perfect vacation!</p>
         <hr></hr>
        <div>
          <div class="row">

@@ -6,11 +6,13 @@ You can find the most recent version of this guide [here](https://github.com/fac
 https://awesome-minsky-9b2d2f.netlify.app/
 
 ## Features Include:
+One functional component
+One class based component
 Awesome "Star Tours" Title
 A list of the most popular planets based off of their climates
-	```
+	
 	arr.map```
 	```arr.filter```
-	arr.slice```
+	```arr.slice```
 	```arr.includes```
-	```
+

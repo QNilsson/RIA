@@ -5,3 +5,12 @@ You can find the most recent version of this guide [here](https://github.com/fac
 ## Netlify Link:
 https://awesome-minsky-9b2d2f.netlify.app/
 
+## Features Include:
+Awesome "Star Tours" Title
+A list of the most popular planets based off of their climates
+	```javascript
+	arr.map
+	arr.filter
+	arr.slice
+	arr.includes
+	```

@@ -9,8 +9,8 @@ https://awesome-minsky-9b2d2f.netlify.app/
 Awesome "Star Tours" Title
 A list of the most popular planets based off of their climates
 	```javascript
-	arr.map
-	arr.filter
-	arr.slice
-	arr.includes
+	arr.map```
+	arr.filter```
+	arr.slice```
+	arr.includes```
 	```

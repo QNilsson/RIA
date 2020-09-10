@@ -7,7 +7,9 @@ const frozen = planets.filter(planet => planet.climate.includes("frozen"))
 const hot = planets.filter(planet => planet.climate.includes("hot"))
 const desert = planets.filter(planet => planet.climate.includes("arid")).slice(0,5)
 const tropical = planets.filter(planet => planet.climate.includes("tropical"))
-const people = planets.filter(planet => planet.residents);
+
+
+
 
 
 
@@ -17,14 +19,15 @@ function Planets() {//functional component (new, uses hooks)
 	
 	return(
 		<div>
-			<h2>What type of climate do you prefer?</h2>
+			<h2>Our most popular destinations</h2>
+			
 
-			<button 
+			{/* <button 
 			class="grow"
 			>Temperate</button>
 			<button class="grow">Frozen</button>
 			<button class="grow">Desert</button>
-			<button class="grow">Tropical</button>
+			<button class="grow">Tropical</button> */}
 
 			<div class="climate-section">
 				<div class="section">
@@ -83,10 +86,11 @@ function Planets() {//functional component (new, uses hooks)
 				})
 			}
 			</div>
-			</div>
+			</div>{/*end of climate-section*/}
 
 
-			<h2>Residents: {people.length}</h2>
+			
+			
 		</div>
 	)
 };

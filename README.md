@@ -9,10 +9,6 @@ https://awesome-minsky-9b2d2f.netlify.app/
 One functional component\
 One class based component\
 Awesome "Star Tours" Title\
-A list of the most popular planets based off of their climates
-```	
-	arr.map```
-	```arr.filter```
-	```arr.slice```
-	```arr.includes```
-```
+A list of the most popular planets based off of their climates\
+
+

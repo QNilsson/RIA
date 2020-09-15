@@ -5,20 +5,44 @@ You can find the most recent version of this guide [here](https://github.com/fac
 ## Netlify Link:
 https://awesome-minsky-9b2d2f.netlify.app/
 
+## Api Used: Swapi Star Wars Api
 ## Features Include:
-One functional component\
-One class based component\
-Awesome "Star Tours" Title\
+## One functional component\
+```javascript
+function() Planets {
+	return()
+}
+```
+## One class based component\
+```javascript
+````class Population extends Component{
+	render()
+	return()
+}
+```
+## Awesome "Star Tours" Title\
+## List of planets 
+```javascript
+const planets = PlanetData;
+```
 A list of the most popular planets based off of their climates\
+```javascript
+const mild = planets.filter(planet => planet.climate.includes("temperate")).slice(0,5)
+```
 A listing of the least populated planet\
+```javascript
+const leastPop = planets.reduce ((acc, planet) => {
+  return acc.population < planet.population ? acc : planet;
+});
+```
 A list of the most populated planets and how many resides there are\
 
-```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
+```javascript
+planets.map((planet, index) =>{
+if(planet.population > 900000 && planet.population != "unknown")
 ```
+
+
+
 
 

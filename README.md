@@ -21,7 +21,7 @@ class Population extends Component{
 }
 ```
 ## Awesome "Star Tours" Title
-## List of planets 
+ List of planets 
 ```javascript
 const planets = PlanetData;
 ```

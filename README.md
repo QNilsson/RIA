@@ -10,5 +10,15 @@ One functional component\
 One class based component\
 Awesome "Star Tours" Title\
 A list of the most popular planets based off of their climates\
+A listing of the least populated planet\
+A list of the most populated planets and how many resides there are\
+
+```python
+import foobar
+
+foobar.pluralize('word') # returns 'words'
+foobar.pluralize('goose') # returns 'geese'
+foobar.singularize('phenomena') # returns 'phenomenon'
+```
 
 

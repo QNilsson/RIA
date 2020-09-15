@@ -4,7 +4,7 @@
 .App {
   text-align: center;
   font-family: 'Montserrat', sans-serif;
-  color:white;
+  color:pink;
   background-image: linear-gradient(to bottom right,#4A235A,#154360);
   padding-bottom:200px;
 }
@@ -99,7 +99,24 @@ button{
 .section{
 border:1px solid black;
 padding:20px;
-
+}
+.pop-section{
+  margin:auto;
+  display:inline-block;
+}
+.card{
+  box-shadow: 0 4px 8px 0 rgb(0,0,0,0.2);
+  transition: 0.3s;
+  max-width:400px;
+  margin:4px;
+ 
+}
+.card:hover{
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+.container{
+  padding: 2px 16px;
 
 }
 

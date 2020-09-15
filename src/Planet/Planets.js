@@ -9,25 +9,12 @@ const desert = planets.filter(planet => planet.climate.includes("arid")).slice(0
 const tropical = planets.filter(planet => planet.climate.includes("tropical"))
 
 
-
-
-
-
-
-
 function Planets() {//functional component (new, uses hooks)
 	
 	return(
 		<div>
 			<h2>Our most popular destinations</h2>
 			
-
-			{/* <button 
-			class="grow"
-			>Temperate</button>
-			<button class="grow">Frozen</button>
-			<button class="grow">Desert</button>
-			<button class="grow">Tropical</button> */}
 
 			<div class="climate-section">
 				<div class="section">

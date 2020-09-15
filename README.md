@@ -15,7 +15,7 @@ function() Planets {
 ```
 ## One class based component\
 ```javascript
-````class Population extends Component{
+class Population extends Component{
 	render()
 	return()
 }

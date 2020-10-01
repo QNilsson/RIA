@@ -13,34 +13,11 @@ function() Planets {
 	return()
 }
 ```
-## One class based component
+## Using Material ui core 
 ```javascript
-class Population extends Component{
-	render()
-	return()
-}
+import { List, ListeItem, ListItemAvatar, Avatar, ListTextItem, Icons, Checkbox }
 ```
-## Awesome "Star Tours" Title
- List of planets 
-```javascript
-const planets = PlanetData;
-```
-A list of the most popular planets based off of their climates
-```javascript
-const mild = planets.filter(planet => planet.climate.includes("temperate")).slice(0,5)
-```
-A listing of the least populated planet\
-```javascript
-const leastPop = planets.reduce ((acc, planet) => {
-  return acc.population < planet.population ? acc : planet;
-});
-```
-A list of the most populated planets and how many resides there are
 
-```javascript
-planets.map((planet, index) =>{
-if(planet.population > 900000 && planet.population != "unknown")
-```
 
 
 

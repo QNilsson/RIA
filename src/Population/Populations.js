@@ -1,16 +1,22 @@
 import React, {Component} from 'react';
 import PlanetData from '../data/planets.json';
+import axios from 'axios'
+import { makeStyles } from '@material-ui/core';
+import List from '@material-ui/core';
+import ListItem from '@material-ui/core'
+import '../../src/App.css'
 
 const planets = PlanetData;
 
 //function to find least populated planet
 const leastPop = planets.reduce ((acc, planet) => {
-  return acc.population < planet.population ? acc : planet;
+  return acc.population < planet.population  ? acc : planet;
 });
 
 
-
-
+const mostPop = planets.reduce ((acc, planet) => {
+  return acc.population > planet.population  ? acc : planet;
+});
 
 class Population extends Component {
   render () {
@@ -23,6 +29,7 @@ class Population extends Component {
         </h4>
         <h4>Probably because of its {leastPop.terrain} landscape</h4>
         <hr />
+
         <h3>Want to experience big city life?</h3>
         <h4>Try out these planets: {}</h4>
 

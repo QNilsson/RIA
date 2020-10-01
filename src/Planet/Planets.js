@@ -1,5 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PlanetData from '../data/planets.json'
+import axios from 'axios'
+import { makeStyles } from '@material-ui/core';
+import List from '@material-ui/core';
+import ListItem from '@material-ui/core'
 
 const planets = PlanetData;
 const mild = planets.filter(planet => planet.climate.includes("temperate")).slice(0,5)
@@ -7,6 +11,8 @@ const frozen = planets.filter(planet => planet.climate.includes("frozen"))
 const hot = planets.filter(planet => planet.climate.includes("hot"))
 const desert = planets.filter(planet => planet.climate.includes("arid")).slice(0,5)
 const tropical = planets.filter(planet => planet.climate.includes("tropical"))
+
+
 
 
 function Planets() {//functional component (new, uses hooks)

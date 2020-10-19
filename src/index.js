@@ -4,7 +4,15 @@ import './index.css';
 import './App.css'
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-
-
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+ReactDOM.render(
+	<React.StrictMode>
+<BrowserRouter>
+<App />
+</BrowserRouter>
+</React.StrictMode>,
+document.getElementById('root'),
+)
+ registerServiceWorker();
+//for app to work faster and load offline
+//ServiceWorker.unregister();

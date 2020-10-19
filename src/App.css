@@ -1,34 +1,5 @@
 body{
 	font-family: Arial, Helvetica, sans-serif;
-}
-.column{
-	padding-left:40px;
-}
-
-.cat{
-	width: 80%;
-    margin: 8px;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 3px #ccc;
-    padding: 16px;
-    text-align: center;
-    background-color: blue;
-    color: white;
-}
-
-.card{
-	margin:20px;
-	max-width:350px;
-	min-height:400px;
-
-}
-
-.cardActionArea{
-	display:flex !important;
-}
-.cardMedia{
-	max-width:140px;
-}
-.containerGrid{
-	flex-grow:1
+	
+	text-align: center;
 }

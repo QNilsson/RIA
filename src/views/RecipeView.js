@@ -16,11 +16,16 @@ import ChickenList from '../components/ChickenList';
 const useStyles = makeStyles ({
   root: {
     width: '100%',
+    alignContent:'center',
+    margin:'0 auto',
+    
   },
   media: {
-    width: '150px',
-    height: '150px',
-  }
+    width: '200px',
+    height: '200px',
+    alignSelf:'center'
+  },
+ 
   
 });
 
@@ -29,7 +34,7 @@ const RecipeView = ({title, calories, image}) => {
 
   return (
    
-    <CardContent>
+    <CardContent className={classes.root}>
       <CardMedia className={classes.media} image={image} />
       <Typography gutterBottom variant="h5" component="h2">
         {title}
@@ -37,6 +42,7 @@ const RecipeView = ({title, calories, image}) => {
       <Typography variant="body2" color="textSecondary" component="p">
         {Math.ceil (calories) + ' calories'}
       </Typography>
+      
     </CardContent>
     
   );

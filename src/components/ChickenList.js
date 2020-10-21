@@ -7,34 +7,30 @@ import {Card, makeStyles, Button, FormControl} from '@material-ui/core';
 const useStyles = makeStyles (() => ({
   root: {
     margin:10,
-    maxWidth: 600,
-    backgroundColor: '#C7D3D4FF',
     color: '#603f83ff',
+    display:'flex',
+    flexWrap:'wrap',
+    justifyContent:'flex-start',
+    overflow:'hidden',
+   
   },
-
-  media: {
-    height: 40,
-  },
-
   spacing: 8,
   card:{
-   textAlign:'center',
-   alignContent:'center',
     backgroundColor:'lightblue',
   },
 
   ul:{
-    maxWidth:1200,
+    // maxWidth:1200,
     listStyleType:'none',
-    display:'flex'
+    // display:'flex'
     // margin:'0 auto',
     // flexDirection:'row',
     // flexWrap:'wrap',
     // justifyContent:'space-around'
   },
   li:{
-    width:360,
-    margin:20
+    width:400,
+    margin:10
   }
 
 }));
@@ -65,7 +61,7 @@ const ChickenList = () => {
   }, []);
 
   return (
-    <div className="app">
+    <div className={classes.root}>
         {/* <FormControl className="search-form">
           <input className="search-bar" type="text" />
           <Button color='primary'className="search-button" type="submit">Search</Button>

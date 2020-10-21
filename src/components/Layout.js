@@ -9,7 +9,7 @@ import {
   ListItem,
   Button,
 } from '@material-ui/core'
-import { SvgIcon } from '@material-ui/core';
+
 import MenuIcon from '@material-ui/icons/Menu'
 import { NavLink } from 'react-router-dom'
 

@@ -2,8 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import RecipeView from '../views/RecipeView';
 import {Card, makeStyles, Button, FormControl} from '@material-ui/core';
-import { BorderAll } from 'material-ui-icons';
-import { SvgIcon } from '@material-ui/core';
+
 
 const useStyles = makeStyles (() => ({
   root: {

@@ -9,7 +9,7 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
-import { SvgIcon } from '@material-ui/core';
+
 
 import ChickenList from '../components/ChickenList';
 

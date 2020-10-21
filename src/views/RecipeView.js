@@ -20,13 +20,15 @@ const useStyles = makeStyles ({
   media: {
     width: '150px',
     height: '150px',
-  },
+  }
+  
 });
 
 const RecipeView = ({title, calories, image}) => {
   const classes = useStyles ();
 
   return (
+   
     <CardContent>
       <CardMedia className={classes.media} image={image} />
       <Typography gutterBottom variant="h5" component="h2">
@@ -36,6 +38,7 @@ const RecipeView = ({title, calories, image}) => {
         {Math.ceil (calories) + ' calories'}
       </Typography>
     </CardContent>
+    
   );
 };
 

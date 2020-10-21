@@ -6,19 +6,37 @@ import {Card, makeStyles, Button, FormControl} from '@material-ui/core';
 
 const useStyles = makeStyles (() => ({
   root: {
-    width: '100%',
+    margin:10,
     maxWidth: 600,
     backgroundColor: '#C7D3D4FF',
     color: '#603f83ff',
   },
+
   media: {
     height: 40,
   },
+
   spacing: 8,
   card:{
-    display:'flex',
-    
+   textAlign:'center',
+   alignContent:'center',
+    backgroundColor:'lightblue',
+  },
+
+  ul:{
+    maxWidth:1200,
+    listStyleType:'none',
+    display:'flex'
+    // margin:'0 auto',
+    // flexDirection:'row',
+    // flexWrap:'wrap',
+    // justifyContent:'space-around'
+  },
+  li:{
+    width:360,
+    margin:20
   }
+
 }));
 
 const ChickenList = () => {
@@ -53,9 +71,13 @@ const ChickenList = () => {
           <Button color='primary'className="search-button" type="submit">Search</Button>
         </FormControl> */}
 		{recipeData.map(recipe =>(
+      <ul className={classes.ul}>
+      <li className={classes.li}>
       <Card className={classes.card}>
 			<RecipeView title={recipe.recipe.label} calories={recipe.recipe.calories} image={recipe.recipe.image}/>
       </Card>
+      </li>
+      </ul>
 		))}
       </div>
     

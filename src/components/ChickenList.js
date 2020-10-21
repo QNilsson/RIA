@@ -41,6 +41,7 @@ const ChickenList = () => {
   const classes = useStyles ();
 
   const [recipeData, setRecipeData] = useState ([]);
+  
 
   useEffect (() => {
     const fetchRecipes = () => {
@@ -52,6 +53,7 @@ const ChickenList = () => {
         .then (function (response) {
           console.log (response.data.hits);
           setRecipeData (response.data.hits)
+         
         })
         .catch (function (error) {
           console.log (error);
@@ -70,7 +72,7 @@ const ChickenList = () => {
       <ul className={classes.ul}>
       <li className={classes.li}>
       <Card className={classes.card}>
-			<RecipeView title={recipe.recipe.label} calories={recipe.recipe.calories} image={recipe.recipe.image}/>
+			<RecipeView title={recipe.recipe.label} calories={recipe.recipe.calories} servings={recipe.recipe.yield} image={recipe.recipe.image}/>
       </Card>
       </li>
       </ul>

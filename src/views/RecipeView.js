@@ -16,7 +16,7 @@ import ChickenList from '../components/ChickenList';
 const useStyles = makeStyles ({
   root: {
     width: '100%',
-    alignContent:'center',
+ display:'inline-block',
     margin:'0 auto',
     
   },
@@ -29,7 +29,7 @@ const useStyles = makeStyles ({
   
 });
 
-const RecipeView = ({title, calories, image}) => {
+const RecipeView = ({title, calories, image, servings}) => {
   const classes = useStyles ();
 
   return (
@@ -42,6 +42,13 @@ const RecipeView = ({title, calories, image}) => {
       <Typography variant="body2" color="textSecondary" component="p">
         {Math.ceil (calories) + ' calories'}
       </Typography>
+      <Typography variant="body2" color="textSecondary" component="p">
+        
+        {servings} servings
+        
+      </Typography>
+      
+      
       
     </CardContent>
     

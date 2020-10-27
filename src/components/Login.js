@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Dialog, TextField, Button, makeStyles } from '@material-ui/core';
-
+import * as Yup from 'yup';
 
 const useStyles = makeStyles(() => ({
   dialogContent: {

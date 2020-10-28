@@ -38,16 +38,16 @@ const Login = props => {
         }}
         validationSchema={Yup.object ().shape ({
           user: Yup.string ()
-          .min (4, 'Username needs mininum of 4 letters')
-          .max (16, 'Max username length is 16 letters')
+          .min (4, 'Minimum of 4 characters')
+          .max (16, 'Max of 15 characters')
           .required ('UserName is required'),
           email: Yup.string ()
             .email ('Must be a valid email')
             .max (50)
             .required ('Email is required'),
           password: Yup.string ()
-            .min (8, 'Password is too short')
-            .max (50, 'Password is too long')
+            .min (8, 'Password needs at least 8 characters')
+            .max (50, 'Max is 20 characters')
             .required ('Password is required'),
         })}
         onSubmit={(values, {setErrors, setStatus, setSubmitting}) => {

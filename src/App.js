@@ -7,10 +7,12 @@ import Welcome from './components/Welcome';
 import {Route, Switch} from 'react-router-dom';
 import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
 import { SvgIcon } from '@material-ui/core';
+import LogContextProvider, { LogContext } from './contexts/LogContext';
 
 //function-based component
 function App () {
   return (
+    <LogContextProvider>
     <div className="App">
       <Layout/>
       
@@ -24,6 +26,7 @@ function App () {
      
 
     </div>
+    </LogContextProvider>
   );
 }
 

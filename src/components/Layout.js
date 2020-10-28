@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import {
   AppBar,
   Toolbar,
@@ -14,6 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import { NavLink } from 'react-router-dom'
 
 import Login from './Login'
+import { LogContext } from '../contexts/LogContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,12 +48,30 @@ export default function ButtonAppBar() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
 
+  const logContext = useContext(LogContext)
+
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen)
   }
 
-  const handleDialogToggle = () => {
-    setLoginOpen(!loginOpen)
+  // const handleDialogToggle = () => {
+  //   setLoginOpen(!loginOpen)
+  // }
+
+  const handleLog = () =>{
+    console.log(logContext.isLog)
+    if(logContext.isLog){
+      logContext.logout()
+      setLoginOpen(false)
+      return
+    }
+    if(!logContext.isLog){
+      if(!loginOpen){
+        setLoginOpen(true)
+        return
+      }
+      setLoginOpen(false)
+    }
   }
 
   return (
@@ -74,7 +93,10 @@ export default function ButtonAppBar() {
           <NavLink to='/fishlist' className={classes.navSpacing}>
             Fish Recipes
           </NavLink>
-          <Button color='inherit' onClick={handleDialogToggle}>Login</Button>
+          {
+          logContext.isLog ? <Button color='inherit' onClick={handleLog}>Log out</Button> :
+          <Button color='inherit' onClick={handleLog}>Log In</Button>}
+          
         </Toolbar>
       </AppBar>
       <Drawer open={drawerOpen} onClose={handleDrawerToggle}>
@@ -91,7 +113,7 @@ export default function ButtonAppBar() {
           </ListItem>
         </List>
       </Drawer>
-      <Login open={loginOpen} onClose={handleDialogToggle}/>
+      <Login open={loginOpen} onClose={handleLog}/>
     </div>
   )
 }

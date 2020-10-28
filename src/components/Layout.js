@@ -26,20 +26,16 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  dem: {
-    color: 'blue',
-  },
-  repub: {
-    color: 'red',
-  },
+ 
   navSpacing: {
     marginRight: '5rem',
-    color: '#fff',
+    color: 'red',
     textDecoration: 'none',
   },
   list: {
     width: 250,
-    backgroundColor: '#00f'
+    backgroundColor: 'white',
+    
   },
 }))
 
@@ -76,7 +72,7 @@ export default function ButtonAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position='static'>
+      <AppBar position='static' color='dark'>
         <Toolbar>
           <IconButton
             edge='start'

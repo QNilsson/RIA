@@ -82,7 +82,7 @@ const Login = props => {
               label="User Name"
              type="user"
               name="user"
-              variant="filled"
+              variant="outlined"
               margin="normal"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -96,7 +96,7 @@ const Login = props => {
               label="Email Address"
               type="email"
               name="email"
-              variant="filled"
+              variant="outlined"
               margin="normal"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -110,7 +110,7 @@ const Login = props => {
               label="Password"
               type="password"
               name="password"
-              variant="filled"
+              variant="outlined"
               margin="normal"
               placeholder="&*#$(%#"
               value={values.password}

@@ -32,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
     color: 'red',
     textDecoration: 'none',
   },
+
   list: {
     width: 250,
     backgroundColor: 'white',
-    
   },
 }))
 
@@ -104,7 +104,7 @@ export default function ButtonAppBar() {
           </ListItem>
           <ListItem>
           <NavLink to='/fishlist' className={classes.navSpacing} onClick={handleDrawerToggle}>
-            Fish Recipes
+           Fish Recipes
           </NavLink>
           </ListItem>
         </List>

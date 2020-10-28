@@ -1,13 +1,21 @@
 import React from 'react';
+import Image from '../images/image.jpg';
+import {makeStyles} from '@material-ui/core';
 
-const Welcome  = () => {
-	return(
-		<div>
-		<h1>Welcome to your Recipe List</h1>
-		<h2>Please Log in, then</h2>
-		<h2>select Chicken or Fish Recipes from Above</h2>
-		</div>
-	)
-}
+const useStyles = makeStyles (() => ({
+  root: {
+   color:'red'
+  },
+}));
+const Welcome = () => {
+  const classes = useStyles ();
+  return (
+    <div className={classes.root}>
+      <h1>Welcome to Best Chicken & Fish Recipes!</h1>
+      <h2>Please Log In to Continue</h2>
+      <img src={Image} alt="fish chicken" />
+    </div>
+  );
+};
 
-export default Welcome
+export default Welcome;

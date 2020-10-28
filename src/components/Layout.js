@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    backgroundColor: '#d4a59a',
   },
   title: {
     flexGrow: 1,
@@ -29,13 +30,14 @@ const useStyles = makeStyles((theme) => ({
  
   navSpacing: {
     marginRight: '5rem',
-    color: 'red',
+    color: '#5c2018',
     textDecoration: 'none',
+    
   },
 
   list: {
     width: 250,
-    backgroundColor: 'white',
+    backgroundColor: '#d4a59a',
   },
 }))
 

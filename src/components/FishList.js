@@ -6,19 +6,19 @@ import {Card, makeStyles, Button, FormControl} from '@material-ui/core';
 
 const useStyles = makeStyles (() => ({
   root: {
-    margin:10,
-    
+    margin:0,
     color: '#603f83ff',
     display:'flex',
     flexWrap:'wrap',
     justifyContent:'flex-start',
     overflow:'hidden',
+    backgroundColor:'#f3e0dc',
    
   },
 
   spacing: 8,
   card:{
-    backgroundColor:'lightblue',
+    borderColor:'#5c2018',
   },
 
   ul:{

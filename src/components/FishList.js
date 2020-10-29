@@ -1,7 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import RecipeView from '../views/RecipeView';
 import {Card, makeStyles, Button, FormControl} from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
+import { LogContext} from '../contexts/LogContext';
 
 
 const useStyles = makeStyles (() => ({
@@ -44,6 +46,8 @@ const ChickenList = () => {
 
   const [recipeData, setRecipeData] = useState ([]);
 
+  const { isLog } = useContext(LogContext)
+
   useEffect (() => {
     const fetchRecipes = () => {
       axios
@@ -63,6 +67,7 @@ const ChickenList = () => {
   }, []);
 
   return (
+    isLog ?
     <div className={classes.root}>
         {/* <FormControl className="search-form">
           <input className="search-bar" type="text" />
@@ -78,6 +83,7 @@ const ChickenList = () => {
       </ul>
 		))}
       </div>
+      :<Redirect to="/"/>
     
   );
 };

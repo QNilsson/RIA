@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Card,
   CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
+  Box,
   Button,
   Typography,
   makeStyles,
 } from '@material-ui/core';
+import {Dialog, DialogOverlay, DialogContent} from '@reach/dialog';
+import '@reach/dialog/styles.css';
 
 import ChickenList from '../components/ChickenList';
 
@@ -17,7 +20,7 @@ const useStyles = makeStyles ({
     width: '100%',
     display: 'inline-block',
     margin: '0 auto',
-    alignContent:'center'
+    alignContent: 'center',
   },
   media: {
     width: '200px',
@@ -28,6 +31,12 @@ const useStyles = makeStyles ({
 
 const RecipeView = ({title, calories, image, servings}) => {
   const classes = useStyles ();
+
+  const [showDialog, setShowDialog] = useState (false);
+  const open = () => setShowDialog (true);
+  const close = () => setShowDialog (false);
+
+ 
 
   return (
     <CardContent className={classes.root}>
@@ -44,7 +53,36 @@ const RecipeView = ({title, calories, image, servings}) => {
 
       </Typography>
       <CardActions>
-        <Button color="secondary" size="small" onClick={() => { alert('clicked')}}>Get Recipe</Button>
+        <Button color="secondary" size="small" onClick={open}>
+          Get Recipe (ingredients coming soon)
+        </Button>
+        <Dialog isOpen={showDialog} onDismiss={close}>
+
+          <Box>
+            <CardContent>
+              <Typography variant="h5">{title}</Typography>
+              <Typography variant="p" color="textSecondary">
+                Whats upp
+              </Typography>
+              <br />
+              <Typography variant="p" color="textSecondary">
+                Whats upp
+              </Typography>
+            </CardContent>
+
+            <Button
+              className={classes.spacing}
+              color="secondary"
+              variant="outlined"
+              onClick={close}
+            >
+              Close
+            </Button>
+
+          </Box>
+
+        </Dialog>
+
       </CardActions>
 
     </CardContent>

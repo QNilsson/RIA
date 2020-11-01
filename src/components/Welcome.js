@@ -13,8 +13,9 @@ const useStyles = makeStyles (() => ({
     padding:'0'
   },
   welcome:{
-    height:'100vh',
-    padding:'5'
+   
+   
+    
   }
 }));
 
@@ -28,7 +29,7 @@ const Welcome = () => {
         ? 
         <div className={classes.welcome}><h1>Welcome to Best Chicken & Fish Recipes!</h1>
         <img src={Image} alt="image"/></div>
-        : <div><h2>Please Log In to Continue</h2></div>}
+        : <div className={classes.welcome}><h2>Please Log In to Continue</h2></div>}
      
     </div>
   );

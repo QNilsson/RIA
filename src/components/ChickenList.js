@@ -4,6 +4,7 @@ import RecipeView from '../views/RecipeView';
 import {Card, makeStyles, Button, FormControl} from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { LogContext} from '../contexts/LogContext';
+import { Login } from '../components/Login';
 
 
 const useStyles = makeStyles (() => ({
@@ -80,6 +81,7 @@ const ChickenList = () => {
       <ul className={classes.ul}>
       <li className={classes.li}>
       <Card className={classes.card}>
+        <Dialog open={open} onClose={handleClose}></Dialog>
 			<RecipeView title={recipe.recipe.label} calories={recipe.recipe.calories} servings={recipe.recipe.yield} image={recipe.recipe.image}/>
       </Card>
       </li>

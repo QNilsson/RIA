@@ -19,6 +19,7 @@ import { LogContext } from '../contexts/LogContext'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -32,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '5rem',
     color: '#5c2018',
     textDecoration: 'none',
-    
   },
 
   list: {

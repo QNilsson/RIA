@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import {Dialog, DialogOverlay, DialogContent} from '@reach/dialog';
 import '@reach/dialog/styles.css';
+import IngredientView from './IngredientsView';
 
 
 
@@ -21,6 +22,7 @@ const useStyles = makeStyles ({
     display: 'inline-block',
     margin: '0 auto',
     alignContent: 'center',
+    textAlign:'center'
   },
   media: {
     width: '200px',
@@ -29,7 +31,7 @@ const useStyles = makeStyles ({
   },
 });
 
-const RecipeView = ({title, calories, image, servings}) => {
+const RecipeView = ({title, calories, image, servings, ingredients}) => {
   const classes = useStyles ();
 
   const [showDialog, setShowDialog] = useState (false);
@@ -56,19 +58,24 @@ const RecipeView = ({title, calories, image, servings}) => {
         <Button color="secondary" size="small" onClick={open}>
           Get Recipe (ingredients coming soon)
         </Button>
-        <Dialog isOpen={showDialog} onDismiss={close}>
-
-          <Box>
-            <CardContent>
+        {/* <Dialog isOpen={showDialog} onDismiss={close}>
+    
+          {<Box>
+            {ingredients.map(ingredient => {
+              
+              <CardContent>
+                {console.log(ingredient.weight)}
               <Typography variant="h5">{title}</Typography>
               <Typography variant="p" color="textSecondary">
-                Whats upp
+               {ingredient.text}
               </Typography>
               <br />
               <Typography variant="p" color="textSecondary">
-                Whats upp
+                {ingredient.weight}
               </Typography>
             </CardContent>
+            })}
+            
 
             <Button
               className={classes.spacing}
@@ -79,9 +86,10 @@ const RecipeView = ({title, calories, image, servings}) => {
               Close
             </Button>
 
-          </Box>
+          </Box> }
 
-        </Dialog>
+        </Dialog> */}
+        <IngredientView ingredients={ingredients}/>
 
       </CardActions>
 

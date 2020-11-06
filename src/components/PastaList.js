@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import RecipeView from '../views/RecipeView';
-import {Card, makeStyles, Button, FormControl} from '@material-ui/core';
+import {Card, makeStyles, Button, FormControl, Typography} from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { LogContext} from '../contexts/LogContext';
 import { Login } from './Login';
@@ -81,7 +81,7 @@ const PastaList = () => {
       <ul className={classes.ul}>
       <li className={classes.li}>
       <Card className={classes.card}>
-			<RecipeView title={recipe.recipe.label} calories={recipe.recipe.calories} servings={recipe.recipe.yield} image={recipe.recipe.image}/>
+      <RecipeView title={recipe.recipe.label} ingredients={recipe.recipe.ingredients} calories={recipe.recipe.calories} servings={recipe.recipe.yield} image={recipe.recipe.image}/>
       </Card>
       </li>
       </ul>

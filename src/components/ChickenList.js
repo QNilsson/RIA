@@ -81,7 +81,7 @@ const ChickenList = () => {
       <ul className={classes.ul}>
       <li className={classes.li}>
       <Card className={classes.card}>
-			<RecipeView title={recipe.recipe.label} calories={recipe.recipe.calories} servings={recipe.recipe.yield} image={recipe.recipe.image}/>
+			<RecipeView title={recipe.recipe.label} calories={recipe.recipe.calories} ingredients={recipe.recipe.ingredients} servings={recipe.recipe.yield} image={recipe.recipe.image}/>
       </Card>
       </li>
       </ul>

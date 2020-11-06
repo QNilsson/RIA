@@ -13,7 +13,7 @@ import {
 import {Dialog, DialogOverlay, DialogContent} from '@reach/dialog';
 import '@reach/dialog/styles.css';
 
-import ChickenList from '../components/ChickenList';
+
 
 const useStyles = makeStyles ({
   root: {

@@ -35,8 +35,9 @@ const useStyles = makeStyles (() => ({
     // justifyContent:'space-around'
   },
   li:{
-    width:400,
-    margin:10
+    width:280,
+    margin:10,
+    textAlign:'center'
   }
 
 }));

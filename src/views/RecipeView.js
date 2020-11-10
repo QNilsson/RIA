@@ -18,17 +18,21 @@ import IngredientView from './IngredientsView';
 
 const useStyles = makeStyles ({
   root: {
-    width: '100%',
-    display: 'inline-block',
-    margin: '0 auto',
-    alignContent: 'center',
-    textAlign:'center'
+   width:'100%',
+   display:'inline-block',
+   alignContent:'center',
+   margin:'auto',
+   textAlign:'left'
+  
   },
   media: {
-    width: '200px',
-    height: '200px',
-    alignContent: 'center',
+    width:250,
+    height:250,
+
   },
+  content:{
+    display:'inline-block'
+  }
 });
 
 const RecipeView = ({title, calories, image, servings, ingredients}) => {
@@ -43,7 +47,8 @@ const RecipeView = ({title, calories, image, servings, ingredients}) => {
   return (
     <CardContent className={classes.root}>
       <CardMedia className={classes.media} image={image} />
-      <Typography gutterBottom variant="h5" component="h2">
+      <div className={classes.content}>
+      <Typography gutterBottom variant="h6" component="h5">
         {title}
       </Typography>
       <Typography variant="body2" color="textSecondary" component="p">
@@ -54,17 +59,17 @@ const RecipeView = ({title, calories, image, servings, ingredients}) => {
         {servings} servings
 
       </Typography>
+      </div>
       <CardActions>
         <Button color="secondary" size="small" onClick={open}>
-          Get Recipe (ingredients coming soon)
+          Ingredients List
         </Button>
-        {/* <Dialog isOpen={showDialog} onDismiss={close}>
+        <Dialog isOpen={showDialog} onDismiss={close}>
     
           {<Box>
             {ingredients.map(ingredient => {
               
               <CardContent>
-                {console.log(ingredient.weight)}
               <Typography variant="h5">{title}</Typography>
               <Typography variant="p" color="textSecondary">
                {ingredient.text}
@@ -76,7 +81,7 @@ const RecipeView = ({title, calories, image, servings, ingredients}) => {
             </CardContent>
             })}
             
-
+            <IngredientView ingredients={ingredients}/>
             <Button
               className={classes.spacing}
               color="secondary"
@@ -88,8 +93,8 @@ const RecipeView = ({title, calories, image, servings, ingredients}) => {
 
           </Box> }
 
-        </Dialog> */}
-        <IngredientView ingredients={ingredients}/>
+        </Dialog>
+        
 
       </CardActions>
 

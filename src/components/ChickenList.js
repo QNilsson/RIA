@@ -21,6 +21,9 @@ const useStyles = makeStyles (() => ({
   spacing: 8,
   card:{
     borderColor:'#5c2018',
+    maxWidth:400,
+    maxHeight:400,
+    alignContent:'center'
   },
 
   ul:{
@@ -33,8 +36,9 @@ const useStyles = makeStyles (() => ({
     // justifyContent:'space-around'
   },
   li:{
-    width:400,
-    margin:10
+    width:280,
+    margin:10,
+    textAlign:'center'
   }
 
 }));

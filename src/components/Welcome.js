@@ -12,11 +12,9 @@ const useStyles = makeStyles (() => ({
     height:'100vh',
     padding:'0'
   },
-  welcome:{
+ welcome:{
    
-   
-    
-  }
+ }
 }));
 
 const Welcome = () => {
@@ -28,7 +26,7 @@ const Welcome = () => {
       {isLog
         ? 
         <div className={classes.welcome}><h1>Welcome to Best Chicken & Fish Recipes!</h1>
-        <img src={Image} alt="image"/></div>
+        <img src={Image} height='300' width='400'alt="image"/></div>
         : <div className={classes.welcome}><h2>Please Log In to Continue</h2></div>}
      
     </div>

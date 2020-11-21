@@ -26,13 +26,9 @@ const useStyles = makeStyles (() => ({
   },
 
   ul:{
-    // maxWidth:1200,
+   
     listStyleType:'none',
-    // display:'flex'
-    // margin:'0 auto',
-    // flexDirection:'row',
-    // flexWrap:'wrap',
-    // justifyContent:'space-around'
+   
   },
   li:{
     width:280,

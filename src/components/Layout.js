@@ -19,6 +19,7 @@ import { LogContext } from '../contexts/LogContext'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    padding:30
     
   },
   menuButton: {
@@ -74,7 +75,7 @@ export default function ButtonAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position='static' color='dark'>
+      <AppBar position='absolute' color='light'>
         <Toolbar>
           <IconButton
             edge='start'

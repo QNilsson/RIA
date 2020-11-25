@@ -27,7 +27,7 @@ const useStyles = makeStyles (() => ({
   main:{
     display:'flex',
     flexWrap:'wrap',
-   
+    backgroundColor:'#f3e0dc'
   },
   spacing: 8,
   card:{
@@ -98,7 +98,7 @@ const ChickenList = () => {
      <div className={classes.main}>
   {recipeData.map(recipe =>(
      <Slide direction="up" in={checked}mountOnEnter unmountOnExit>
-      <ul elevation={4} className={classes.ul}>
+      <ul className={classes.ul}>
       <li className={classes.li}>
       <Card className={classes.card}>
 			<RecipeView title={recipe.recipe.label} calories={recipe.recipe.calories} ingredients={recipe.recipe.ingredients} servings={recipe.recipe.yield} image={recipe.recipe.image}/>

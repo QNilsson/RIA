@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import RecipeView from '../views/RecipeView';
-import {Card, makeStyles, Button, FormControl} from '@material-ui/core';
+import {Card, makeStyles, Button, FormControl, Fade, FormControlLabel, Switch} from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { LogContext} from '../contexts/LogContext';
 
@@ -17,6 +17,18 @@ const useStyles = makeStyles (() => ({
     backgroundColor:'#f3e0dc',
    
   },
+  head:{
+    paddingTop: 10,
+    paddingLeft:50,
+    paddingBottom:10
+ 
+   },
+   main:{
+     display:'flex',
+     flexWrap:'wrap',
+    
+   },
+
 
   spacing: 8,
   card:{
@@ -44,8 +56,13 @@ const ChickenList = () => {
   const classes = useStyles ();
 
   const [recipeData, setRecipeData] = useState ([]);
+  const [checked, setChecked] = useState(false);
 
   const { isLog } = useContext(LogContext)
+
+  const handleChange = () =>{
+    setChecked((prev) =>!prev)
+  }
 
   useEffect (() => {
     const fetchRecipes = () => {
@@ -72,15 +89,24 @@ const ChickenList = () => {
           <input className="search-bar" type="text" />
           <Button color='primary'className="search-button" type="submit">Search</Button>
         </FormControl> */}
+    <div className={classes.head}>
+     <FormControlLabel control={<Switch checked={checked} onChange={handleChange}/>}
+     label="Show Recipes"/> </div> 
+     <div className={classes.main}>
 		{recipeData.map(recipe =>(
-      <ul className={classes.ul}>
+      
+       <Fade in={checked}>
+      <ul elevation={4} className={classes.ul}>
       <li className={classes.li}>
       <Card className={classes.card}>
 			<RecipeView title={recipe.recipe.label} ingredients={recipe.recipe.ingredients} calories={recipe.recipe.calories} servings ={recipe.recipe.yield}image={recipe.recipe.image}/>
       </Card>
       </li>
       </ul>
+      </Fade>
+      
 		))}
+    </div>
       </div>
       :<Redirect to="/"/>
     

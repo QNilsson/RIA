@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import RecipeView from '../views/RecipeView';
-import {Card, makeStyles, Button, FormControl} from '@material-ui/core';
+import {Card, makeStyles, FormControl, FormControlLabel, Slide, Switch} from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { LogContext} from '../contexts/LogContext';
 import { Login } from '../components/Login';
@@ -16,6 +16,17 @@ const useStyles = makeStyles (() => ({
     justifyContent:'flex-start',
     overflow:'hidden',
     backgroundColor:'#f3e0dc',
+   
+  },
+  head:{
+   paddingTop: 10,
+   paddingLeft:50,
+   paddingBottom:10
+
+  },
+  main:{
+    display:'flex',
+    flexWrap:'wrap',
    
   },
   spacing: 8,
@@ -47,8 +58,13 @@ const ChickenList = () => {
   const classes = useStyles ();
 
   const [recipeData, setRecipeData] = useState ([]);
+  const [checked, setChecked] = useState(false);
 
   const { isLog } = useContext(LogContext)
+
+  const handleChange = () =>{
+    setChecked((prev) => !prev);
+  }
   
 
   useEffect (() => {
@@ -77,15 +93,25 @@ const ChickenList = () => {
           <input className="search-bar" type="text" />
           <Button color='primary'className="search-button" type="submit">Search</Button>
         </FormControl> */}
-		{recipeData.map(recipe =>(
-      <ul className={classes.ul}>
+        <div className={classes.head}> <FormControlLabel control={<Switch checked={checked} onChange={handleChange}/>}
+      label="Show recipes"/></div>
+     <div className={classes.main}>
+  {recipeData.map(recipe =>(
+     <Slide direction="up" in={checked}mountOnEnter unmountOnExit>
+      <ul elevation={4} className={classes.ul}>
       <li className={classes.li}>
       <Card className={classes.card}>
 			<RecipeView title={recipe.recipe.label} calories={recipe.recipe.calories} ingredients={recipe.recipe.ingredients} servings={recipe.recipe.yield} image={recipe.recipe.image}/>
       </Card>
       </li>
       </ul>
+       </Slide> 
+	
+     
+     
 		))}
+    </div>
+  
       </div>
       : <Redirect to="/"/>
     

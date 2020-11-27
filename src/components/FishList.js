@@ -33,8 +33,9 @@ const useStyles = makeStyles (() => ({
   spacing: 8,
   card:{
     borderColor:'#5c2018',
-    textAlign:'center',
-    alignItems:'center'
+    alignContent:'center',
+    display:'flex',
+    flexWrap:'wrap'
   },
 
   ul:{
@@ -43,7 +44,10 @@ const useStyles = makeStyles (() => ({
    
   },
   li:{
+    display:'flex',
+    flexWrap:'wrap',
     width:280,
+   
     margin:10,
     textAlign:'center'
   }

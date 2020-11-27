@@ -32,7 +32,10 @@ const useStyles = makeStyles ({
 
   },
   content:{
-    display:'inline-block'
+    display:'flex',
+    flexDirection:'column',
+    flexWrap:'wrap'
+    
   }
 });
 

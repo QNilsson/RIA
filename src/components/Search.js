@@ -22,9 +22,10 @@ const useStyles = makeStyles (() => ({
   spacing: 8,
   card:{
     borderColor:'#5c2018',
-    maxWidth:400,
-    maxHeight:400,
-    alignContent:'center'
+    alignContent:'center',
+    display:'flex',
+    flexWrap:'wrap'
+	
   },
 
   ul:{
@@ -33,7 +34,10 @@ const useStyles = makeStyles (() => ({
     
   },
   li:{
+    display:'flex',
+    flexWrap:'wrap',
     width:280,
+   
     margin:10,
     textAlign:'center'
   }
@@ -85,9 +89,10 @@ const Search = () => {
 			focused="false"
 			size="medium"
 			variant="outlined"
-            placeholder="Search Food"
+			placeholder="Search Food"
+			
           />
-          <Button color="secondary" size="medium" variant="contained" onClick={onSubmit}>Search</Button>
+          <Button color="secondary" size="medium" type="submit" variant="contained" onClick={onSubmit}>Search</Button>
         </FormControl>
         <div className={classes.main}>
           {recipes !== [] &&

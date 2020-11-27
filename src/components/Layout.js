@@ -95,6 +95,13 @@ export default function ButtonAppBar() {
           <NavLink to='/pastalist' className={classes.navSpacing}>
             Pasta Recipes
           </NavLink>
+          <NavLink to='/search' className={classes.navSpacing}>
+            Search All Recipes
+          </NavLink>
+
+
+         
+
           {
           logContext.isLog ? <Button color='inherit' onClick={handleLog}>Log out</Button> :
           <Button color='inherit' onClick={handleLog}>Log In</Button>}
@@ -116,6 +123,11 @@ export default function ButtonAppBar() {
           <ListItem>
           <NavLink to='/pastalist' className={classes.navSpacing} onClick={handleDrawerToggle}>
            Pasta Recipes
+          </NavLink>
+          </ListItem>
+          <ListItem>
+          <NavLink to='/search' className={classes.navSpacing} onClick={handleDrawerToggle}>
+           Search All Recipes
           </NavLink>
           </ListItem>
         </List>

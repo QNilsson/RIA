@@ -4,7 +4,7 @@ import RecipeView from '../views/RecipeView';
 import {Card, makeStyles, FormControl, FormControlLabel, Slide, Switch} from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { LogContext} from '../contexts/LogContext';
-import { Login } from '../components/Login';
+
 
 
 const useStyles = makeStyles (() => ({

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Card, makeStyles, FormControl, FormControlLabel, Slide, Switch} from '@material-ui/core';
+import {Card, makeStyles, FormControl, Button, Input, Slide, Switch, InputBase} from '@material-ui/core';
 import {LogContext} from '../contexts/LogContext';
 import {Redirect} from 'react-router-dom';
 import Axios from 'axios';
@@ -74,18 +74,21 @@ const Search = () => {
 
   return isLog
     ? <div className={classes.root}>
-        <form onSubmit={onSubmit}>
+        <FormControl onSubmit={onSubmit}>
           {alert !== '' && <Alert alert={alert} />}
-          <input
+          <Input
             type="text"
             name="query"
             onChange={onChange}
             value={query}
-            autoComplete="off"
+			autoComplete="off"
+			focused="false"
+			size="medium"
+			variant="outlined"
             placeholder="Search Food"
           />
-          <input type="submit" value="Search" />
-        </form>
+          <Button color="secondary" size="medium" variant="contained" onClick={onSubmit}>Search</Button>
+        </FormControl>
         <div className={classes.main}>
           {recipes !== [] &&
             recipes.map (recipe => (

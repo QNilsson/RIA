@@ -5,14 +5,18 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  IconButton,
   Box,
   Button,
   Typography,
   makeStyles,
 } from '@material-ui/core';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import {Dialog, DialogOverlay, DialogContent} from '@reach/dialog';
 import '@reach/dialog/styles.css';
 import IngredientView from './IngredientsView';
+import { grey } from '@material-ui/core/colors';
 
 
 
@@ -36,15 +40,22 @@ const useStyles = makeStyles ({
     flexDirection:'column',
     flexWrap:'wrap'
     
-  }
+  },
+  buttonColor:{primary: 'grey', secondary:'pink'}
 });
 
 const RecipeView = ({title, calories, image, servings, ingredients}) => {
   const classes = useStyles ();
-
   const [showDialog, setShowDialog] = useState (false);
+  const [favorited, setFavorite] = useState();
+  
   const open = () => setShowDialog (true);
   const close = () => setShowDialog (false);
+  
+
+
+
+  
 
  
 
@@ -68,6 +79,10 @@ const RecipeView = ({title, calories, image, servings, ingredients}) => {
         <Button color="secondary" size="small" onClick={open}>
           Ingredients List
         </Button>
+        <IconButton onClick={() =>setFavorite(true)}>
+          {favorited ? <FavoriteIcon/> : <FavoriteBorder/>}
+        </IconButton>
+
         <Dialog isOpen={showDialog} onDismiss={close}>
     
           {<Box>

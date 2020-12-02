@@ -92,9 +92,7 @@ export default function ButtonAppBar() {
           <NavLink to='/fishlist' className={classes.navSpacing}>
             Fish Recipes
           </NavLink>
-          <NavLink to='/pastalist' className={classes.navSpacing}>
-            Pasta Recipes
-          </NavLink>
+          
           <NavLink to='/search' className={classes.navSpacing}>
             Search All Recipes
           </NavLink>
@@ -120,11 +118,7 @@ export default function ButtonAppBar() {
            Fish Recipes
           </NavLink>
           </ListItem>
-          <ListItem>
-          <NavLink to='/pastalist' className={classes.navSpacing} onClick={handleDrawerToggle}>
-           Pasta Recipes
-          </NavLink>
-          </ListItem>
+        
           <ListItem>
           <NavLink to='/search' className={classes.navSpacing} onClick={handleDrawerToggle}>
            Search All Recipes

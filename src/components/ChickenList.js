@@ -91,16 +91,13 @@ const ChickenList = () => {
   return (
     isLog ?
     <div className={classes.root}>
-        {/* <FormControl className="search-form">
-          <input className="search-bar" type="text" />
-          <Button color='primary'className="search-button" type="submit">Search</Button>
-        </FormControl> */}
+       
         <div className={classes.head}> <FormControlLabel control={<Switch checked={checked} onChange={handleChange}/>}
       label="Show recipes"/></div>
      <div className={classes.main}>
-  {recipeData.map(recipe =>(
+  {recipeData.map((recipe, key) =>(
      <Slide direction="up" in={checked}mountOnEnter unmountOnExit>
-      <ul className={classes.ul}>
+      <ul key={recipe.recipe.label}className={classes.ul}>
       <li className={classes.li}>
       <Card className={classes.card}>
 			<RecipeView title={recipe.recipe.label} calories={recipe.recipe.calories} ingredients={recipe.recipe.ingredients} servings={recipe.recipe.yield} image={recipe.recipe.image}/>

@@ -1,5 +1,16 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {Card, makeStyles, FormControl, Button, Input, Slide, Switch, InputBase} from '@material-ui/core';
+import React, {useState, useEffect, useContext, Fragment} from 'react';
+import {
+  Card,
+  makeStyles,
+  FormControl,
+  Button,
+  Input,
+  Grow,
+  Slide,
+  Switch,
+  InputBase,
+} from '@material-ui/core';
+import Fade from 'react-reveal/Fade';
 import {LogContext} from '../contexts/LogContext';
 import {Redirect} from 'react-router-dom';
 import Axios from 'axios';
@@ -14,34 +25,30 @@ const useStyles = makeStyles (() => ({
     height: '100vh',
     paddingTop: 20,
   },
-  main:{
-    display:'flex',
-    flexWrap:'wrap',
-    backgroundColor:'#f3e0dc'
+  main: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    backgroundColor: '#f3e0dc',
   },
   spacing: 8,
-  card:{
-    borderColor:'#5c2018',
-    alignContent:'center',
-    display:'flex',
-    flexWrap:'wrap'
-	
+  card: {
+    borderColor: '#5c2018',
+    alignContent: 'center',
+    display: 'flex',
+    flexWrap: 'wrap',
   },
 
-  ul:{
-   
-    listStyleType:'none',
-    
+  ul: {
+    listStyleType: 'none',
   },
-  li:{
-    display:'flex',
-    flexWrap:'wrap',
-    width:280,
-   
-    margin:10,
-    textAlign:'center'
-  }
+  li: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    width: 280,
 
+    margin: 10,
+    textAlign: 'center',
+  },
 }));
 
 const Search = () => {
@@ -85,25 +92,42 @@ const Search = () => {
             name="query"
             onChange={onChange}
             value={query}
-			autoComplete="off"
-			focused="false"
-			size="medium"
-			variant="outlined"
-			placeholder="Search Food"
-			
+            autoComplete="off"
+            focused="false"
+            size="medium"
+            variant="outlined"
+            placeholder="Search Food"
           />
-          <Button color="secondary" size="medium" type="submit" variant="contained" onClick={onSubmit}>Search</Button>
+          <Button
+            color="secondary"
+            size="medium"
+            type="submit"
+            variant="contained"
+            onClick={onSubmit}
+          >
+            Search
+          </Button>
         </FormControl>
         <div className={classes.main}>
           {recipes !== [] &&
-            recipes.map (recipe => (
-				<ul className={classes.ul}>
-				<li className={classes.li}>
-				<Card className={classes.card}>
-					  <RecipeView title={recipe.recipe.label} calories={recipe.recipe.calories} ingredients={recipe.recipe.ingredients} servings={recipe.recipe.yield} image={recipe.recipe.image}/>
-				</Card>
-				</li>
-				</ul>
+            recipes.map ((recipe,key) => (
+              <Fragment>
+                <Fade bottom>
+              <ul key={recipe.recipe.label} className={classes.ul}>
+                <li className={classes.li}>
+                  <Card className={classes.card}>
+                    <RecipeView
+                      title={recipe.recipe.label}
+                      calories={recipe.recipe.calories}
+                      ingredients={recipe.recipe.ingredients}
+                      servings={recipe.recipe.yield}
+                      image={recipe.recipe.image}
+                    />
+                  </Card>
+                </li>
+              </ul>
+              </Fade>
+              </Fragment>
             ))}
         </div>
       </div>

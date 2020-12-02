@@ -78,7 +78,7 @@ const Login = props => {
           >
             <h2>Sign In</h2>
             <TextField
-              autofocus
+              autoFocus
               label="User Name"
              type="user"
               name="user"
@@ -92,7 +92,7 @@ const Login = props => {
               requiredfullWidth
             />
             <TextField
-              autoFocus
+              
               label="Email Address"
               type="email"
               name="email"

@@ -55,8 +55,8 @@ const Search = () => {
   const [query, setQuery] = useState ('');
   const [recipes, setRecipes] = useState ([]);
   const [alert, setAlert] = useState ('');
-  const APP_ID = 'c9f6666e';
-  const APP_KEY = '66d96ebe2ee152f28bed15343c6a769c';
+  const APP_ID = process.env.REACT_APP_RECIPE_API_ID;
+  const APP_KEY = process.env.REACT_APP_RECIPE_API_KEY;
   const url = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`;
   const classes = useStyles ();
   const {isLog} = useContext (LogContext);
@@ -85,7 +85,7 @@ const Search = () => {
 
   return isLog
     ? <div className={classes.root}>
-        <FormControl onSubmit={onSubmit}>
+        <FormControl onSubmit={onSubmit} type="submit">
           {alert !== '' && <Alert alert={alert} />}
           <Input
             type="text"

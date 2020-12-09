@@ -16,6 +16,7 @@ const useStyles = makeStyles (() => ({
     justifyContent:'flex-start',
     overflow:'hidden',
     backgroundColor:'#f3e0dc',
+    
    
   },
   head:{
@@ -55,13 +56,14 @@ const useStyles = makeStyles (() => ({
 
 
 const ChickenList = () => {
-  const APP_ID = 'c9f6666e';
-  const APP_KEY = '66d96ebe2ee152f28bed15343c6a769c';
+  const APP_ID = process.env.REACT_APP_RECIPE_API_ID;
+  const APP_KEY = process.env.REACT_APP_RECIPE_API_KEY;
   const classes = useStyles ();
 
   const [recipeData, setRecipeData] = useState ([]);
   const [checked, setChecked] = useState(false);
-
+  const [lowCal, setLowCal] = useState(false);
+ const url=`https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`
   const { isLog } = useContext(LogContext)
 
   const handleChange = () =>{
@@ -73,12 +75,13 @@ const ChickenList = () => {
     const fetchRecipes = () => {
       axios
         .get (
-          `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`,
+          (url),
           {}
         )
         .then (function (response) {
           console.log (response.data.hits);
           setRecipeData (response.data.hits)
+          
          
         })
         .catch (function (error) {
@@ -92,7 +95,7 @@ const ChickenList = () => {
     isLog ?
     <div className={classes.root}>
        
-        <div className={classes.head}> <FormControlLabel control={<Switch checked={checked} onChange={handleChange}/>}
+     <div className={classes.head}> <FormControlLabel control={<Switch checked={checked} onChange={handleChange}/>}
       label="Show recipes"/></div>
      <div className={classes.main}>
   {recipeData.map((recipe, key) =>(
@@ -109,7 +112,10 @@ const ChickenList = () => {
      
      
 		))}
-    </div>
+   
+    </div>  
+    
+    
   
       </div>
       : <Redirect to="/"/>

@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
     backgroundColor: '#d4a59a',
+    
   },
   title: {
     flexGrow: 1,
@@ -96,6 +97,9 @@ export default function ButtonAppBar() {
           <NavLink to='/search' className={classes.navSpacing}>
             Search All Recipes
           </NavLink>
+          <NavLink to='/favorites' className={classes.navSpacing}>
+            Favorites
+          </NavLink>
 
 
          
@@ -122,6 +126,11 @@ export default function ButtonAppBar() {
           <ListItem>
           <NavLink to='/search' className={classes.navSpacing} onClick={handleDrawerToggle}>
            Search All Recipes
+          </NavLink>
+          </ListItem>
+          <ListItem>
+          <NavLink to='/favorites' className={classes.navSpacing} onClick={handleDrawerToggle}>
+           Favorites
           </NavLink>
           </ListItem>
         </List>

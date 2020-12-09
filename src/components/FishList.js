@@ -55,10 +55,10 @@ const useStyles = makeStyles (() => ({
 }));
 
 const ChickenList = () => {
-  const APP_ID = 'c9f6666e';
-  const APP_KEY = '66d96ebe2ee152f28bed15343c6a769c';
+  const APP_ID = process.env.REACT_APP_RECIPE_API_ID;
+  const APP_KEY = process.env.REACT_APP_RECIPE_API_KEY;
   const classes = useStyles ();
-
+  const url = `https://api.edamam.com/search?q=fish&app_id=${APP_ID}&app_key=${APP_KEY}`
   const [recipeData, setRecipeData] = useState ([]);
   const [checked, setChecked] = useState(false);
 
@@ -72,7 +72,7 @@ const ChickenList = () => {
     const fetchRecipes = () => {
       axios
         .get (
-          `https://api.edamam.com/search?q=fish&app_id=${APP_ID}&app_key=${APP_KEY}`,
+          (url),
           {}
         )
         .then (function (response) {

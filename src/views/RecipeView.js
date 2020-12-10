@@ -54,6 +54,24 @@ const RecipeView = ({title, calories, image, servings, ingredients}) => {
   const open = () => setShowDialog (true);
   const close = () => setShowDialog (false);
 
+  const add = (value) =>{
+    faveArray.push(value)
+  }
+  const handleLog = () =>{
+    
+    if(favorited){
+      
+      setFavorite(false)
+      return
+    }
+    if(!favorited){
+     
+        setFavorite(true)
+        return
+      
+      setFavorite(false)
+    }
+  }
   
   
   return (
@@ -77,7 +95,7 @@ const RecipeView = ({title, calories, image, servings, ingredients}) => {
           Ingredients List
         </Button>
         {/* () =>setFavorite(true), */}
-        <IconButton onClick={() =>setFavorite(true)}>
+        <IconButton onClick={handleLog}>
 
           {favorited ? <FavoriteIcon/> : <FavoriteBorder/>}
         </IconButton>
@@ -96,6 +114,7 @@ const RecipeView = ({title, calories, image, servings, ingredients}) => {
               <Typography variant="p" color="textSecondary">
                 {ingredient.weight}
               </Typography>
+              
             </CardContent>
            })}
           

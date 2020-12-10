@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {
   Card,
   CardActionArea,
@@ -11,6 +11,7 @@ import {
   Typography,
   makeStyles,
 } from '@material-ui/core';
+import Fade from 'react-reveal/Fade';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import {Dialog, DialogOverlay, DialogContent} from '@reach/dialog';
@@ -52,6 +53,8 @@ const RecipeView = ({title, calories, image, servings, ingredients}) => {
   
   const open = () => setShowDialog (true);
   const close = () => setShowDialog (false);
+
+  
   
   return (
     <CardContent className={classes.root}>
@@ -80,11 +83,11 @@ const RecipeView = ({title, calories, image, servings, ingredients}) => {
         </IconButton>
 
         <Dialog isOpen={showDialog} onDismiss={close}>
-    
+    <Fragment><Fade bottom>
           {<Box>
             {ingredients.map(ingredient => {
               
-              <CardContent>
+             <CardContent elevation={4}>
               <Typography variant="h5">{title}</Typography>
               <Typography variant="p" color="textSecondary">
                {ingredient.text}
@@ -94,7 +97,8 @@ const RecipeView = ({title, calories, image, servings, ingredients}) => {
                 {ingredient.weight}
               </Typography>
             </CardContent>
-            })}
+           })}
+          
             
             <IngredientView ingredients={ingredients}/>
             <Button
@@ -102,11 +106,12 @@ const RecipeView = ({title, calories, image, servings, ingredients}) => {
               color="secondary"
               variant="outlined"
               onClick={close}
+              
             >
               Close
             </Button>
 
-          </Box> }
+          </Box>} </Fade></Fragment>
 
         </Dialog>
         

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import {makeStyles} from '@material-ui/core';
 import {LogContext} from '../contexts/LogContext';
 import Gallery from 'react-photo-gallery';
@@ -11,6 +11,7 @@ const useStyles = makeStyles (() => ({
     margin: '0',
     height: '100vh',
     paddingTop: 20,
+    transition: "transform .10s ease-in-out"
   },
   welcome: {
     backgroundColor: '#f3e0dc',
@@ -20,6 +21,12 @@ const useStyles = makeStyles (() => ({
   gallery:{
     paddingTop:30,
     padding:6
+  },
+  galleryphoto:{
+    color:'red',
+    '&:hover':{
+      transform: "scale(.5, .5, 1)"
+    }
   }
 }));
 
@@ -99,7 +106,7 @@ const Welcome = () => {
         ? <div className={classes.welcome}>
             <h1>Welcome to Best Recipes</h1>
             <div className={classes.gallery}>
-              <Gallery photos={photos} />
+              <Gallery className={classes.galleryphoto}photos={photos} />
               <Gallery photos={photos2} />
               <Gallery photos={photos3} />
             </div>

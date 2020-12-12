@@ -10,7 +10,7 @@ import {
   Switch,
 } from '@material-ui/core';
 import {Redirect} from 'react-router-dom';
-import {LogContext} from '../contexts/LogContext';
+import {AuthContext} from '../contexts/AuthContext';
 
 const useStyles = makeStyles (() => ({
   root: {
@@ -63,7 +63,7 @@ const ChickenList = () => {
   const [checked, setChecked] = useState (false);
   const [lowCal, setLowCal] = useState (false);
   const url = `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`;
-  const {isLog} = useContext (LogContext);
+  const {isAuth} = useContext (AuthContext);
 
   const handleChange = () => {
     setChecked (prev => !prev);
@@ -83,7 +83,7 @@ const ChickenList = () => {
     fetchRecipes ();
   }, []);
 
-  return isLog
+  return isAuth
     ? <div className={classes.root}>
 
         <div className={classes.head}>

@@ -11,7 +11,7 @@ import {
   InputBase,
 } from '@material-ui/core';
 import Fade from 'react-reveal/Fade';
-import {LogContext} from '../contexts/LogContext';
+import {AuthContext} from '../contexts/AuthContext';
 import {Redirect} from 'react-router-dom';
 import Axios from 'axios';
 import RecipeView from '../views/RecipeView';
@@ -59,7 +59,7 @@ const Search = () => {
   const APP_KEY = process.env.REACT_APP_RECIPE_API_KEY;
   const url = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`;
   const classes = useStyles ();
-  const {isLog} = useContext (LogContext);
+  const {isAuth} = useContext (AuthContext);
 
   const getData = async () => {
     if (query !== '') {
@@ -83,7 +83,7 @@ const Search = () => {
     getData ();
   };
 
-  return isLog
+  return isAuth
     ? <div className={classes.root}>
         <FormControl onSubmit={onSubmit} type="submit">
           {alert !== '' && <Alert alert={alert} />}

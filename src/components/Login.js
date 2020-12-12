@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {Box, Dialog, TextField, Button, makeStyles} from '@material-ui/core';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {LogContext} from '../contexts/LogContext';
+import {AuthContext} from '../contexts/AuthContext';
 
 const useStyles = makeStyles (() => ({
   dialogContent: {
@@ -21,14 +21,38 @@ const Login = props => {
   const classes = useStyles ();
   const {open, onClose} = props;
 
-  const logContext = useContext (LogContext);
+  const authContext = useContext (AuthContext);
+  const {signInWithGoogle, signInWithEmailAndPassword } = authContext;
+
+  const handleGoogleClick = async () => {
+    try {
+       signInWithGoogle();
+      console.log("you clicked google button")
+      handleClose ();
+    } catch (error) {
+      console.error (error);
+    }
+  }
 
   const handleClose = () => {
     onClose (false);
-  };
+  }
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="Login Dialog">
+      <Button
+        className={classes.googleButton}
+        fullWidth
+        onClick={handleGoogleClick}
+        size="large"
+        variant="contained"
+      >
+        <img
+          alt="Google"
+          classname={classes.provider}
+          src="/static/images/google.svg"
+        />
+      </Button>
       <Formik
         initialValues={{
           user: '',
@@ -38,9 +62,9 @@ const Login = props => {
         }}
         validationSchema={Yup.object ().shape ({
           user: Yup.string ()
-          .min (4, 'Minimum of 4 characters')
-          .max (16, 'Max of 15 characters')
-          .required ('UserName is required'),
+            .min (4, 'Minimum of 4 characters')
+            .max (16, 'Max of 15 characters')
+            .required ('UserName is required'),
           email: Yup.string ()
             .email ('Must be a valid email')
             .max (50)
@@ -52,11 +76,14 @@ const Login = props => {
         })}
         onSubmit={(values, {setErrors, setStatus, setSubmitting}) => {
           try {
-            logContext.login ();
+             signInWithEmailAndPassword(values.email, values.password)
             console.log (values.email, values.password);
             handleClose ();
           } catch (err) {
-            console.log (err);
+            console.log (err)
+            setStatus({success: false})
+            setErrors({submit:err.message})
+            setSubmitting(false)
           }
         }}
       >
@@ -80,7 +107,7 @@ const Login = props => {
             <TextField
               autoFocus
               label="User Name"
-             type="user"
+              type="user"
               name="user"
               variant="outlined"
               margin="normal"
@@ -92,7 +119,6 @@ const Login = props => {
               requiredfullWidth
             />
             <TextField
-              
               label="Email Address"
               type="email"
               name="email"

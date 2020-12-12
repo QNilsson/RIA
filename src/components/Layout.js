@@ -14,7 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import { NavLink } from 'react-router-dom'
 
 import Login from './Login'
-import { LogContext } from '../contexts/LogContext'
+import { AuthContext } from '../contexts/AuthContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +48,7 @@ export default function ButtonAppBar() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
 
-  const logContext = useContext(LogContext)
+  const authContext = useContext(AuthContext)
 
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen)
@@ -58,14 +58,14 @@ export default function ButtonAppBar() {
   //   setLoginOpen(!loginOpen)
   // }
 
-  const handleLog = () =>{
-    console.log(logContext.isLog)
-    if(logContext.isLog){
-      logContext.logout()
+  const handleAuth = () =>{
+    
+    if(authContext.isAuthenticated){
+      authContext.logout()
       setLoginOpen(false)
       return
     }
-    if(!logContext.isLog){
+    if(!authContext.isAuthenticated){
       if(!loginOpen){
         setLoginOpen(true)
         return
@@ -105,8 +105,8 @@ export default function ButtonAppBar() {
          
 
           {
-          logContext.isLog ? <Button color='inherit' onClick={handleLog}>Log out</Button> :
-          <Button color='inherit' onClick={handleLog}>Log In</Button>}
+          authContext.isLog ? <Button color='inherit' onClick={handleAuth}>Log out</Button> :
+          <Button color='inherit' onClick={handleAuth}>Log In</Button>}
           
         </Toolbar>
       </AppBar>
@@ -135,7 +135,7 @@ export default function ButtonAppBar() {
           </ListItem>
         </List>
       </Drawer>
-      <Login open={loginOpen} onClose={handleLog}/>
+      <Login open={loginOpen} onClose={handleAuth}/>
     </div>
   )
 }

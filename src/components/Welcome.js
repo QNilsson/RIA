@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import {makeStyles} from '@material-ui/core';
-import {LogContext} from '../contexts/LogContext';
+import {AuthContext} from '../contexts/AuthContext';
 import Gallery from 'react-photo-gallery';
 
 const useStyles = makeStyles (() => ({
@@ -99,10 +99,10 @@ const photos3 = [
 const Welcome = () => {
   const classes = useStyles ();
 
-  const {isLog} = useContext (LogContext);
+  const {isAuth} = useContext (AuthContext);
   return (
     <div className={classes.root}>
-      {isLog
+      {isAuth
         ? <div className={classes.welcome}>
             <h1>Welcome to Best Recipes</h1>
             <div className={classes.gallery}>

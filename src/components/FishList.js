@@ -3,7 +3,7 @@ import axios from 'axios';
 import RecipeView from '../views/RecipeView';
 import {Card, makeStyles, Button, FormControl, Fade, FormControlLabel, Switch} from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
-import { LogContext} from '../contexts/LogContext';
+import { AuthContext} from '../contexts/AuthContext';
 
 
 const useStyles = makeStyles (() => ({
@@ -62,7 +62,7 @@ const ChickenList = () => {
   const [recipeData, setRecipeData] = useState ([]);
   const [checked, setChecked] = useState(false);
 
-  const { isLog } = useContext(LogContext)
+  const { isAuth } = useContext(AuthContext)
 
   const handleChange = () =>{
     setChecked((prev) =>!prev)
@@ -87,7 +87,7 @@ const ChickenList = () => {
   }, []);
 
   return (
-    isLog ?
+    isAuth ?
     <div className={classes.root}>
         {/* <FormControl className="search-form">
           <input className="search-bar" type="text" />

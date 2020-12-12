@@ -55,12 +55,14 @@ const useStyles = makeStyles (() => ({
 
 const ChickenList = () => {
   const classes = useStyles ();
+  const apid = "c9f6666e";
+  const apkey= "66d96ebe2ee152f28bed15343c6a769c";
   const APP_ID = process.env.REACT_APP_RECIPE_API_ID;
   const APP_KEY = process.env.REACT_APP_RECIPE_API_KEY;
   const [recipeData, setRecipeData] = useState ([]);
   const [checked, setChecked] = useState (false);
   const [lowCal, setLowCal] = useState (false);
-  const url = `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}/`;
+  const url = `https://api.edamam.com/search?q=chicken&app_id=${apid}&app_key=${apkey}`;
   const {isLog} = useContext (LogContext);
 
   const handleChange = () => {

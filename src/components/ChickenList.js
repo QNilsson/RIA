@@ -75,7 +75,7 @@ const ChickenList = () => {
     const fetchRecipes = () => {
       axios
         .get (
-          (url),
+          `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`,
           {}
         )
         .then (function (response) {

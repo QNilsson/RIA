@@ -60,13 +60,14 @@ const RecipeView = ({title, calories, image, servings, ingredients}) => {
   const handleLog = () =>{
     
     if(favorited){
-      
+      console.log("UnFavorited")
       setFavorite(false)
       return
     }
     if(!favorited){
-     
+      console.log("favorited")
         setFavorite(true)
+        
         return
       
       setFavorite(false)

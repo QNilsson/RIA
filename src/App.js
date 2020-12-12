@@ -8,12 +8,12 @@ import Welcome from './components/Welcome';
 import {Route, Switch} from 'react-router-dom';
 import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
 import { SvgIcon } from '@material-ui/core';
-import LogContextProvider, { LogContext } from './contexts/AuthContext';
+import AuthContextProvider, { AuthContext } from './contexts/AuthContext';
 
 //function-based component
 function App () {
   return (
-    <LogContextProvider>
+    <AuthContextProvider>
     <div className="App">
       <Layout/>
       
@@ -29,7 +29,7 @@ function App () {
      
 
     </div>
-    </LogContextProvider>
+    </AuthContextProvider>
   );
 }
 

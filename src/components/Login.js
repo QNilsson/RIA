@@ -26,7 +26,7 @@ const Login = props => {
 
   const handleGoogleClick = async () => {
     try {
-       signInWithGoogle();
+       await signInWithGoogle();
       console.log("you clicked google button")
       handleClose ();
     } catch (error) {
@@ -74,9 +74,9 @@ const Login = props => {
             .max (50, 'Max is 20 characters')
             .required ('Password is required'),
         })}
-        onSubmit={(values, {setErrors, setStatus, setSubmitting}) => {
+        onSubmit={ async (values, {setErrors, setStatus, setSubmitting}) => {
           try {
-             signInWithEmailAndPassword(values.email, values.password)
+            await signInWithEmailAndPassword(values.email, values.password)
             console.log (values.email, values.password);
             handleClose ();
           } catch (err) {

@@ -45,7 +45,7 @@ const FishList = () => {
 ```
 ## Use Context to authorize and store user log in
 ```javascript
-export const LogContext = createContext ({
+export const AuthContext = createContext ({
   isLog: false,
   login: () => {},
   logout: () => {},

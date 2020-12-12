@@ -105,7 +105,7 @@ export default function ButtonAppBar() {
          
 
           {
-          authContext.isLog ? <Button color='inherit' onClick={handleAuth}>Log out</Button> :
+          authContext.isAuth ? <Button color='inherit' onClick={handleAuth}>Log out</Button> :
           <Button color='inherit' onClick={handleAuth}>Log In</Button>}
           
         </Toolbar>

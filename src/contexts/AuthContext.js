@@ -68,7 +68,7 @@ const AuthContextProvider = ({children}) => {
           payload:{
             isAuthenticated:true,
             user:{
-              id: user.id,
+              id: user.uid,
               avatar:user.photoURL,
               email:user.email,
               name: user.displayName || user.email,

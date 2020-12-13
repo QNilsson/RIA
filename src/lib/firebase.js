@@ -1,5 +1,5 @@
 import firebase from 'firebase/app';
-require('firebase/auth')
+import 'firebase/auth'
 import { firebaseConfig } from '../config';
 
 if(!firebase.apps.length){

@@ -14,7 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import { NavLink } from 'react-router-dom'
 
 import Login from './Login'
-import { AuthContext } from '../contexts/AuthContext'
+import { LogContext } from '../contexts/LogContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +48,7 @@ export default function ButtonAppBar() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
 
-  const authContext = useContext(AuthContext)
+  const logContext = useContext(LogContext)
 
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen)
@@ -58,14 +58,14 @@ export default function ButtonAppBar() {
   //   setLoginOpen(!loginOpen)
   // }
 
-  const handleAuth = () =>{
+  const handleLog = () =>{
     
-    if(authContext.isAuthenticated){
-      authContext.logout()
+    if(logContext.isLog){
+      logContexzt.logout()
       setLoginOpen(false)
       return
     }
-    if(!authContext.isAuthenticated){
+    if(!logContext.isLog){
       if(!loginOpen){
         setLoginOpen(true)
         return
@@ -97,16 +97,14 @@ export default function ButtonAppBar() {
           <NavLink to='/search' className={classes.navSpacing}>
             Search All Recipes
           </NavLink>
-          <NavLink to='/favorites' className={classes.navSpacing}>
-            Favorites
-          </NavLink>
+          
 
 
          
 
           {
-          authContext.isAuth ? <Button color='inherit' onClick={handleAuth}>Log out</Button> :
-          <Button color='inherit' onClick={handleAuth}>Log In</Button>}
+          logContext.isLog ? <Button color='inherit' onClick={handleLog}>Log out</Button> :
+          <Button color='inherit' onClick={handleLog}>Log In</Button>}
           
         </Toolbar>
       </AppBar>
@@ -128,14 +126,10 @@ export default function ButtonAppBar() {
            Search All Recipes
           </NavLink>
           </ListItem>
-          <ListItem>
-          <NavLink to='/favorites' className={classes.navSpacing} onClick={handleDrawerToggle}>
-           Favorites
-          </NavLink>
-          </ListItem>
+          
         </List>
       </Drawer>
-      <Login open={loginOpen} onClose={handleAuth}/>
+      <Login open={loginOpen} onClose={handleLog}/>
     </div>
   )
 }

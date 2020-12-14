@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   Typography,
+  Modal,
   makeStyles,
 } from '@material-ui/core';
 import Fade from 'react-reveal/Fade';
@@ -38,14 +39,24 @@ const useStyles = makeStyles ({
   buttonColor: {primary: 'grey', secondary: 'pink'},
 });
 
-const RecipeView = ({title, calories, image, servings, ingredients, source}) => {
+const RecipeView = ({
+  title,
+  calories,
+  image,
+  servings,
+  ingredients,
+  source,
+  carbs,
+}) => {
   const classes = useStyles ();
   const [showDialog, setShowDialog] = useState (false);
   const [favorited, setFavorite] = useState ();
   const faveArray = [];
 
+  //ingredients
   const open = () => setShowDialog (true);
   const close = () => setShowDialog (false);
+  //nutrients
 
   const add = value => {
     faveArray.push (value);
@@ -83,14 +94,20 @@ const RecipeView = ({title, calories, image, servings, ingredients, source}) => 
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
 
-          source: {source} 
+          source: {source}
 
         </Typography>
+
+        <Typography variant="body2" color="textSecondary">
+          carbs: {carbs.CHOCDF.quantity} {carbs.CHOCDF.unit}
+        </Typography>
+
       </div>
       <CardActions>
         <Button color="secondary" size="small" onClick={open}>
           Ingredients List
         </Button>
+
         {/* () =>setFavorite(true), */}
         <IconButton onClick={handleLog}>
 
@@ -109,9 +126,6 @@ const RecipeView = ({title, calories, image, servings, ingredients, source}) => 
                         {ingredient.text}
                       </Typography>
                       <br />
-                      <Typography variant="p" color="textSecondary">
-                        {ingredient.weight}
-                      </Typography>
 
                     </CardContent>;
                   })}

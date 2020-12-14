@@ -121,6 +121,7 @@ const ChocolateList = () => {
                       servings={recipe.recipe.yield}
                       image={recipe.recipe.image}
                       source={recipe.recipe.source}
+                      carbs={recipe.recipe.totalNutrients}
                     />
                   </Card>
                 </li>

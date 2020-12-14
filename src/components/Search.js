@@ -65,7 +65,13 @@ const Search = () => {
 
   const getData = async () => {
     if (query !== '') {
-      const result = await Axios.get (url);
+      const result = await Axios.get (url, {
+        headers:{
+          "Access-Control-Allow-Orign": "*",
+            'Content-Type':'application/json'
+            
+        }
+      });
       if (!result.data.more) {
         return setAlert ('No food with such name');
       }

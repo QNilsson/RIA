@@ -72,15 +72,23 @@ const FishList = () => {
 
   useEffect (() => {
     const fetchRecipes = async () => {
-      
-        const response = await axios 
+      try {
+        const response = await axios.get (`https://api.edamam.com/search?q=fish&app_id=${apid}&app_key=${apkey}`, {
+          headers:{
+            // 'Content-Type': 'application/json'
+            "Access-Control-Allow-Orign": "*",
+            'Content-Type':'application/json'
             
-           
-      (`https://api.edamam.com/search?q=fish&app_id=${apid}&app_key=${apkey}`);
+            // "Access-Control-Allow-Headers": "Origin",
+            
+          } 
+        });
 
         console.log (response.data.hits);
         setRecipeData (response.data.hits);
-      
+      } catch (error) {
+        console.log ("error with function");
+      }
     };
     fetchRecipes ();
   }, []);

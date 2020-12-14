@@ -61,7 +61,7 @@ export default function ButtonAppBar() {
   const handleLog = () =>{
     
     if(logContext.isLog){
-      logContexzt.logout()
+      logContext.logout()
       setLoginOpen(false)
       return
     }

@@ -10,7 +10,7 @@ import {
   Switch,
 } from '@material-ui/core';
 import {Redirect} from 'react-router-dom';
-import { LogContext } from '../contexts/LogContext';
+import {LogContext} from '../contexts/LogContext';
 
 const useStyles = makeStyles (() => ({
   root: {
@@ -62,7 +62,7 @@ const ChickenList = () => {
   const [recipeData, setRecipeData] = useState ([]);
   const [checked, setChecked] = useState (false);
   const [lowCal, setLowCal] = useState (false);
-  const url = `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`;
+  const url = `https://api.edamam.com/search?q=chicken&app_id=${apid}&app_key=${apkey}`;
   const { isLog } = useContext (LogContext);
 
   const handleChange = () => {
@@ -71,15 +71,23 @@ const ChickenList = () => {
 
   useEffect (() => {
     const fetchRecipes = async () => {
-      
-        const response = await axios 
+      try {
+        const response = await axios.get (`https://api.edamam.com/search?q=chicken&app_id=${apid}&app_key=${apkey}`, {
+          headers:{
+            // 'Content-Type': 'application/json'
+            "Access-Control-Allow-Orign": "*",
+            'Content-Type':'application/json'
             
-           
-      (`https://api.edamam.com/search?q=chicken&app_id=${apid}&app_key=${apkey}`);
+            // "Access-Control-Allow-Headers": "Origin",
+            
+          } 
+        });
 
         console.log (response.data.hits);
         setRecipeData (response.data.hits);
-      
+      } catch (error) {
+        console.log ("error with function");
+      }
     };
     fetchRecipes ();
   }, []);

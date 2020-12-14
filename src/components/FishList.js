@@ -55,6 +55,8 @@ const useStyles = makeStyles (() => ({
 }));
 
 const FishList = () => {
+  const apid = "c9f6666e";
+   const apkey= "66d96ebe2ee152f28bed15343c6a769c";
   const APP_ID = process.env.REACT_APP_RECIPE_API_ID;
   const APP_KEY = process.env.REACT_APP_RECIPE_API_KEY;
   const classes = useStyles ();
@@ -74,7 +76,7 @@ const FishList = () => {
         const response = await axios 
             
            
-      (`https://api.edamam.com/search?q=fish&app_id=${APP_ID}&app_key=${APP_KEY}`);
+      (`https://api.edamam.com/search?q=fish&app_id=${apid}&app_key=${apkey}`);
 
         console.log (response.data.hits);
         setRecipeData (response.data.hits);

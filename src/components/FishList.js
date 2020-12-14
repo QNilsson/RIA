@@ -73,7 +73,7 @@ const FishList = () => {
   useEffect (() => {
     const fetchRecipes = async () => {
       try {
-        const response = await axios.get (`https://api.edamam.com/search?q=fish&app_id=${apid}&app_key=${apkey}`, {
+        const response = await axios.get (`https://api.edamam.com/searcj?q=chocolate&app_id=${apid}&app_key=${apkey}`, {
           headers:{
             // 'Content-Type': 'application/json'
             "Access-Control-Allow-Orign": "*",

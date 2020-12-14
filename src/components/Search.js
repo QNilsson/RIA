@@ -13,7 +13,7 @@ import {
 import Fade from 'react-reveal/Fade';
 import {LogContext} from '../contexts/LogContext';
 import {Redirect} from 'react-router-dom';
-import Axios from 'axios';
+import axios from 'axios';
 import RecipeView from '../views/RecipeView';
 import Alert from '../components/Alert';
 
@@ -65,7 +65,8 @@ const Search = () => {
 
   const getData = async () => {
     if (query !== '') {
-      const result = await Axios.get (url, {
+      try{
+        const result = await axios.get (url, {
         headers:{
           "Access-Control-Allow-Orign": "*",
             'Content-Type':'application/json'
@@ -79,8 +80,9 @@ const Search = () => {
       setRecipes (result.data.hits);
       setQuery ('');
       setAlert ('');
-    } else {
+    } catch(error) {
       setAlert ('Please fill the form');
+    }
     }
   };
 
@@ -130,6 +132,7 @@ const Search = () => {
                       ingredients={recipe.recipe.ingredients}
                       servings={recipe.recipe.yield}
                       image={recipe.recipe.image}
+                      source={recipe.recipe.source}
                     />
                   </Card>
                 </li>

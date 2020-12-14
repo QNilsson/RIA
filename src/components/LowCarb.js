@@ -15,7 +15,7 @@ import {LogContext} from '../contexts/LogContext';
 import {Redirect} from 'react-router-dom';
 import axios from 'axios';
 import RecipeView from '../views/RecipeView';
-import Alert from '../components/Alert';
+import Alert from './Alert';
 
 const useStyles = makeStyles (() => ({
   root: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles (() => ({
   },
 }));
 
-const Search = () => {
+const Breakfast = () => {
   const apid = "c9f6666e";
    const apkey= "66d96ebe2ee152f28bed15343c6a769c";
   const [query, setQuery] = useState ('');
@@ -59,13 +59,13 @@ const Search = () => {
   const [alert, setAlert] = useState ('');
   const APP_ID = process.env.REACT_APP_RECIPE_API_ID;
   const APP_KEY = process.env.REACT_APP_RECIPE_API_KEY;
-  
+ 
   const classes = useStyles ();
   const {isLog} = useContext (LogContext);
 
   const getData = async () => {
     if (query !== '') {
-      const result = await axios.get (`https://api.edamam.com/search?q=${query}&app_id=${apid}&app_key=${apkey}`, {
+      const result = await axios.get (`https://api.edamam.com/search?q=${query}&app_id=${apid}&app_key=${apkey}&diet=low-carb`, {
         headers:{
           "Access-Control-Allow-Orign": "*",
             'Content-Type':'application/json'
@@ -143,4 +143,4 @@ const Search = () => {
     : <Redirect to="/" />;
 };
 
-export default Search;
+export default Breakfast;

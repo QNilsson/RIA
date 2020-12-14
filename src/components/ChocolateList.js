@@ -60,7 +60,7 @@ const ChocolateList = () => {
   const APP_ID = process.env.REACT_APP_RECIPE_API_ID;
   const APP_KEY = process.env.REACT_APP_RECIPE_API_KEY;
   const classes = useStyles ();
-  const url = `https://api.edamam.com/search?q=fish&app_id=${APP_ID}&app_key=${APP_KEY}`;
+
   const [recipeData, setRecipeData] = useState ([]);
   const [checked, setChecked] = useState (false);
 

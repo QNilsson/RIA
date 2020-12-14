@@ -62,7 +62,7 @@ const ChickenList = () => {
   const [recipeData, setRecipeData] = useState ([]);
   const [checked, setChecked] = useState (false);
   const [lowCal, setLowCal] = useState (false);
-  const url = `https://api.edamam.com/search?q=chicken&app_id=${apid}&app_key=${apkey}`;
+
   const { isLog } = useContext (LogContext);
 
   const handleChange = () => {

@@ -52,12 +52,14 @@ const useStyles = makeStyles (() => ({
 }));
 
 const Search = () => {
+  const apid = "c9f6666e";
+   const apkey= "66d96ebe2ee152f28bed15343c6a769c";
   const [query, setQuery] = useState ('');
   const [recipes, setRecipes] = useState ([]);
   const [alert, setAlert] = useState ('');
   const APP_ID = process.env.REACT_APP_RECIPE_API_ID;
   const APP_KEY = process.env.REACT_APP_RECIPE_API_KEY;
-  const url = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`;
+  const url = `https://api.edamam.com/search?q=${query}&app_id=${apid}&app_key=${apkey}`;
   const classes = useStyles ();
   const {isLog} = useContext (LogContext);
 

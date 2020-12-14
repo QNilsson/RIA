@@ -127,17 +127,7 @@ Welcome.js;
 ```
 
 ## Connect to a server using HTTP and display retrieved data.
-```javascript 
-const getData = async () => {
-    if (query !== '') {
-      const result = await axios.get (`https://api.edamam.com/search?q=${query}&app_id=${apid}&app_key=${apkey}`, {
-        headers:{
-          "Access-Control-Allow-Orign": "*",
-            'Content-Type':'application/json'
-            
-        }
-      });
-```
+used the Recipe Api from edamam
 ## Provide at least 3 different routes with navigation between them using React Router.
 
 ```javascript

@@ -1,6 +1,6 @@
 import React, {Component, useState} from 'react';
 import ChickenList from './components/ChickenList';
-import FishList from './components/FishList';
+import ChocolateList from './components/ChocolateList';
 
 import Search from './components/Search';
 import Layout from './components/Layout';
@@ -19,7 +19,7 @@ function App () {
       
       <Switch>
         <Route path="/chickenlist" component={ChickenList} exact/>
-        <Route path="/fishlist" component={FishList} exact/>
+        <Route path="/chocolatelist" component={ChocolateList} exact/>
        
         <Route path="/search" component={Search} exact/>
         <Route path='/' exact component={Welcome}/>

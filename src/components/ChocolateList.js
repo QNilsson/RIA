@@ -4,9 +4,10 @@ import RecipeView from '../views/RecipeView';
 import {
   Card,
   makeStyles,
+  Button,
   FormControl,
+  Fade,
   FormControlLabel,
-  Slide,
   Switch,
 } from '@material-ui/core';
 import {Redirect} from 'react-router-dom';
@@ -30,8 +31,8 @@ const useStyles = makeStyles (() => ({
   main: {
     display: 'flex',
     flexWrap: 'wrap',
-    backgroundColor: '#f3e0dc',
   },
+
   spacing: 8,
   card: {
     borderColor: '#5c2018',
@@ -53,17 +54,17 @@ const useStyles = makeStyles (() => ({
   },
 }));
 
-const ChickenList = () => {
-  const classes = useStyles ();
-   const apid = "c9f6666e";
-   const apkey= "66d96ebe2ee152f28bed15343c6a769c";
+const ChocolateList = () => {
+  const apid = 'c9f6666e';
+  const apkey = '66d96ebe2ee152f28bed15343c6a769c';
   const APP_ID = process.env.REACT_APP_RECIPE_API_ID;
   const APP_KEY = process.env.REACT_APP_RECIPE_API_KEY;
+  const classes = useStyles ();
+  const url = `https://api.edamam.com/search?q=fish&app_id=${APP_ID}&app_key=${APP_KEY}`;
   const [recipeData, setRecipeData] = useState ([]);
   const [checked, setChecked] = useState (false);
-  const [lowCal, setLowCal] = useState (false);
-  const url = `https://api.edamam.com/search?q=chicken&app_id=${apid}&app_key=${apkey}`;
-  const { isLog } = useContext (LogContext);
+
+  const {isLog} = useContext (LogContext);
 
   const handleChange = () => {
     setChecked (prev => !prev);
@@ -72,46 +73,51 @@ const ChickenList = () => {
   useEffect (() => {
     const fetchRecipes = async () => {
       try {
-        const response = await axios.get (`https://api.edamam.com/search?q=chicken&app_id=${apid}&app_key=${apkey}`, {
-          headers:{
-            // 'Content-Type': 'application/json'
-            "Access-Control-Allow-Orign": "*",
-            'Content-Type':'application/json'
-            
-            // "Access-Control-Allow-Headers": "Origin",
-            
-          } 
-        });
+        const response = await axios.get (
+          `https://api.edamam.com/search?q=chocolate&app_id=${apid}&app_key=${apkey}`,
+          {
+            headers: {
+              // 'Content-Type': 'application/json'
+              'Access-Control-Allow-Orign': '*',
+              'Content-Type': 'application/json',
+
+              // "Access-Control-Allow-Headers": "Origin",
+            },
+          }
+        );
 
         console.log (response.data.hits);
         setRecipeData (response.data.hits);
       } catch (error) {
-        console.log ("error with function");
+        console.log ('error with function');
       }
     };
     fetchRecipes ();
   }, []);
 
-  return (
-    isLog ? 
-    <div className={classes.root}>
-
+  return isLog
+    ? <div className={classes.root}>
+        {/* <FormControl className="search-form">
+          <input className="search-bar" type="text" />
+          <Button color='primary'className="search-button" type="submit">Search</Button>
+        </FormControl> */}
         <div className={classes.head}>
           <FormControlLabel
             control={<Switch checked={checked} onChange={handleChange} />}
-            label="Show recipes"
+            label="Show Recipes"
           />
+          {' '}
         </div>
         <div className={classes.main}>
-          {recipeData.map ((recipe, key) => (
-            <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
-              <ul key={recipe.recipe.label} className={classes.ul}>
+          {recipeData.map (recipe => (
+            <Fade in={checked}>
+              <ul elevation={4} className={classes.ul}>
                 <li className={classes.li}>
                   <Card className={classes.card}>
                     <RecipeView
                       title={recipe.recipe.label}
-                      calories={recipe.recipe.calories}
                       ingredients={recipe.recipe.ingredients}
+                      calories={recipe.recipe.calories}
                       servings={recipe.recipe.yield}
                       image={recipe.recipe.image}
                       source={recipe.recipe.source}
@@ -119,14 +125,11 @@ const ChickenList = () => {
                   </Card>
                 </li>
               </ul>
-            </Slide>
+            </Fade>
           ))}
-
         </div>
-
       </div>
-    : <Redirect to="/" />
-  );
+    : <Redirect to="/" />;
 };
 
-export default ChickenList;
+export default ChocolateList;

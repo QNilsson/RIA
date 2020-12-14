@@ -65,8 +65,7 @@ const Search = () => {
 
   const getData = async () => {
     if (query !== '') {
-      try{
-        const result = await axios.get (url, {
+      const result = await axios.get (`https://api.edamam.com/search?q=${query}&app_id=${apid}&app_key=${apkey}`, {
         headers:{
           "Access-Control-Allow-Orign": "*",
             'Content-Type':'application/json'
@@ -80,9 +79,8 @@ const Search = () => {
       setRecipes (result.data.hits);
       setQuery ('');
       setAlert ('');
-    } catch(error) {
+    } else {
       setAlert ('Please fill the form');
-    }
     }
   };
 

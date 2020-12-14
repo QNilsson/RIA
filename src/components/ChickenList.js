@@ -2,15 +2,18 @@ import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import RecipeView from '../views/RecipeView';
 import {
+ 
   Card,
   makeStyles,
   FormControl,
   FormControlLabel,
   Slide,
   Switch,
+  Typography
 } from '@material-ui/core';
 import {Redirect} from 'react-router-dom';
 import {LogContext} from '../contexts/LogContext';
+
 
 const useStyles = makeStyles (() => ({
   root: {
@@ -118,6 +121,7 @@ const ChickenList = () => {
                       carbs={recipe.recipe.totalNutrients}
                     />
                   </Card>
+                  
                 </li>
               </ul>
             </Slide>

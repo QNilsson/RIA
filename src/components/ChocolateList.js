@@ -109,7 +109,7 @@ const ChocolateList = () => {
           {' '}
         </div>
         <div className={classes.main}>
-          {recipeData.map (recipe => (
+        {recipeData.map ((recipe, key)=> (
             <Fade in={checked}>
               <ul elevation={4} className={classes.ul}>
                 <li className={classes.li}>

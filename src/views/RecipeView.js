@@ -1,25 +1,32 @@
 import React, {useState, useEffect, Fragment} from 'react';
 import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Card,
   CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
+  Collapse,
   IconButton,
   Box,
   Button,
   Typography,
   Modal,
   makeStyles,
+  AccordionActions,
 } from '@material-ui/core';
+import clsx from 'clsx';
 import Fade from 'react-reveal/Fade';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import {Dialog, DialogOverlay, DialogContent} from '@reach/dialog';
 import '@reach/dialog/styles.css';
 import IngredientView from './IngredientsView';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-const useStyles = makeStyles ({
+const useStyles = makeStyles ((theme) => ({
   root: {
     width: '100%',
     display: 'inline-block',
@@ -36,8 +43,18 @@ const useStyles = makeStyles ({
     flexDirection: 'column',
     flexWrap: 'wrap',
   },
+  expand:{
+    transform: 'rotage(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen:{
+    transform: 'rotate(180deg)'
+  },
   buttonColor: {primary: 'grey', secondary: 'pink'},
-});
+}));
 
 const RecipeView = ({
   title,
@@ -51,16 +68,16 @@ const RecipeView = ({
   const classes = useStyles ();
   const [showDialog, setShowDialog] = useState (false);
   const [favorited, setFavorite] = useState ();
-  const faveArray = [];
+  const [expanded, setExpanded] = useState(false);
 
   //ingredients
   const open = () => setShowDialog (true);
   const close = () => setShowDialog (false);
-  //nutrients
-
-  const add = value => {
-    faveArray.push (value);
-  };
+ 
+  const handleExpandClick = () =>{
+    setExpanded(!expanded);
+  }
+  
   const handleLog = () => {
     if (favorited) {
       console.log ('UnFavorited');
@@ -98,9 +115,7 @@ const RecipeView = ({
 
         </Typography>
 
-        <Typography variant="body2" color="textSecondary">
-          carbs: {carbs.CHOCDF.quantity} {carbs.CHOCDF.unit}
-        </Typography>
+        
 
       </div>
       <CardActions>
@@ -113,6 +128,8 @@ const RecipeView = ({
 
           {favorited ? <FavoriteIcon /> : <FavoriteBorder />}
         </IconButton>
+
+       
 
         <Dialog isOpen={showDialog} onDismiss={close}>
           <Fragment>
@@ -147,7 +164,28 @@ const RecipeView = ({
 
         </Dialog>
 
+        
+
       </CardActions>
+
+      <IconButton className={clsx(classes.expand, {[classes.expandOpen]: expanded,})}
+        onClick={handleExpandClick}
+        aria-expanded={expanded}
+        aria-label="show more">
+          <ExpandMoreIcon/>
+        </IconButton>
+        <Collapse in={expanded} timeout ="auto" unmountOnExit>
+          <Typography paragraph>Nutrient Info:</Typography>
+          <Typography paragraph>
+          {carbs.CA.label}: {carbs.CA.quantity}{carbs.CA.unit}<hr></hr>
+          {carbs.CHOCDF.label}: {carbs.CHOCDF.quantity}{carbs.CHOCDF.unit}<hr></hr>
+          {carbs.CHOLE.label}: {carbs.CHOLE.quantity}{carbs.CHOLE.unit}<hr></hr>
+          {carbs.FAT.label}: {carbs.FAT.quantity}{carbs.FAT.unit}<hr></hr>
+          {carbs.SUGAR.label}:{carbs.SUGAR.quantity}{carbs.SUGAR.unit}
+          </Typography>
+        </Collapse>
+
+    
 
     </CardContent>
   );

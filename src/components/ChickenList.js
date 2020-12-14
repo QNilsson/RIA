@@ -10,7 +10,7 @@ import {
   Switch,
 } from '@material-ui/core';
 import {Redirect} from 'react-router-dom';
-import {LogContext} from '../contexts/LogContext';
+import { LogContext } from '../contexts/LogContext';
 
 const useStyles = makeStyles (() => ({
   root: {
@@ -55,15 +55,15 @@ const useStyles = makeStyles (() => ({
 
 const ChickenList = () => {
   const classes = useStyles ();
-  // const apid = "c9f6666e";
-  // const apkey= "66d96ebe2ee152f28bed15343c6a769c";
+   const apid = "c9f6666e";
+   const apkey= "66d96ebe2ee152f28bed15343c6a769c";
   const APP_ID = process.env.REACT_APP_RECIPE_API_ID;
   const APP_KEY = process.env.REACT_APP_RECIPE_API_KEY;
   const [recipeData, setRecipeData] = useState ([]);
   const [checked, setChecked] = useState (false);
   const [lowCal, setLowCal] = useState (false);
   const url = `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`;
-  const {isLog} = useContext (LogContext);
+  const { isLog } = useContext (LogContext);
 
   const handleChange = () => {
     setChecked (prev => !prev);
@@ -71,23 +71,24 @@ const ChickenList = () => {
 
   useEffect (() => {
     const fetchRecipes = async () => {
-      try {
-        const response = await axios.get (url, {});
+      
+        const response = await axios 
+            
+           
+      (`https://api.edamam.com/search?q=chicken&app_id=${apid}&app_key=${apkey}`);
 
         console.log (response.data.hits);
         setRecipeData (response.data.hits);
-      } catch (error) {
-        console.log (error);
-      }
+      
     };
     fetchRecipes ();
   }, []);
 
-  return isLog
-    ? <div className={classes.root}>
+  return (
+    isLog ? 
+    <div className={classes.root}>
 
         <div className={classes.head}>
-          {' '}
           <FormControlLabel
             control={<Switch checked={checked} onChange={handleChange} />}
             label="Show recipes"
@@ -115,7 +116,8 @@ const ChickenList = () => {
         </div>
 
       </div>
-    : <Redirect to="/" />;
+    : <Redirect to="/" />
+  );
 };
 
 export default ChickenList;

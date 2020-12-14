@@ -54,7 +54,7 @@ const useStyles = makeStyles (() => ({
 
 }));
 
-const ChickenList = () => {
+const FishList = () => {
   const APP_ID = process.env.REACT_APP_RECIPE_API_ID;
   const APP_KEY = process.env.REACT_APP_RECIPE_API_KEY;
   const classes = useStyles ();
@@ -69,22 +69,20 @@ const ChickenList = () => {
   }
 
   useEffect (() => {
-    const fetchRecipes = () => {
-      axios
-        .get (
-          (url),
-          {}
-        )
-        .then (function (response) {
-          console.log (response.data.hits);
-          setRecipeData (response.data.hits)
-        })
-        .catch (function (error) {
-          console.log (error);
-        });
+    const fetchRecipes = async () => {
+      
+        const response = await axios 
+            
+           
+      (`https://api.edamam.com/search?q=fish&app_id=${APP_ID}&app_key=${APP_KEY}`);
+
+        console.log (response.data.hits);
+        setRecipeData (response.data.hits);
+      
     };
     fetchRecipes ();
   }, []);
+
 
   return (
     isLog ?
@@ -117,4 +115,4 @@ const ChickenList = () => {
   );
 };
 
-export default ChickenList;
+export default FishList;

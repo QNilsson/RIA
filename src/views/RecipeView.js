@@ -177,11 +177,11 @@ const RecipeView = ({
         <Collapse in={expanded} timeout ="auto" unmountOnExit>
           <Typography paragraph>Nutrient Info:</Typography>
           <Typography paragraph>
-          {carbs.CA.label}: {carbs.CA.quantity}{carbs.CA.unit}<hr></hr>
-          {carbs.CHOCDF.label}: {carbs.CHOCDF.quantity}{carbs.CHOCDF.unit}<hr></hr>
-          {carbs.CHOLE.label}: {carbs.CHOLE.quantity}{carbs.CHOLE.unit}<hr></hr>
-          {carbs.FAT.label}: {carbs.FAT.quantity}{carbs.FAT.unit}<hr></hr>
-          {carbs.SUGAR.label}:{carbs.SUGAR.quantity}{carbs.SUGAR.unit}
+          {carbs.CA.label}: {carbs.CA.quantity.toFixed(0)}{carbs.CA.unit}<hr></hr>
+          {carbs.CHOCDF.label}: {carbs.CHOCDF.quantity.toFixed(0)}{carbs.CHOCDF.unit}<hr></hr>
+          {carbs.CHOLE.label}: {carbs.CHOLE.quantity.toFixed(0)}{carbs.CHOLE.unit}<hr></hr>
+          {carbs.FAT.label}: {carbs.FAT.quantity.toFixed(0)}{carbs.FAT.unit}<hr></hr>
+          {carbs.SUGAR.label}:{carbs.SUGAR.quantity.toFixed(0)}{carbs.SUGAR.unit}
           </Typography>
         </Collapse>
 

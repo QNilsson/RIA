@@ -175,7 +175,7 @@ const RecipeView = ({
           <ExpandMoreIcon/>
         </IconButton>
         <Collapse in={expanded} timeout ="auto" unmountOnExit>
-          <Typography paragraph>Nutrient Info:</Typography>
+          <Typography paragraph style={{fontWeight:"bold"}}>Nutrient Info:</Typography>
           <Typography paragraph>
           {carbs.CA.label}: {carbs.CA.quantity.toFixed(0)}{carbs.CA.unit}<hr></hr>
           {carbs.CHOCDF.label}: {carbs.CHOCDF.quantity.toFixed(0)}{carbs.CHOCDF.unit}<hr></hr>

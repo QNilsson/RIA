@@ -1,136 +1,150 @@
-import React, {useState, useEffect, useContext} from 'react';
-import axios from 'axios';
-import RecipeView from '../views/RecipeView';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import {
+  Container,
   Card,
+  CardMedia,
+  CardActions,
+  CardContent,
+  TextField,
+  IconButton,
   makeStyles,
+  Typography,
+  Box,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
   Button,
-  FormControl,
-  Fade,
-  FormControlLabel,
-  Switch,
-} from '@material-ui/core';
-import {Redirect} from 'react-router-dom';
-import {LogContext} from '../contexts/LogContext';
+} from '@material-ui/core'
+import SearchIcon from '@material-ui/icons/Search'
+import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
 
-const useStyles = makeStyles (() => ({
+const useStyles = makeStyles(() => ({
   root: {
-    margin: 0,
-    color: '#603f83ff',
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-start',
-    overflow: 'hidden',
-    backgroundColor: '#f3e0dc',
-  },
-  head: {
-    paddingTop: 10,
-    paddingLeft: 50,
-    paddingBottom: 10,
-  },
-  main: {
-    display: 'flex',
+    justifyContent: 'center',
     flexWrap: 'wrap',
   },
-
-  spacing: 8,
   card: {
-    borderColor: '#5c2018',
-    alignContent: 'center',
+    width: 345,
+    margin: 20,
+  },
+  content: {
     display: 'flex',
-    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
   },
+}))
 
-  ul: {
-    listStyleType: 'none',
-  },
-  li: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    width: 280,
+const RecipeList = () => {
+  const classes = useStyles()
+  const [recipeList, setRecipeList] = useState([])
+  const [deleteOpen, setDeleteOpen] = useState(false)
+  const [selectedMovie, setSelectedMovie] = useState(null)
 
-    margin: 10,
-    textAlign: 'center',
-  },
-}));
+  const handleClickDeleteOpen = (movie) => {
+    //console.log(movie.movie._id)
+    setSelectedRecipe(recipe.recipe)
+    setDeleteOpen(true)
+  }
 
-const ChocolateList = () => {
-  const apid = 'c9f6666e';
-  const apkey = '66d96ebe2ee152f28bed15343c6a769c';
-  const APP_ID = process.env.REACT_APP_RECIPE_API_ID;
-  const APP_KEY = process.env.REACT_APP_RECIPE_API_KEY;
-  const classes = useStyles ();
+  const handleCloseDelete = () => {
+    setDeleteOpen(false)
+  }
 
-  const [recipeData, setRecipeData] = useState ([]);
-  const [checked, setChecked] = useState (false);
+  const handleDelete =  async () => {
+    setDeleteOpen(false)
+    console.log(selectedRecipe._id)
+    try {
+      await axios.delete(`http://localhost:5000/recipe/delete`, {
+        data: {
+          recipeID: selectedRecipe._id
+        }
+      })
+      fetchRecipes()
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
-  const {isLog} = useContext (LogContext);
+  const fetchRecipes = async () => {
+    try {
+      const recipes = await axios.get(`http://localhost:5000/recipe`)
+      setRecipeList(recipes.data)
+      console.log(recipes.data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
-  const handleChange = () => {
-    setChecked (prev => !prev);
-  };
+  useEffect(() => {
+    fetchRecipes()
+  }, [])
 
-  useEffect (() => {
-    const fetchRecipes = async () => {
-      try {
-        const response = await axios.get (
-          `https://api.edamam.com/search?q=chocolate&app_id=${apid}&app_key=${apkey}`,
-          {
-            headers: {
-              // 'Content-Type': 'application/json'
-              'Access-Control-Allow-Orign': '*',
-              'Content-Type': 'application/json',
+  return (
+    <>
+      <form>
+        <TextField placeholder='Search' />
+        <IconButton aria-label='search'>
+          <SearchIcon />
+        </IconButton>
+        <IconButton aria-label='add recipe'>
+      <AddCircleIcon/>
+        </IconButton>
+      </form>
+      <Container className={classes.root}>
+        {recipeList.map((recipe) => {
+          return (
+            <Card className={classes.card} key={movie._id}>
+              <CardMedia
+                component='img'
+                height='300'
+                className={classes.media}
+                image={recipe.image}
+                title={recipe.title}
+              ></CardMedia>
+              <CardContent>
+                <Typography gutterBottom variant='h5' component='h2'>
+                  {recipe.title}
+                </Typography>
+                <Box className={classes.content}>
+                  <Typography variant='subtitle1' color='textSecondary'>
+                    Servings: {recipe.servings}
+                  </Typography>
+                  <Typography variant='subtitle1' color='textSecondary'>
+                    Time to make: {movie.time}
+                  </Typography>
+                </Box>
+              </CardContent>
+              <CardActions>
+                <IconButton aria-label='edit'>
+                  <EditIcon />
+                </IconButton>
+                <IconButton aria-label='delete' onClick={() => handleClickDeleteOpen({recipe})}>
+                  <DeleteIcon />
+                </IconButton>
+              </CardActions>
+            </Card>
+          )
+        })}
+      </Container>
+      <Dialog open={deleteOpen} onClose={handleCloseDelete}>
+        <DialogTitle>Delete Recipe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this recipe?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDelete}>Cancel</Button>
+          <Button onClick={handleDelete}>Delete</Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  )
+}
 
-              // "Access-Control-Allow-Headers": "Origin",
-            },
-          }
-        );
-
-        console.log (response.data.hits);
-        setRecipeData (response.data.hits);
-      } catch (error) {
-        console.log ('error with function');
-      }
-    };
-    fetchRecipes ();
-  }, []);
-
-  return isLog
-    ? <div className={classes.root}>
-        {/* <FormControl className="search-form">
-          <input className="search-bar" type="text" />
-          <Button color='primary'className="search-button" type="submit">Search</Button>
-        </FormControl> */}
-        <div className={classes.head}>
-          <FormControlLabel
-            control={<Switch checked={checked} onChange={handleChange} />}
-            label="Show Recipes"
-          />
-          {' '}
-        </div>
-        <div className={classes.main}>
-        {recipeData.map ((recipe, key)=> (
-            <Fade in={checked}>
-              <ul elevation={4} className={classes.ul}>
-                <li className={classes.li}>
-                  <Card className={classes.card}>
-                    <RecipeView
-                      title={recipe.recipe.label}
-                      ingredients={recipe.recipe.ingredients}
-                      calories={recipe.recipe.calories}
-                      servings={recipe.recipe.yield}
-                      image={recipe.recipe.image}
-                      source={recipe.recipe.source}
-                      carbs={recipe.recipe.totalNutrients}
-                    />
-                  </Card>
-                </li>
-              </ul>
-            </Fade>
-          ))}
-        </div>
-      </div>
-    : <Redirect to="/" />;
-};
-
-export default ChocolateList;
+export default RecipeList

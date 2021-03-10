@@ -43,9 +43,9 @@ const RecipeList = () => {
   const classes = useStyles()
   const [recipeList, setRecipeList] = useState([])
   const [deleteOpen, setDeleteOpen] = useState(false)
-  const [selectedMovie, setSelectedMovie] = useState(null)
+  const [selectedRecipe, setSelectedRecipe] = useState(null)
 
-  const handleClickDeleteOpen = (movie) => {
+  const handleClickDeleteOpen = (recipe) => {
     //console.log(movie.movie._id)
     setSelectedRecipe(recipe.recipe)
     setDeleteOpen(true)
@@ -98,7 +98,7 @@ const RecipeList = () => {
       <Container className={classes.root}>
         {recipeList.map((recipe) => {
           return (
-            <Card className={classes.card} key={movie._id}>
+            <Card className={classes.card} key={recipe._id}>
               <CardMedia
                 component='img'
                 height='300'
@@ -115,7 +115,7 @@ const RecipeList = () => {
                     Servings: {recipe.servings}
                   </Typography>
                   <Typography variant='subtitle1' color='textSecondary'>
-                    Time to make: {movie.time}
+                    Time to make: {recipe.time}
                   </Typography>
                 </Box>
               </CardContent>

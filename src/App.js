@@ -9,9 +9,7 @@ import {Route, Switch} from 'react-router-dom';
 import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
 import { SvgIcon } from '@material-ui/core';
 import LogContextProvider, { LogContext } from './contexts/LogContext';
-import express from 'express';
-import bodyParser from 'body-parser';
-import { recipeRouter } from './routes/recipe.route';
+
 //function-based component
 function App () {
   return (
@@ -21,7 +19,7 @@ function App () {
       
       <Switch>
         <Route path="/chickenlist" component={ChickenList} exact/>
-        <Route path="/chocolatelist" component={ChocolateList} exact/>
+        <Route path="/recipes" component={ChocolateList} exact/>
         <Route path="/lowcarb" component={LowCarb} exact/>
         <Route path="/search" component={Search} exact/>
         <Route path='/' exact component={Welcome}/>

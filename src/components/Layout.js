@@ -90,9 +90,7 @@ export default function ButtonAppBar() {
           <NavLink activeStyle={{ fontWeight:"bold", color:"red"}}to='/chickenlist' className={classes.navSpacing}>
             Chicken Recipes
           </NavLink>
-          <NavLink activeStyle={{ fontWeight:"bold", color:"red"}}to='/chocolatelist' className={classes.navSpacing}>
-            Chocolate Recipes
-          </NavLink>
+          
           <NavLink activeStyle={{ fontWeight:"bold", color:"red"}}to='/lowcarb' className={classes.navSpacing}>
           Low-Carb
           </NavLink>
@@ -117,11 +115,7 @@ export default function ButtonAppBar() {
             Chicken Recipes
           </NavLink>
           </ListItem>
-          <ListItem>
-          <NavLink to='/chocolatelist' className={classes.navSpacing} onClick={handleDrawerToggle}>
-           Chocolate Recipes
-          </NavLink>
-          </ListItem>
+          
           <ListItem>
           <NavLink to='/lowcarb' className={classes.navSpacing} onClick={handleDrawerToggle}>
            LowCarb Recipes

@@ -28,6 +28,12 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap',
+    paddingTop:30,
+    
+  },
+  form:{
+    paddingTop:30,
+    fontSize:28
   },
   card: {
     width: 345,
@@ -61,7 +67,7 @@ const RecipeList = () => {
     try {
       await axios.delete(`http://localhost:5000/recipe/delete`, {
         data: {
-          recipeID: selectedRecipe._id
+          recipeId: selectedRecipe._id
         }
       })
       fetchRecipes()
@@ -75,6 +81,7 @@ const RecipeList = () => {
       const recipes = await axios.get(`http://localhost:5000/recipe`)
       setRecipeList(recipes.data)
       console.log(recipes.data)
+      console.log('this should be recipes')
     } catch (err) {
       console.error(err)
     }
@@ -86,7 +93,7 @@ const RecipeList = () => {
 
   return (
     <>
-      <form>
+      <form className={classes.form}>
         <TextField placeholder='Search' />
         <IconButton aria-label='search'>
           <SearchIcon />
@@ -105,7 +112,7 @@ const RecipeList = () => {
                 className={classes.media}
                 image={recipe.image}
                 title={recipe.title}
-              ></CardMedia>
+              >hello</CardMedia>
               <CardContent>
                 <Typography gutterBottom variant='h5' component='h2'>
                   {recipe.title}

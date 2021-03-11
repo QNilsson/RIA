@@ -79,8 +79,10 @@ const RecipeList = () => {
   const fetchRecipes = async () => {
     try {
       const recipes = await axios.get(`http://localhost:5000/recipe`)
+      console.log(recipes)
       setRecipeList(recipes.data)
       console.log(recipes.data)
+      console.log(recipeList)
       console.log('this should be recipes')
     } catch (err) {
       console.error(err)

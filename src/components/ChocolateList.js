@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import * as dotenv from 'dotenv';
 import {
   Container,
   Card,
@@ -45,7 +46,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const RecipeList = () => {
+const ChocolateList = () => {
   const classes = useStyles()
   const [recipeList, setRecipeList] = useState([])
   const [deleteOpen, setDeleteOpen] = useState(false)
@@ -79,15 +80,13 @@ const RecipeList = () => {
   const fetchRecipes = async () => {
     try {
       const recipes = await axios.get(`http://localhost:5000/recipe`)
-      console.log(recipes)
       setRecipeList(recipes.data)
       console.log(recipes.data)
-      console.log(recipeList)
-      console.log('this should be recipes')
     } catch (err) {
       console.error(err)
     }
   }
+
 
   useEffect(() => {
     fetchRecipes()
@@ -105,6 +104,7 @@ const RecipeList = () => {
         </IconButton>
       </form>
       <Container className={classes.root}>
+        This is chocolate list
         {recipeList.map((recipe) => {
           return (
             <Card className={classes.card} key={recipe._id}>
@@ -114,7 +114,7 @@ const RecipeList = () => {
                 className={classes.media}
                 image={recipe.image}
                 title={recipe.title}
-              >hello</CardMedia>
+              ></CardMedia>
               <CardContent>
                 <Typography gutterBottom variant='h5' component='h2'>
                   {recipe.title}
@@ -156,4 +156,4 @@ const RecipeList = () => {
   )
 }
 
-export default RecipeList
+export default ChocolateList

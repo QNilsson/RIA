@@ -90,6 +90,9 @@ export default function ButtonAppBar() {
           <NavLink activeStyle={{ fontWeight:"bold", color:"red"}}to='/chickenlist' className={classes.navSpacing}>
             Chicken Recipes
           </NavLink>
+          <NavLink activeStyle={{ fontWeight:"bold", color:"red"}}to='/recipes' className={classes.navSpacing}>
+            Chocolate Recipes
+          </NavLink>
           
           <NavLink activeStyle={{ fontWeight:"bold", color:"red"}}to='/lowcarb' className={classes.navSpacing}>
           Low-Carb

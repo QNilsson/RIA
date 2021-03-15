@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import './App.css'
 import App from './App';
+import * as dotenv from 'dotenv';
+import cors from 'cors';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 ReactDOM.render(
@@ -14,7 +16,7 @@ ReactDOM.render(
 document.getElementById('root'),
 )
  registerServiceWorker();
- require('dotenv').config()
+ dotenv.config()
 //for app to work faster and load offline
 //ServiceWorker.unregister();
 

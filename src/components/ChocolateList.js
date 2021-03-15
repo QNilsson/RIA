@@ -59,6 +59,7 @@ const ChocolateList = () => {
   const handleClickDeleteOpen = (recipe) => {
     //console.log(movie.movie._id)
     setSelectedRecipe(recipe.recipe)
+    console.log(recipe.recipe)
     setDeleteOpen(true)
   }
 
@@ -69,6 +70,7 @@ const ChocolateList = () => {
   const handleDelete =  async () => {
     setDeleteOpen(false)
     console.log(selectedRecipe._id)
+    console.log("this is selected recipe id on react app")
     try {
       await axios.delete(`http://localhost:5000/recipe/delete`, {
         data: {

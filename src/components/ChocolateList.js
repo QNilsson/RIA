@@ -30,6 +30,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     flexWrap: 'wrap',
     paddingTop:30,
+    backgroundColor:'#f3e0dc'
     
   },
   form:{
@@ -51,6 +52,9 @@ const ChocolateList = () => {
   const [recipeList, setRecipeList] = useState([])
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [selectedRecipe, setSelectedRecipe] = useState(null)
+  const baseURI="https://spoonacular.com/recipeImages/"
+  //TODO
+  //baseURI can go before image string to get acutal image
 
   const handleClickDeleteOpen = (recipe) => {
     //console.log(movie.movie._id)
@@ -104,7 +108,6 @@ const ChocolateList = () => {
         </IconButton>
       </form>
       <Container className={classes.root}>
-        This is chocolate list
         {recipeList.map((recipe) => {
           return (
             <Card className={classes.card} key={recipe._id}>
@@ -112,7 +115,7 @@ const ChocolateList = () => {
                 component='img'
                 height='300'
                 className={classes.media}
-                image={recipe.image}
+                image={baseURI + recipe.image}
                 title={recipe.title}
               ></CardMedia>
               <CardContent>
@@ -124,7 +127,7 @@ const ChocolateList = () => {
                     Servings: {recipe.servings}
                   </Typography>
                   <Typography variant='subtitle1' color='textSecondary'>
-                    Time to make: {recipe.time}
+                    Ready in: {recipe.time} minutes
                   </Typography>
                 </Box>
               </CardContent>

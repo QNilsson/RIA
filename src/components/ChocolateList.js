@@ -18,11 +18,15 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  Input
 } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
+
+import { Formik } from 'formik';
+import * as Yup from 'yup'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -51,10 +55,15 @@ const ChocolateList = () => {
   const classes = useStyles()
   const [recipeList, setRecipeList] = useState([])
   const [deleteOpen, setDeleteOpen] = useState(false)
+  const [editOpen, setEditOpen] = useState(false)
   const [selectedRecipe, setSelectedRecipe] = useState(null)
   const baseURI="https://spoonacular.com/recipeImages/"
   //TODO
   //baseURI can go before image string to get acutal image
+
+  const handleInput = (event) => {
+    debounce(event.target.value)
+  }
 
   const handleClickDeleteOpen = (recipe) => {
     //console.log(movie.movie._id)
@@ -67,6 +76,36 @@ const ChocolateList = () => {
     setDeleteOpen(false)
   }
 
+  const handleClickEditOpen = (recipe) =>{
+    setSelectedRecipe(recipe.recipe)
+    setEditOpen(true)
+  }
+  
+  const handleCloseEdit = () =>{
+    setEditOpen(false)
+  }
+
+  const handleUpdate = async (values) =>{
+    try{
+      const result = await axios.put(`http://localhost:5000/movie/update`, {
+        data:{
+          recipeId:values.id,
+          title:values.title,
+          image:values.image,
+          servings:values.servings,
+          time:values.time
+        },
+      })
+      if(result.status === 200){
+        fetchRecipes()
+        console.log("sucess")
+      }
+    }catch(err){
+      console.log(err)
+      console.log("fail")
+    }
+  }
+
   const handleDelete =  async () => {
     setDeleteOpen(false)
     console.log(selectedRecipe._id)
@@ -75,9 +114,9 @@ const ChocolateList = () => {
       await axios.delete(`http://localhost:5000/recipe/delete`, {
         data: {
           recipeId: selectedRecipe._id
-        }
+        },
       })
-      fetchRecipes()
+       fetchRecipes()
     } catch (err) {
       console.error(err)
     }
@@ -87,7 +126,7 @@ const ChocolateList = () => {
     try {
       const recipes = await axios.get(`http://localhost:5000/recipe`)
       setRecipeList(recipes.data)
-      console.log(recipes.data)
+      
     } catch (err) {
       console.error(err)
     }
@@ -100,13 +139,10 @@ const ChocolateList = () => {
 
   return (
     <>
-      <form className={classes.form}>
-        <TextField placeholder='Search' />
-        <IconButton aria-label='search'>
-          <SearchIcon />
-        </IconButton>
-        <IconButton aria-label='add recipe'>
-      <AddCircleIcon/>
+      <form>
+        <Input placeholder='Search' />
+        <IconButton aria-label="search" >
+          <SearchIcon/>
         </IconButton>
       </form>
       <Container className={classes.root}>
@@ -134,7 +170,7 @@ const ChocolateList = () => {
                 </Box>
               </CardContent>
               <CardActions>
-                <IconButton aria-label='edit'>
+                <IconButton aria-label='edit' onClick={() => handleClickEditOpen({recipe})}>
                   <EditIcon />
                 </IconButton>
                 <IconButton aria-label='delete' onClick={() => handleClickDeleteOpen({recipe})}>
@@ -145,6 +181,118 @@ const ChocolateList = () => {
           )
         })}
       </Container>
+      <Dialog
+        open={editOpen}
+        onClose={handleCloseEdit}
+        aria-labelledby='edit-dialog-title'
+      >
+        <Formik
+          initialValues={{
+            title: selectedRecipe?.title,
+            servings: selectedRecipe?.servings,
+            image: selectedRecipe?.image,
+            time: selectedRecipe?.time,
+            id:selectedRecipe?._id,
+          }}
+          validationSchema={Yup.object().shape({
+            title: Yup.string('Enter recipe title.').required(
+              'Recipe title is required',
+            ),
+            servings: Yup.number('servings'),
+            image: Yup.string('Image URL'),
+            
+            id: Yup.string('ID').required('ID is required.'),
+            time:Yup.number('Time til ready')
+          })}
+          onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+            try {
+              await handleUpdate(values)
+              handleCloseEdit()
+            } catch (err) {
+              console.error(err)
+              setStatus({ success: false })
+              setErrors({ submit: err.message })
+              setSubmitting(false)
+            }
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <form
+              noValidate
+              autoComplete='off'
+              onSubmit={handleSubmit}
+              className={classes.dialogContent}
+            >
+              <DialogTitle id='edit-dialog-title'>Edit Recipe</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Make changes below to the data about this recipe:
+                </DialogContentText>
+                <TextField
+                  autoFocus
+                  id='title'
+                  name='title'
+                  label='Recipe Title'
+                  type='text'
+                  fullWidth
+                  value={values.title}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.title && errors.title)}
+                  helperText={touched.title && errors.title}
+                />
+                <Box className={classes.content}>
+                  <TextField
+                    autoFocus
+                    name='servings'
+                    id='servings'
+                    label='Servings'
+                    type='number'
+                    value={values.servings}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={Boolean(touched.servings && errors.servings)}
+                    helperText={touched.servings && errors.servings}
+                  />
+                </Box>
+                <TextField
+                  autoFocus
+                  id='time'
+                  name='time'
+                  label='Time til ready'
+                  type='number'
+                  fullWidth
+                  value={values.time}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.time && errors.time)}
+                  helperText={touched.time && errors.time}
+                />
+               
+                <Box className={classes.content}>
+                  
+                </Box>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseEdit} color='primary'>
+                  Cancel
+                </Button>
+                <Button type='submit' color='primary'>
+                  Save
+                </Button>
+              </DialogActions>
+            </form>
+          )}
+        </Formik>
+      </Dialog>
       <Dialog open={deleteOpen} onClose={handleCloseDelete}>
         <DialogTitle>Delete Recipe</DialogTitle>
         <DialogContent>
@@ -153,8 +301,12 @@ const ChocolateList = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDelete}>Cancel</Button>
-          <Button onClick={handleDelete}>Delete</Button>
+          <Button onClick={handleCloseDelete} color='primary'>
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color='primary'>
+            Delete
+          </Button>
         </DialogActions>
       </Dialog>
     </>

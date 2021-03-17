@@ -56,7 +56,7 @@ const ChocolateList = () => {
   const [recipeList, setRecipeList] = useState([])
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
-  const [selectedRecipe, setSelectedRecipe] = useState(null)
+  const [selectedRecipe, setSelectedRecipe] = useState({title: ''})
   const baseURI="https://spoonacular.com/recipeImages/"
   //TODO
   //baseURI can go before image string to get acutal image
@@ -87,7 +87,7 @@ const ChocolateList = () => {
 
   const handleUpdate = async (values) =>{
     try{
-      const result = await axios.put(`http://localhost:5000/movie/update`, {
+      const result = await axios.put(`http://localhost:5000/recipe/update`, {
         data:{
           recipeId:values.id,
           title:values.title,
@@ -116,9 +116,10 @@ const ChocolateList = () => {
           recipeId: selectedRecipe._id
         },
       })
-       fetchRecipes()
+      //  fetchRecipes()
     } catch (err) {
       console.error(err)
+      console.log("There was an error")
     }
   }
 

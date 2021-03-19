@@ -66,9 +66,10 @@ const ChocolateList = () => {
   }
 
   const handleClickDeleteOpen = (recipe) => {
-    //console.log(movie.movie._id)
+    console.log(recipe.recipe._id)
+    console.log("above is recipe.recipe._id")
     setSelectedRecipe(recipe.recipe)
-    console.log(recipe.recipe)
+    console.log("This is SelectedRecipe")
     setDeleteOpen(true)
   }
 
@@ -98,7 +99,7 @@ const ChocolateList = () => {
       })
       if(result.status === 200){
         fetchRecipes()
-        console.log("sucess")
+        console.log("sucessfully updated")
       }
     }catch(err){
       console.log(err)
@@ -109,16 +110,21 @@ const ChocolateList = () => {
   const handleDelete =  async () => {
     setDeleteOpen(false)
     console.log(selectedRecipe._id)
-    console.log("this is selected recipe id on react app")
+    console.log("below is selectedRecipe._id on react app")
+    console.log(selectedRecipe._id)
+
+    
     try {
-      await axios.delete(`http://localhost:5000/recipe/delete`, {
+      await axios.delete(`http://localhost:5000/recipe/delete`,{
         data: {
           recipeId: selectedRecipe._id
-        },
+        }
       })
-      //  fetchRecipes()
+      fetchRecipes()
     } catch (err) {
       console.error(err)
+      console.log(selectedRecipe._id)
+      console.log("above is selectedRecipe._id in error")
       console.log("There was an error")
     }
   }

@@ -67,8 +67,7 @@ const ChocolateList = () => {
   }
 
   const handleClickDeleteOpen = (recipe) => {
-    console.log(recipe.recipe._id)
-    console.log("above is recipe.recipe._id")
+    
     setSelectedRecipe(recipe.recipe)
     console.log("This is SelectedRecipe")
     setDeleteOpen(true)
@@ -140,19 +139,17 @@ const ChocolateList = () => {
   const handleDelete =  async () => {
     setDeleteOpen(false)
     console.log(selectedRecipe._id)
-    console.log("below is selectedRecipe._id on react app")
-    console.log(selectedRecipe._id)
+    console.log("above is selectedRecipe._id on react app")
 
-    
     try {
+      console.log(`This is in try statement recipe_id ${selectedRecipe._id}`)
       await axios.delete(`http://localhost:5000/recipe/delete`,{
-        data: {
-          recipeId: selectedRecipe._id
-        }
+        params: {
+          recipeId:selectedRecipe._id,
+        },
       })
       
-      console.log("delete success")
-      console.log(`deleted ${selectedRecipe._id}`)
+      fetchRecipes()
     } catch (err) {
       console.error(err)
       console.log(selectedRecipe._id)

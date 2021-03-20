@@ -94,6 +94,7 @@ const ChocolateList = () => {
  }
 
  const handleAdd = async (values ) =>{
+   console.log("called handleAdd")
    try{
      const result = await axios.post(`http://localhost:5000/recipe/add`, {
        data:{
@@ -149,7 +150,9 @@ const ChocolateList = () => {
           recipeId: selectedRecipe._id
         }
       })
-      fetchRecipes()
+      
+      console.log("delete success")
+      console.log(`deleted ${selectedRecipe._id}`)
     } catch (err) {
       console.error(err)
       console.log(selectedRecipe._id)

@@ -327,7 +327,7 @@ const ChocolateList = () => {
                 <Button onClick={handleCloseAdd} color='primary'>
                   Cancel
                 </Button>
-                <Button type='submit' color='primary'>
+                <Button type='submit' color='primary' >
                   Save
                 </Button>
               </DialogActions>

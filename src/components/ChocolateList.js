@@ -56,6 +56,7 @@ const ChocolateList = () => {
   const [recipeList, setRecipeList] = useState([])
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
+  const [addOpen, setAddOpen] = useState(false)
   const [selectedRecipe, setSelectedRecipe] = useState({title: ''})
   const baseURI="https://spoonacular.com/recipeImages/"
   //TODO
@@ -72,7 +73,6 @@ const ChocolateList = () => {
     console.log("This is SelectedRecipe")
     setDeleteOpen(true)
   }
-
   const handleCloseDelete = () => {
     setDeleteOpen(false)
   }
@@ -81,10 +81,39 @@ const ChocolateList = () => {
     setSelectedRecipe(recipe.recipe)
     setEditOpen(true)
   }
-  
   const handleCloseEdit = () =>{
     setEditOpen(false)
   }
+
+  
+  const handleClickAddOpen = () =>{
+    setAddOpen(true)
+  }
+ const handleCloseAdd = () =>{
+   setAddOpen(false)
+ }
+
+ const handleAdd = async (values ) =>{
+   try{
+     const result = await axios.post(`http://localhost:5000/recipe/add`, {
+       data:{
+       recipeId:values.id,
+       title:values.title,
+       image:values.image,
+       servings:values.servings,
+       time:values.time
+   },
+     })
+     if(result.status === 200){
+       fetchRecipes()
+       console.log("recipe successfully added")
+     }
+   }catch(err){
+     console.log(err)
+     console.log("recipe failed to add")
+   }
+ }
+
 
   const handleUpdate = async (values) =>{
     try{
@@ -133,6 +162,7 @@ const ChocolateList = () => {
     try {
       const recipes = await axios.get(`http://localhost:5000/recipe`)
       setRecipeList(recipes.data)
+      console.log(recipes.data)
       
     } catch (err) {
       console.error(err)
@@ -150,6 +180,9 @@ const ChocolateList = () => {
         <Input placeholder='Search' />
         <IconButton aria-label="search" >
           <SearchIcon/>
+        </IconButton>
+        <IconButton aria-label="add recipe">
+          <AddCircleIcon onClick={() => handleClickAddOpen()}/>
         </IconButton>
       </form>
       <Container className={classes.root}>
@@ -173,6 +206,7 @@ const ChocolateList = () => {
                   </Typography>
                   <Typography variant='subtitle1' color='textSecondary'>
                     Ready in: {recipe.time} minutes
+                    
                   </Typography>
                 </Box>
               </CardContent>
@@ -188,6 +222,119 @@ const ChocolateList = () => {
           )
         })}
       </Container>
+      {/*--this begins ADD RECIPE dialog ==*/}
+      <Dialog
+        open={addOpen}
+        onClose={handleCloseAdd}
+        aria-labelledby='add-dialog-title'
+      >
+        <Formik
+          initialValues={{
+            title: "Your Title Here",
+            servings: 23,
+            image: null,
+            time: 23,
+            id:null,
+          }}
+          validationSchema={Yup.object().shape({
+            title: Yup.string('Enter recipe title.').required(
+              'Recipe title is required',
+            ),
+            servings: Yup.number('servings'),
+            image: Yup.string('Image URL'),
+            
+            id: Yup.string('ID').required('ID is required.'),
+            time:Yup.number('Time til ready')
+          })}
+          onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+            try {
+              await handleAdd(values)
+              handleCloseAdd()
+            } catch (err) {
+              console.error(err)
+              setStatus({ success: false })
+              setErrors({ submit: err.message })
+              setSubmitting(false)
+            }
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <form
+              noValidate
+              autoComplete='off'
+              onSubmit={handleSubmit}
+              className={classes.dialogContent}
+            >
+              <DialogTitle id='edit-dialog-title'>Add Recipe</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Add Your Recipe Below
+                </DialogContentText>
+                <TextField
+                  autoFocus
+                  id='title'
+                  name='title'
+                  label='Recipe Title'
+                  type='text'
+                  fullWidth
+                  value={values.title}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.title && errors.title)}
+                  helperText={touched.title && errors.title}
+                />
+                <Box className={classes.content}>
+                  <TextField
+                    autoFocus
+                    name='servings'
+                    id='servings'
+                    label='Servings'
+                    type='number'
+                    value={values.servings}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={Boolean(touched.servings && errors.servings)}
+                    helperText={touched.servings && errors.servings}
+                  />
+                </Box>
+                <TextField
+                  autoFocus
+                  id='time'
+                  name='time'
+                  label='Time til ready'
+                  type='number'
+                  fullWidth
+                  value={values.time}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.time && errors.time)}
+                  helperText={touched.time && errors.time}
+                />
+               
+                <Box className={classes.content}>
+                  
+                </Box>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseAdd} color='primary'>
+                  Cancel
+                </Button>
+                <Button type='submit' color='primary'>
+                  Save
+                </Button>
+              </DialogActions>
+            </form>
+          )}
+        </Formik>
+      </Dialog>
       <Dialog
         open={editOpen}
         onClose={handleCloseEdit}

@@ -138,8 +138,7 @@ const ChocolateList = () => {
 
   const handleDelete =  async () => {
     setDeleteOpen(false)
-    console.log(selectedRecipe._id)
-
+    console.log(`this is the selectedRecipe._id ${selectedRecipe._id}`)
     try {
       console.log(`This is in try statement recipe_id ${selectedRecipe._id}`)
       await axios.delete(`http://localhost:5000/recipe/delete`,{

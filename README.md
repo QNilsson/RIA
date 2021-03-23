@@ -5,17 +5,17 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 ## Local Run Instructions:
 
-1.open react-complete-guide folder
-run 'npm start'
+1.open react-complete-guide folder<br>
+run 'npm start'<br>
 
-2. open node-practice folder
-run 'npm run seed'
-run 'npm start'
+2. open node-practice folder<br>
+run 'npm run seed'<br>
+run 'npm start'<br>
 
-You will find a get route for loading all recipes
-A delete route to delete one recipe at a time
-A put route to edit the recipe
-A post route (still a work in progress) that will add a recipe
+You will find a get route for loading all recipes<br>
+A delete route to delete one recipe at a time<br>
+A put route to edit the recipe<br>
+A post route (still a work in progress) that will add a recipe<br>
 
 
 

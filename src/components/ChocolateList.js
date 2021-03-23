@@ -67,14 +67,14 @@ const ChocolateList = () => {
   }
 
   const handleClickDeleteOpen = (recipe) => {
-    
-    setSelectedRecipe(recipe.recipe)
+     setSelectedRecipe(recipe.recipe)
     console.log("This is SelectedRecipe")
     setDeleteOpen(true)
   }
   const handleCloseDelete = () => {
     setDeleteOpen(false)
   }
+
 
   const handleClickEditOpen = (recipe) =>{
     setSelectedRecipe(recipe.recipe)
@@ -87,6 +87,7 @@ const ChocolateList = () => {
   
   const handleClickAddOpen = () =>{
     setAddOpen(true)
+    console.log("setAddOpen is true")
   }
  const handleCloseAdd = () =>{
    setAddOpen(false)
@@ -102,6 +103,7 @@ const ChocolateList = () => {
        image:values.image,
        servings:values.servings,
        time:values.time
+      
    },
      })
      if(result.status === 200){
@@ -165,9 +167,21 @@ const ChocolateList = () => {
     }
   }
 
+  const fetchCrowd = async () =>{
+    try{
+      const recipes = await axios.get(`http://localhost:5000/crowd`)
+      setRecipeList(recipes.data)
+      console.log(recipes.data)
+    }catch(err){
+    console.error(err)
+    }
+  }
+
 
   useEffect(() => {
     fetchRecipes()
+  
+    
   }, [])
 
   return (
@@ -180,6 +194,7 @@ const ChocolateList = () => {
         <IconButton aria-label="add recipe">
           <AddCircleIcon onClick={() => handleClickAddOpen()}/>
         </IconButton>
+        
       </form>
       <Container className={classes.root}>
         {recipeList.map((recipe) => {
@@ -245,6 +260,7 @@ const ChocolateList = () => {
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
               await handleAdd(values)
+              console.log("tried handleAdd")
               handleCloseAdd()
             } catch (err) {
               console.error(err)
@@ -357,6 +373,7 @@ const ChocolateList = () => {
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
               await handleUpdate(values)
+              console.log("called handleUpdate")
               handleCloseEdit()
             } catch (err) {
               console.error(err)

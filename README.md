@@ -106,6 +106,25 @@ export const updateRecipe = async (req, res) => {
 
 At least 1 endpoint to CREATE and item via POST 
 
+```javascript
+recipeRouter.post('/', addRecipe)//router
+
+//controller
+//recipe adds at the bottom of the list right now...need to fix that
+export const addRecipe = ((req, res) =>{
+  console.log("want to add")
+  const recipe = new Recipe({
+    title:req.body.title,
+    servings:req.body.servings,
+    time:req.body.time,
+    image:req.body.image
+  })
+  console.log(recipe)
+  recipe.save()
+  res.json(recipe)
+})
+```
+
 Datastore will contain 25 items
 
 Deployed to Production service

@@ -7,10 +7,10 @@ https://loving-feynman-6ad039.netlify.app/recipes
 
 ## Local Run Instructions:
 
-1.open react-complete-guide folder<br>
+1.open RIA folder<br>
 run 'npm start'<br>
 
-2. open node-practice folder<br>
+2. open DGM4790 file<br>
 run 'npm run seed'<br>
 run 'npm start'<br>
 

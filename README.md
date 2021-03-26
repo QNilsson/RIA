@@ -136,10 +136,7 @@ Server URL: https://github.com/QNilsson/DGM4790Node
 React URL : https://github.com/QNilsson/RIA
 
 Descriptive ReadMe File
-You will find a get route for loading all recipes<br>
-A delete route to delete one recipe at a time<br>
-A put route to edit the recipe<br>
-A post route (still a work in progress) that will add a recipe<br>
+
 
 
 

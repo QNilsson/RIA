@@ -96,15 +96,19 @@ const ChocolateList = () => {
  const handleAdd = async (values ) =>{
    console.log("called handleAdd")
    try{
-     const result = await axios.post(`http://localhost:5000/recipe/add`, {
-       data:{
-       recipeId:values.id,
-       title:values.title,
-       image:values.image,
-       servings:values.servings,
-       time:values.time
+     const result = await axios.post(`http://localhost:5000/recipe/`, {
+  //      data:{
+  //      recipeId:values.id,
+  //      title:values.title,
+  //      image:values.image,
+  //      servings:values.servings,
+  //      time:values.time
+
+  title:values.title,
+  servings:values.servings,
+  time:values.time
       
-   },
+  //  },
      })
      if(result.status === 200){
        fetchRecipes()
@@ -254,7 +258,7 @@ const ChocolateList = () => {
             servings: Yup.number('servings'),
             image: Yup.string('Image URL'),
             
-            id: Yup.string('ID').required('ID is required.'),
+            
             time:Yup.number('Time til ready')
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {

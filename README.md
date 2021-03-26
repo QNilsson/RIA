@@ -125,6 +125,35 @@ export const addRecipe = ((req, res) =>{
 })
 ```
 
+At least 1 endpoint allowing user to delete an item via DELETE
+
+```javascript
+recipeRouter.delete('/delete', deleteRecipe)//router
+
+//controller
+export const deleteRecipe = async (req, res) => {
+    const recipeId = req.body.recipeId  
+    console.log(`This is recipeId on controller: ${recipeId}`)
+    try {
+        const deletedRecipe= await Recipe.findByIdAndRemove(recipeId )
+        console.log(deletedRecipe)
+        console.log(`This is deletedRecipe: ${deletedRecipe}`)
+        if (!deletedRecipe) {
+            return res.status(400).json({Message: `Recipe to delete not found. ${deletedRecipe}`})
+        }
+        console.log(`Deleted the recipe: ${deletedRecipe}`)
+        res.sendStatus(200) // a simple success
+    } catch (err) {
+        res.status(400).json({Message: `Invalid ID: ${err}`})
+    }
+
+}
+
+
+
+
+```
+
 Datastore will contain 25 items
 
 Deployed to Production service

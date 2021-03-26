@@ -112,6 +112,7 @@ const ChocolateList = () => {
   //  },
      });
      if(result.status === 200){
+       recipeList.unshift(result)
        fetchRecipes()
        console.log("recipe successfully added")
      }

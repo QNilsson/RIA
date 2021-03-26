@@ -97,7 +97,7 @@ const ChocolateList = () => {
  const handleAdd = async (values ) =>{
    console.log("called handleAdd")
    try{
-     const result = await axios.post(`http://localhost:5000/recipe/`, {
+     const result = await axios.post(`http://localhost:5000/recipe`, {
   //      data:{
   //      recipeId:values.id,
   //      title:values.title,
@@ -110,7 +110,7 @@ const ChocolateList = () => {
   time:values.time
       
   //  },
-     })
+     });
      if(result.status === 200){
        fetchRecipes()
        console.log("recipe successfully added")
@@ -252,9 +252,9 @@ const ChocolateList = () => {
           initialValues={{
             title: "Your Title Here",
             servings: 23,
-            image: null,
+           
             time: 23,
-            id:null,
+            
           }}
           validationSchema={Yup.object().shape({
             title: Yup.string('Enter recipe title.').required(
@@ -339,6 +339,18 @@ const ChocolateList = () => {
                   error={Boolean(touched.time && errors.time)}
                   helperText={touched.time && errors.time}
                 />
+                <TextField
+                  id="image"
+                  name="image"
+                  label="Image URL"
+                  type="text"
+                  fullWidth
+                  value={values.image}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.image && errors.image)}
+                  helperText={touched.image && errors.image}
+                />
                
                 <Box className={classes.content}>
                   
@@ -349,7 +361,7 @@ const ChocolateList = () => {
                   Cancel
                 </Button>
                 <Button type='submit' color='primary' >
-                  Save
+                  Add
                 </Button>
               </DialogActions>
             </form>

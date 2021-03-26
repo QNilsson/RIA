@@ -54,6 +54,7 @@ const useStyles = makeStyles(() => ({
 const ChocolateList = () => {
   const classes = useStyles()
   const [recipeList, setRecipeList] = useState([])
+  const [searchValue, setSearchValue] = useState("")
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
   const [addOpen, setAddOpen] = useState(false)
@@ -62,8 +63,8 @@ const ChocolateList = () => {
   //TODO
   //baseURI can go before image string to get acutal image
 
-  const handleInput = (event) => {
-    debounce(event.target.value)
+  const handleChange = (event) =>{
+    setSearchValue(event.target.value);
   }
 
   const handleClickDeleteOpen = (recipe) => {
@@ -188,12 +189,16 @@ const ChocolateList = () => {
     
   }, [])
 
+ 
+
   return (
     <>
       <form>
         <Input placeholder='Search' />
         <IconButton aria-label="search" >
           <SearchIcon/>
+         
+          
         </IconButton>
         <IconButton aria-label="add recipe">
           <AddCircleIcon onClick={() => handleClickAddOpen()}/>

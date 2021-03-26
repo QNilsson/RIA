@@ -50,7 +50,24 @@ try{
 
 
 
+recipeRouter.get('/id', getRecipeById)//router
 
+//controller
+export const getRecipeById = async(req, res) =>{
+  const recipeID = req.body.recipeID
+  try{
+    const recipe = await Recipe.findById(recipeID)
+    if(!recipe){
+      return res.status(400).json({Message: 'reicpe not found'})
+    }
+    res.json(recipe)
+  }catch(err){
+    return res.status(400).json({Message: `invalid id ${err}`})
+  }
+}
+
+
+recipeRouter.get('/fast', getFastRecipe)
 
 
 ```

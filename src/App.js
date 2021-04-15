@@ -5,6 +5,7 @@ import LowCarb from './components/LowCarb'
 import Search from './components/Search';
 import Layout from './components/Layout';
 import Welcome from './components/Welcome';
+import GraphQL from './components/GraphQL';
 import {Route, Switch} from 'react-router-dom';
 import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
 import { SvgIcon } from '@material-ui/core';
@@ -20,6 +21,7 @@ function App () {
       <Switch>
         <Route path="/chickenlist" component={ChickenList} exact/>
         <Route path="/recipes" component={ChocolateList} exact/>
+        <Route path="/graphql" component={GraphQL} exact/>
         <Route path="/lowcarb" component={LowCarb} exact/>
         <Route path="/search" component={Search} exact/>
         <Route path='/' exact component={Welcome}/>

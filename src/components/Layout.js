@@ -93,6 +93,9 @@ export default function ButtonAppBar() {
           <NavLink activeStyle={{ fontWeight:"bold", color:"red"}}to='/recipes' className={classes.navSpacing}>
             Chocolate Recipes
           </NavLink>
+          <NavLink activeStyle={{ fontWeight:"bold", color:"red"}}to='/graphql' className={classes.navSpacing}>
+            GraphQL 
+          </NavLink>
           
           <NavLink activeStyle={{ fontWeight:"bold", color:"red"}}to='/lowcarb' className={classes.navSpacing}>
           Low-Carb
@@ -122,6 +125,12 @@ export default function ButtonAppBar() {
           <ListItem>
           <NavLink to='/lowcarb' className={classes.navSpacing} onClick={handleDrawerToggle}>
            LowCarb Recipes
+          </NavLink>
+          </ListItem>
+
+          <ListItem>
+          <NavLink to='/lowcarb' className={classes.navSpacing} onClick={handleDrawerToggle}>
+           Graphql Tab
           </NavLink>
           </ListItem>
           <ListItem>

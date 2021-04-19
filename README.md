@@ -1,8 +1,6 @@
-## Local Run Instructions:
+## Client For Node Sever
 
-1.open RIA folder<br>
-run 'npm start'<br>
+## Netlify Link: https://loving-feynman-6ad039.netlify.app/recipes
+## Heroku Link: https://quinn-node-server.herokuapp.com/recipe
 
-2. open Node file<br>
-run 'npm run seed'<br>
-run 'npm start'<br>
+## Noder Sever Github URL: https://github.com/QNilsson/DGM4790Node

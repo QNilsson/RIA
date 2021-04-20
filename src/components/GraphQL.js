@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import * as dotenv from 'dotenv';
+import { useQuery, useMutation, gql } from '@apollo/client';
 import {
   Container,
   Card,
@@ -51,7 +52,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const ChocolateList = () => {
+const GqlList = () => {
   const classes = useStyles()
   const [recipeList, setRecipeList] = useState([])
   const [searchValue, setSearchValue] = useState("")
@@ -60,8 +61,65 @@ const ChocolateList = () => {
   const [addOpen, setAddOpen] = useState(false)
   const [selectedRecipe, setSelectedRecipe] = useState({title: ''})
   const baseURI="https://spoonacular.com/recipeImages/"
-  //TODO
-  //baseURI can go before image string to get acutal image
+  const { loading, error, data} = useQuery(ALL_RECIPES)
+  const [updateRecipe] = useMutation(UPDATE_RECIPE)
+  const [deleteRecipe] = useMutation(DELETE_RECIPE)
+
+  if(loading){
+    return(
+      <Container className={classes.root}>
+        <Typography className={classes.messages}>Loading your recipes...</Typography>
+      </Container>
+    )
+  }
+
+  if(error){
+    return(
+      <Typography className={classes.messages}>{`${error.message}`}</Typography>
+    )
+  }
+
+  const recipeList = data.allRecipes
+  
+    //GQL MUTATIONS
+    const ALL_RECIPES = gql`
+    query{
+      allRecipes{
+        id
+        title
+        servings
+        readyInMinutes
+        image
+        sourceUrl
+      }
+    }
+    
+    `
+
+    const UPDATE_RECIPE = gql`
+    mutation updateRecipe ($id: Int!, $title: String!, $readyInMinutes: Int!, $servings:Int!, $sourceUrl: String, $image:String! ){
+    updateRecipe(id: $id,
+      data:{
+        title:$title,
+        servings: $servings,
+        readyInMinutes: $readyInMinutes,
+        image: $image,
+        sourceUrl: $sourceUrl
+      }
+      ){
+        id
+      }
+    }
+    `
+
+    const DELETE_RECIPE = gql`
+    mutation deleteRecipe($id: Int!){
+      deleteRecipe(id:$id){
+        id
+      }
+    }
+
+    `
 
   const handleChange = (event) =>{
     setSearchValue(event.target.value);
@@ -124,73 +182,29 @@ const ChocolateList = () => {
 
 
   const handleUpdate = async (values) =>{
-    try{
-      const result = await axios.put(`http://localhost:5000/recipe/update`, {
-        data:{
-          recipeId:values.id,
-          title:values.title,
-          image:values.image,
-          servings:values.servings,
-          time:values.time
-        },
-      })
-      if(result.status === 200){
-        fetchRecipes()
-        console.log("sucessfully updated")
+    updateRecipe({
+      variables:{
+        id: selectedRecipe.id,
+        title: selectedRecipe.title,
+        readyInMinutes: selectedRecipe.readyInMinutes,
+        servings: selectedRecipe.servings,
+        image: selectedRecipe.image,
+        sourceUrl: selectedRecipe.sourceUrl
       }
-    }catch(err){
-      console.log(err)
-      console.log("fail")
-    }
+    })
   }
 
   const handleDelete =  async () => {
-    setDeleteOpen(false)
-    console.log(`this is the selectedRecipe._id ${selectedRecipe._id}`)
-    try {
-      console.log(`This is in try statement recipe_id ${selectedRecipe._id}`)
-      await axios.delete(`http://localhost:5000/recipe/delete`,{
-        data:{ recipeId: selectedRecipe._id} 
-      })
-      
-      fetchRecipes()
-    } catch (err) {
-      console.error(err)
-      console.log(selectedRecipe._id)
-      console.log("above is selectedRecipe._id in error")
-      console.log("There was an error")
-    }
-  }
-
-  const fetchRecipes = async () => {
-    try {
-      const recipes = await axios.get(`http://localhost:5000/recipe`)
-      setRecipeList(recipes.data)
-      console.log(recipes.data)
-      
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  const fetchCrowd = async () =>{
-    try{
-      const recipes = await axios.get(`http://localhost:5000/crowd`)
-      setRecipeList(recipes.data)
-      console.log(recipes.data)
-    }catch(err){
-    console.error(err)
-    }
+   setDeleteOpen(false)
+   console.log(selectedRecipe.id)
+   try{
+     deleteRecipe({variables: { id:selectedRecipe.id}})
+   }catch(err){
+     console.error(err)
+   }
   }
 
 
-  useEffect(() => {
-    fetchRecipes()
-  
-    
-  }, [])
-
- 
 
   return (
     <>
@@ -209,7 +223,7 @@ const ChocolateList = () => {
       <Container className={classes.root}>
         {recipeList.map((recipe) => {
           return (
-            <Card className={classes.card} key={recipe._id}>
+            <Card className={classes.card} key={recipe.id}>
               <CardMedia
                 component='img'
                 height='300'
@@ -226,7 +240,7 @@ const ChocolateList = () => {
                     Servings: {recipe.servings}
                   </Typography>
                   <Typography variant='subtitle1' color='textSecondary'>
-                    Ready in: {recipe.time} minutes
+                    Ready in: {recipe.readyInMinutes} minutes
                     
                   </Typography>
                 </Box>
@@ -252,9 +266,10 @@ const ChocolateList = () => {
         <Formik
           initialValues={{
             title: "Your Title Here",
-            servings: 23,
-           
-            time: 23,
+            servings: 0,
+            readyInMinutes: 0,
+            sourceUrl:0,
+            image:"image url here"
             
           }}
           validationSchema={Yup.object().shape({
@@ -263,9 +278,9 @@ const ChocolateList = () => {
             ),
             servings: Yup.number('servings'),
             image: Yup.string('Image URL'),
+            sourceUrl:Yup.string('Source URL here'),
             
-            
-            time:Yup.number('Time til ready')
+            readyInMinutes:Yup.number('Time til ready')
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
@@ -334,11 +349,11 @@ const ChocolateList = () => {
                   label='Time til ready'
                   type='number'
                   fullWidth
-                  value={values.time}
+                  value={values.readyInMinutes}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={Boolean(touched.time && errors.time)}
-                  helperText={touched.time && errors.time}
+                  error={Boolean(touched.readyInMinutes && errors.readyInMinutes)}
+                  helperText={touched.readyInMinutes && errors.readyInMinutes}
                 />
                 <TextField
                   id="image"
@@ -351,6 +366,19 @@ const ChocolateList = () => {
                   onBlur={handleBlur}
                   error={Boolean(touched.image && errors.image)}
                   helperText={touched.image && errors.image}
+                />
+                 <TextField
+                  autoFocus
+                  id='source'
+                  name='sourceUrl'
+                  label='Source URL'
+                  type='text'
+                  fullWidth
+                  value={values.sourceUrl}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.sourceUrl && errors.sourceUrl)}
+                  helperText={touched.sourceUrl && errors.sourceUrl}
                 />
                
                 <Box className={classes.content}>
@@ -379,7 +407,7 @@ const ChocolateList = () => {
             title: selectedRecipe?.title,
             servings: selectedRecipe?.servings,
             image: selectedRecipe?.image,
-            time: selectedRecipe?.time,
+            readyInMinutes: selectedRecipe?.readyInMinutes,
             id:selectedRecipe?._id,
           }}
           validationSchema={Yup.object().shape({
@@ -390,7 +418,7 @@ const ChocolateList = () => {
             image: Yup.string('Image URL'),
             
             id: Yup.string('ID').required('ID is required.'),
-            time:Yup.number('Time til ready')
+            readyInMinutes:Yup.number('Time til ready')
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
@@ -459,12 +487,39 @@ const ChocolateList = () => {
                   label='Time til ready'
                   type='number'
                   fullWidth
-                  value={values.time}
+                  value={values.readyInMinutes}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={Boolean(touched.time && errors.time)}
-                  helperText={touched.time && errors.time}
+                  error={Boolean(touched.readyInMinutes && errors.readyInMinutes)}
+                  helperText={touched.readyInMinutes && errors.readyInMinutes}
                 />
+
+<TextField
+                  id="image"
+                  name="image"
+                  label="Image URL"
+                  type="text"
+                  fullWidth
+                  value={values.image}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.image && errors.image)}
+                  helperText={touched.image && errors.image}
+                />
+                 <TextField
+                  autoFocus
+                  id='source'
+                  name='sourceUrl'
+                  label='Source URL'
+                  type='text'
+                  fullWidth
+                  value={values.sourceUrl}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.sourceUrl && errors.sourceUrl)}
+                  helperText={touched.sourceUrl && errors.sourceUrl}
+                />
+               
                
                 <Box className={classes.content}>
                   
@@ -502,4 +557,4 @@ const ChocolateList = () => {
   )
 }
 
-export default ChocolateList
+export default GqlList

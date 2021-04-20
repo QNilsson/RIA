@@ -51,6 +51,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
+//CONSTANTS
 const ChocolateList = () => {
   const classes = useStyles()
   const [recipeList, setRecipeList] = useState([])
@@ -60,9 +61,11 @@ const ChocolateList = () => {
   const [addOpen, setAddOpen] = useState(false)
   const [selectedRecipe, setSelectedRecipe] = useState({title: ''})
   const baseURI="https://spoonacular.com/recipeImages/"
-  //TODO
-  //baseURI can go before image string to get acutal image
 
+
+  
+
+  //FUNCTIONS
   const handleChange = (event) =>{
     setSearchValue(event.target.value);
   }
@@ -76,7 +79,6 @@ const ChocolateList = () => {
     setDeleteOpen(false)
   }
 
-
   const handleClickEditOpen = (recipe) =>{
     setSelectedRecipe(recipe.recipe)
     setEditOpen(true)
@@ -85,7 +87,6 @@ const ChocolateList = () => {
     setEditOpen(false)
   }
 
-  
   const handleClickAddOpen = () =>{
     setAddOpen(true)
     console.log("setAddOpen is true")
@@ -101,7 +102,7 @@ const ChocolateList = () => {
   //      data:{
   //      recipeId:values.id,
   //      title:values.title,
-  //      image:values.image,
+       image:values.image,
   //      servings:values.servings,
   //      time:values.time
 

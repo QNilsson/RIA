@@ -111,15 +111,7 @@ const GqlList = () => {
     const CREATE_RECIPE = gql`
     mutation createRecipe ($id:Int!, $title:String!, $readyInMinutes: Int!, $servings:Int!, $sourceUrl: String, $image:String!){
       createRecipe(
-        data:{
-          title:$title,
-          servings:$servings,
-          readyInMinutes:$readyInMinutes,
-          image:$image,
-          sourceUrl:$sourceUrl,
-          id:$id
-
-        }
+        data: RecipeCreateInput
       ){
         id
         
@@ -194,16 +186,20 @@ const GqlList = () => {
 
 
   const handleUpdate = async (values) =>{
-    updateRecipe({
+    try{
+      updateRecipe({
       variables:{
         id: selectedRecipe.id,
-        title: selectedRecipe.title,
-        readyInMinutes: selectedRecipe.readyInMinutes,
-        servings: selectedRecipe.servings,
-        image: selectedRecipe.image,
-        sourceUrl: selectedRecipe.sourceUrl
+        title: values.title,
+        readyInMinutes: values.readyInMinutes,
+        servings: values.servings,
+        image: values.image,
+        sourceUrl: values.sourceUrl
       }
-    })
+    })}catch(err){
+      console.log(err)
+    }
+    
   }
 
   const handleAdd = async (values) =>{
@@ -524,7 +520,7 @@ const GqlList = () => {
                 <TextField
                   autoFocus
                   id='readyInMinutes'
-                  name='time'
+                  name='readyInMinutes'
                   label='Time til ready'
                   type='number'
                   fullWidth

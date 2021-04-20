@@ -19,12 +19,17 @@ import {
   DialogContentText,
   DialogActions,
   Button,
-  Input
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Input,
+  Link
 } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 import { Formik } from 'formik';
 import * as Yup from 'yup'
@@ -49,37 +54,28 @@ const useStyles = makeStyles(() => ({
   content: {
     display: 'flex',
     justifyContent: 'space-evenly',
+    
   },
+  accordion:{
+    display:'flex',
+    flexWrap:'wrap',
+    justifyContent:'flex-start',
+    
+  }
 }))
 
 const GqlList = () => {
   const classes = useStyles()
-  const [recipeList, setRecipeList] = useState([])
+  
   const [searchValue, setSearchValue] = useState("")
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
   const [addOpen, setAddOpen] = useState(false)
   const [selectedRecipe, setSelectedRecipe] = useState({title: ''})
-  const baseURI="https://spoonacular.com/recipeImages/"
-  const { loading, error, data} = useQuery(ALL_RECIPES)
-  const [updateRecipe] = useMutation(UPDATE_RECIPE)
-  const [deleteRecipe] = useMutation(DELETE_RECIPE)
+  // const baseURI="https://spoonacular.com/recipeImages/"
+  
 
-  if(loading){
-    return(
-      <Container className={classes.root}>
-        <Typography className={classes.messages}>Loading your recipes...</Typography>
-      </Container>
-    )
-  }
 
-  if(error){
-    return(
-      <Typography className={classes.messages}>{`${error.message}`}</Typography>
-    )
-  }
-
-  const recipeList = data.allRecipes
   
     //GQL MUTATIONS
     const ALL_RECIPES = gql`
@@ -112,6 +108,26 @@ const GqlList = () => {
     }
     `
 
+    const CREATE_RECIPE = gql`
+    mutation createRecipe ($id:Int!, $title:String!, $readyInMinutes: Int!, $servings:Int!, $sourceUrl: String, $image:String!){
+      createRecipe(
+        data:{
+          title:$title,
+          servings:$servings,
+          readyInMinutes:$readyInMinutes,
+          image:$image,
+          sourceUrl:$sourceUrl,
+          id:$id
+
+        }
+      ){
+        id
+        
+      }
+    }
+
+    `
+
     const DELETE_RECIPE = gql`
     mutation deleteRecipe($id: Int!){
       deleteRecipe(id:$id){
@@ -120,6 +136,29 @@ const GqlList = () => {
     }
 
     `
+
+
+  const { loading, error, data} = useQuery(ALL_RECIPES)
+  const [updateRecipe] = useMutation(UPDATE_RECIPE)
+  const [deleteRecipe] = useMutation(DELETE_RECIPE)
+  const [createRecipe] = useMutation(CREATE_RECIPE)
+
+  if(loading){
+    return(
+      <Container className={classes.root}>
+        <Typography className={classes.messages}>Loading your recipes...</Typography>
+      </Container>
+    )
+  }
+
+  if(error){
+    return(
+      <Typography className={classes.messages}>{`${error.message}`}</Typography>
+    )
+  }
+
+  const recipeList = data.allRecipes
+
 
   const handleChange = (event) =>{
     setSearchValue(event.target.value);
@@ -152,33 +191,6 @@ const GqlList = () => {
    setAddOpen(false)
  }
 
- const handleAdd = async (values ) =>{
-   console.log("called handleAdd")
-   try{
-     const result = await axios.post(`http://localhost:5000/recipe`, {
-  //      data:{
-  //      recipeId:values.id,
-  //      title:values.title,
-  //      image:values.image,
-  //      servings:values.servings,
-  //      time:values.time
-
-  title:values.title,
-  servings:values.servings,
-  time:values.time
-      
-  //  },
-     });
-     if(result.status === 200){
-       recipeList.unshift(result)
-       fetchRecipes()
-       console.log("recipe successfully added")
-     }
-   }catch(err){
-     console.log(err)
-     console.log("recipe failed to add")
-   }
- }
 
 
   const handleUpdate = async (values) =>{
@@ -194,11 +206,26 @@ const GqlList = () => {
     })
   }
 
+  const handleAdd = async (values) =>{
+    createRecipe({
+      variables:{
+        id: values.id,
+        title: values.title,
+        readyInMinutes: values.readyInMinutes,
+        servings: values.servings,
+        image: values.image,
+        sourceUrl: values.sourceUrl
+      }
+    })
+  }
+
   const handleDelete =  async () => {
    setDeleteOpen(false)
    console.log(selectedRecipe.id)
    try{
      deleteRecipe({variables: { id:selectedRecipe.id}})
+     console.log(`${selectedRecipe.title}` + " deleted")
+     return recipeList
    }catch(err){
      console.error(err)
    }
@@ -209,12 +236,7 @@ const GqlList = () => {
   return (
     <>
       <form>
-        <Input placeholder='Search' />
-        <IconButton aria-label="search" >
-          <SearchIcon/>
-         
-          
-        </IconButton>
+        
         <IconButton aria-label="add recipe">
           <AddCircleIcon onClick={() => handleClickAddOpen()}/>
         </IconButton>
@@ -228,7 +250,7 @@ const GqlList = () => {
                 component='img'
                 height='300'
                 className={classes.media}
-                image={baseURI + recipe.image}
+                image={recipe.image}
                 title={recipe.title}
               ></CardMedia>
               <CardContent>
@@ -241,9 +263,18 @@ const GqlList = () => {
                   </Typography>
                   <Typography variant='subtitle1' color='textSecondary'>
                     Ready in: {recipe.readyInMinutes} minutes
-                    
                   </Typography>
                 </Box>
+                <Accordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography>Source</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails flexWrap='wrap'>
+                    <Typography flexWrap="wrap" variant='body2' color='textSecondary'>
+                     {recipe.sourceUrl}
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
               </CardContent>
               <CardActions>
                 <IconButton aria-label='edit' onClick={() => handleClickEditOpen({recipe})}>
@@ -266,11 +297,7 @@ const GqlList = () => {
         <Formik
           initialValues={{
             title: "Your Title Here",
-            servings: 0,
-            readyInMinutes: 0,
-            sourceUrl:0,
-            image:"image url here"
-            
+            servings: 0,            
           }}
           validationSchema={Yup.object().shape({
             title: Yup.string('Enter recipe title.').required(
@@ -279,8 +306,8 @@ const GqlList = () => {
             servings: Yup.number('servings'),
             image: Yup.string('Image URL'),
             sourceUrl:Yup.string('Source URL here'),
-            
-            readyInMinutes:Yup.number('Time til ready')
+            readyInMinutes:Yup.number('Time til ready'),
+            id:Yup.number('Recipe ID here')
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
@@ -344,7 +371,7 @@ const GqlList = () => {
                 </Box>
                 <TextField
                   autoFocus
-                  id='time'
+                  id='readyInMinutes'
                   name='time'
                   label='Time til ready'
                   type='number'
@@ -380,6 +407,19 @@ const GqlList = () => {
                   error={Boolean(touched.sourceUrl && errors.sourceUrl)}
                   helperText={touched.sourceUrl && errors.sourceUrl}
                 />
+                <TextField
+                  autoFocus
+                  id='id'
+                  name='id'
+                  label='Recipe ID'
+                  type='number'
+                  fullWidth
+                  value={values.id}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.id && errors.id)}
+                  helperText={touched.id && errors.id}
+                />
                
                 <Box className={classes.content}>
                   
@@ -407,8 +447,9 @@ const GqlList = () => {
             title: selectedRecipe?.title,
             servings: selectedRecipe?.servings,
             image: selectedRecipe?.image,
+            sourceUrl: selectedRecipe?.sourceUrl,
             readyInMinutes: selectedRecipe?.readyInMinutes,
-            id:selectedRecipe?._id,
+            
           }}
           validationSchema={Yup.object().shape({
             title: Yup.string('Enter recipe title.').required(
@@ -417,7 +458,7 @@ const GqlList = () => {
             servings: Yup.number('servings'),
             image: Yup.string('Image URL'),
             
-            id: Yup.string('ID').required('ID is required.'),
+           sourceUrl: Yup.string('Source Url'),
             readyInMinutes:Yup.number('Time til ready')
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
@@ -482,7 +523,7 @@ const GqlList = () => {
                 </Box>
                 <TextField
                   autoFocus
-                  id='time'
+                  id='readyInMinutes'
                   name='time'
                   label='Time til ready'
                   type='number'
@@ -494,7 +535,7 @@ const GqlList = () => {
                   helperText={touched.readyInMinutes && errors.readyInMinutes}
                 />
 
-<TextField
+                <TextField
                   id="image"
                   name="image"
                   label="Image URL"
@@ -541,7 +582,7 @@ const GqlList = () => {
         <DialogTitle>Delete Recipe</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this recipe?
+            Are you sure you want to delete this recipe {selectedRecipe.title}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

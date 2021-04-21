@@ -77,7 +77,7 @@ const GqlList = () => {
 
 
   
-    //GQL MUTATIONS
+    //GQL QUERIES
     const ALL_RECIPES = gql`
     query{
       allRecipes{
@@ -92,6 +92,20 @@ const GqlList = () => {
     
     `
 
+    const BY_SERVINGS = gql`
+    query{
+      byServings{
+        servings
+        title
+        id
+        readyInMinutes
+        image
+        sourceUrl
+      }
+    }
+
+    `
+    //GQL MUTATIONS
     const UPDATE_RECIPE = gql`
     mutation updateRecipe ($id: Int!, $title: String!, $readyInMinutes: Int!, $servings:Int!, $sourceUrl: String, $image:String! ){
     updateRecipe(id: $id,
@@ -136,6 +150,7 @@ const GqlList = () => {
 
 
   const { loading, error, data} = useQuery(ALL_RECIPES)
+  const {loading, error, data} = useQuery(BY_SERVINGS)
   const [updateRecipe] = useMutation(UPDATE_RECIPE)
   const [deleteRecipe] = useMutation(DELETE_RECIPE)
   const [createRecipe] = useMutation(CREATE_RECIPE)
@@ -155,6 +170,9 @@ const GqlList = () => {
   }
 
   const recipeList = data.allRecipes
+  const servingList = data.byServings
+
+  
 
 
   const handleChange = (event) =>{

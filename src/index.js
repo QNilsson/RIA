@@ -4,8 +4,8 @@ import './index.css';
 import './App.css';
 import App from './App';
 import * as dotenv from 'dotenv';
-import cors from 'cors';
-import registerServiceWorker from './registerServiceWorker';
+// import cors from 'cors';
+// import registerServiceWorker from './registerServiceWorker';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
 
@@ -22,7 +22,7 @@ ReactDOM.render (
   </React.StrictMode>,
   document.getElementById ('root')
 );
-registerServiceWorker ();
+serviceWorker.unregister ();
 dotenv.config ();
 //for app to work faster and load offline
 //ServiceWorker.unregister();

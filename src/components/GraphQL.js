@@ -23,7 +23,8 @@ import {
   AccordionSummary,
   AccordionDetails,
   Input,
-  Link
+  Link,
+  InputAdornment
 } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 import EditIcon from '@material-ui/icons/Edit'
@@ -61,6 +62,12 @@ const useStyles = makeStyles(() => ({
     flexWrap:'wrap',
     justifyContent:'flex-start',
     
+  },
+  add:{
+    paddingTop:10,
+    display:'flex',
+    justifyContent:'center',
+   
   }
 }))
 
@@ -255,10 +262,10 @@ const GqlList = () => {
   return (
     <>
       <form>
-        
-        <IconButton aria-label="add recipe">
+        <Container className={classes.add}><Typography>Add New Recipe</Typography><IconButton aria-label="add recipe">
           <AddCircleIcon onClick={() => handleClickAddOpen()}/>
-        </IconButton>
+        </IconButton></Container>
+        
         
       </form>
       <Container className={classes.root}>
@@ -381,6 +388,7 @@ const GqlList = () => {
                     id='servings'
                     label='Servings'
                     type='number'
+                    
                     value={values.servings}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -394,7 +402,7 @@ const GqlList = () => {
                   name='time'
                   label='Time til ready'
                   type='number'
-                  fullWidth
+                 
                   value={values.readyInMinutes}
                   onChange={handleChange}
                   onBlur={handleBlur}

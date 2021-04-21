@@ -150,7 +150,7 @@ const GqlList = () => {
 
 
   const { loading, error, data} = useQuery(ALL_RECIPES)
-  const {loading, error, data} = useQuery(BY_SERVINGS)
+  
   const [updateRecipe] = useMutation(UPDATE_RECIPE)
   const [deleteRecipe] = useMutation(DELETE_RECIPE)
   const [createRecipe] = useMutation(CREATE_RECIPE)

@@ -57,12 +57,11 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-evenly',
     
   },
-  accordion:{
-    display:'flex',
-    flexWrap:'wrap',
-    justifyContent:'flex-start',
-    
-  },
+ source:{
+   display:'flex',
+   flexWrap:'wrap',
+   alignContent:'center',
+ },
   add:{
     paddingTop:10,
     display:'flex',
@@ -226,9 +225,12 @@ const GqlList = () => {
         image: values.image,
         sourceUrl: values.sourceUrl
       }
+      
     })}catch(err){
       console.log(err)
     }
+
+    console.log(recipeList)
     
   }
 
@@ -243,6 +245,7 @@ const GqlList = () => {
         sourceUrl: values.sourceUrl
       }
     })
+   
   }
 
   const handleDelete =  async () => {
@@ -290,17 +293,22 @@ const GqlList = () => {
                   <Typography variant='subtitle1' color='textSecondary'>
                     Ready in: {recipe.readyInMinutes} minutes
                   </Typography>
+                  
                 </Box>
-                <Accordion>
+                <Box className={classes.source}>
+                  <Typography variant='subtitle1' color='textSecondary'>Source:</Typography>
+                <Typography variant='caption' color='secondary'>
+                    {recipe.sourceUrl}
+                    </Typography>
+                </Box>
+                {/* <Accordion>
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography>Source</Typography>
                   </AccordionSummary>
                   <AccordionDetails flexWrap='wrap'>
-                    <Typography flexWrap="wrap" variant='body2' color='textSecondary'>
-                     {recipe.sourceUrl}
-                    </Typography>
+                    
                   </AccordionDetails>
-                </Accordion>
+                </Accordion> */}
               </CardContent>
               <CardActions>
                 <IconButton aria-label='edit' onClick={() => handleClickEditOpen({recipe})}>

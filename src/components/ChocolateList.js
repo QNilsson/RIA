@@ -99,7 +99,7 @@ const ChocolateList = () => {
  const handleAdd = async (values ) =>{
    console.log("called handleAdd")
    try{
-     const result = await axios.post(`/recipe`, {
+     const result = await axios.post(`${heroku}/recipe`, {
   
        image:values.image,
       title:values.title,
@@ -122,7 +122,7 @@ const ChocolateList = () => {
 
   const handleUpdate = async (values) =>{
     try{
-      const result = await axios.put(`recipe/update`, {
+      const result = await axios.put(`${heroku}recipe/update`, {
         data:{
           recipeId:values.id,
           title:values.title,
@@ -146,7 +146,7 @@ const ChocolateList = () => {
     console.log(`this is the selectedRecipe._id ${selectedRecipe._id}`)
     try {
       console.log(`This is in try statement recipe_id ${selectedRecipe._id}`)
-      await axios.delete(`/recipe/delete`,{
+      await axios.delete(`${heroku}/recipe/delete`,{
         data:{ recipeId: selectedRecipe._id} 
       })
       

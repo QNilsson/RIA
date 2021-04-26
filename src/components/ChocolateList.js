@@ -122,7 +122,7 @@ const ChocolateList = () => {
 
   const handleUpdate = async (values) =>{
     try{
-      const result = await axios.put(`${heroku}recipe/update`, {
+      const result = await axios.put(`${heroku}/recipe/update`, {
         data:{
           recipeId:values.id,
           title:values.title,

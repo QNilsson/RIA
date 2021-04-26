@@ -98,7 +98,7 @@ const ChocolateList = () => {
  const handleAdd = async (values ) =>{
    console.log("called handleAdd")
    try{
-     const result = await axios.post(`http://localhost:5000/recipe`, {
+     const result = await axios.post(`/recipe`, {
   //      data:{
   //      recipeId:values.id,
   //      title:values.title,
@@ -150,7 +150,7 @@ const ChocolateList = () => {
     console.log(`this is the selectedRecipe._id ${selectedRecipe._id}`)
     try {
       console.log(`This is in try statement recipe_id ${selectedRecipe._id}`)
-      await axios.delete(`http://localhost:5000/recipe/delete`,{
+      await axios.delete(`/recipe/delete`,{
         data:{ recipeId: selectedRecipe._id} 
       })
       
@@ -165,7 +165,7 @@ const ChocolateList = () => {
 
   const fetchRecipes = async () => {
     try {
-      const recipes = await axios.get(`http://localhost:5000/recipe`)
+      const recipes = await axios.get(`/recipe`)
       setRecipeList(recipes.data)
       console.log(recipes.data)
       
@@ -176,7 +176,7 @@ const ChocolateList = () => {
 
   const fetchCrowd = async () =>{
     try{
-      const recipes = await axios.get(`http://localhost:5000/crowd`)
+      const recipes = await axios.get(`/crowd`)
       setRecipeList(recipes.data)
       console.log(recipes.data)
     }catch(err){

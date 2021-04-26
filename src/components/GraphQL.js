@@ -60,7 +60,7 @@ const useStyles = makeStyles(() => ({
  source:{
    display:'flex',
    flexWrap:'wrap',
-   alignContent:'center',
+   justifyContent:'space-evenly'
  },
   add:{
     paddingTop:10,
@@ -82,6 +82,7 @@ const GqlList = () => {
   const [editOpen, setEditOpen] = useState(false)
   const [addOpen, setAddOpen] = useState(false)
   const [selectedRecipe, setSelectedRecipe] = useState({title: ''})
+  const urlRegex = '/(https?:\/\/[^ ]*)/';
   // const baseURI="https://spoonacular.com/recipeImages/"
   
 
@@ -297,13 +298,13 @@ const GqlList = () => {
                   <Typography variant='subtitle1' color='textSecondary'>
                     Ready in: {recipe.readyInMinutes} minutes
                   </Typography>
-                  <Typography variant='subtitle1' color='textSecondary'>Source:</Typography>
+                  
                   
                 </Box>
                 <Box className={classes.source}>
-                 
+                <Typography variant='subtitle1' color='textSecondary'>Source:</Typography>
                 <Typography className={classes.sourceText}variant='caption' color='secondary'>
-                    <a href="`${recipe.sourceUrl}`">{recipe.sourceUrl}</a>
+                    <a href={recipe.sourceUrl} target="_blank">Go to Source</a>
                     </Typography>
                 </Box>
                 {/* <Accordion>

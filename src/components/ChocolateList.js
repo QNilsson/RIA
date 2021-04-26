@@ -99,18 +99,13 @@ const ChocolateList = () => {
    console.log("called handleAdd")
    try{
      const result = await axios.post(`/recipe`, {
-  //      data:{
-  //      recipeId:values.id,
-  //      title:values.title,
+  
        image:values.image,
-  //      servings:values.servings,
-  //      time:values.time
-
-  title:values.title,
-  servings:values.servings,
-  time:values.time
+      title:values.title,
+      servings:values.servings,
+      time:values.time
       
-  //  },
+  
      });
      if(result.status === 200){
        recipeList.unshift(result)
@@ -126,7 +121,7 @@ const ChocolateList = () => {
 
   const handleUpdate = async (values) =>{
     try{
-      const result = await axios.put(`http://localhost:5000/recipe/update`, {
+      const result = await axios.put(`recipe/update`, {
         data:{
           recipeId:values.id,
           title:values.title,

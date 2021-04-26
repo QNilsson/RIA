@@ -91,7 +91,7 @@ export default function ButtonAppBar() {
             Chicken Recipes
           </NavLink>
           <NavLink activeStyle={{ fontWeight:"bold", color:"red"}}to='/recipes' className={classes.navSpacing}>
-            Chocolate Recipes
+            Chocolate Recipes (NodeJS)
           </NavLink>
           <NavLink activeStyle={{ fontWeight:"bold", color:"red"}}to='/graphql' className={classes.navSpacing}>
             GraphQL 

@@ -67,6 +67,10 @@ const useStyles = makeStyles(() => ({
     display:'flex',
     justifyContent:'center',
    
+  },
+  sourceText:{
+    display:"flex",
+    flexWrap:'wrap'
   }
 }))
 
@@ -293,12 +297,13 @@ const GqlList = () => {
                   <Typography variant='subtitle1' color='textSecondary'>
                     Ready in: {recipe.readyInMinutes} minutes
                   </Typography>
+                  <Typography variant='subtitle1' color='textSecondary'>Source:</Typography>
                   
                 </Box>
                 <Box className={classes.source}>
-                  <Typography variant='subtitle1' color='textSecondary'>Source:</Typography>
-                <Typography variant='caption' color='secondary'>
-                    {recipe.sourceUrl}
+                 
+                <Typography className={classes.sourceText}variant='caption' color='secondary'>
+                    <a href="`${recipe.sourceUrl}`">{recipe.sourceUrl}</a>
                     </Typography>
                 </Box>
                 {/* <Accordion>

@@ -61,6 +61,7 @@ const ChocolateList = () => {
   const [addOpen, setAddOpen] = useState(false)
   const [selectedRecipe, setSelectedRecipe] = useState({title: ''})
   const baseURI="https://spoonacular.com/recipeImages/"
+  const heroku = "https://quinn-node-server.herokuapp.com"
 
 
   
@@ -160,7 +161,7 @@ const ChocolateList = () => {
 
   const fetchRecipes = async () => {
     try {
-      const recipes = await axios.get(`/recipe`)
+      const recipes = await axios.get(`${heroku}/recipe`)
       setRecipeList(recipes.data)
       console.log(recipes.data)
       

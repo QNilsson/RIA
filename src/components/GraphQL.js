@@ -156,7 +156,7 @@ const GqlList = () => {
     const urlRegex = '/(https?:\/\/[^ ]*)/';
   
     const [checked, setChecked] = useState (false);
-    const { loading, error, data} = useQuery(BY_SERVINGS, ALL_RECIPES)
+    const { loading, error, data} = useQuery(BY_SERVINGS)
     
     const [updateRecipe] = useMutation(UPDATE_RECIPE)
     const [deleteRecipe] = useMutation(DELETE_RECIPE)
@@ -275,10 +275,10 @@ if(checked == false){
         <Container className={classes.add}><Typography>Add New Recipe</Typography><IconButton aria-label="add recipe">
           <AddCircleIcon onClick={() => handleClickAddOpen()}/>
         </IconButton></Container>
-        <FormControlLabel
+        {/* <FormControlLabel
             control={<Switch checked={checked} onChange={handleChange} />}
             label="Sort by Servings"
-          />
+          /> */}
       </form>
       <Container className={classes.root}>
         {servingList.map((recipe) => {
@@ -662,7 +662,7 @@ if(checked == false){
         
       </form>
       <Container className={classes.root}>
-        {recipeList.map((recipe) => {
+        {byServings.map((recipe) => {
           
           return (
             <Fragment>

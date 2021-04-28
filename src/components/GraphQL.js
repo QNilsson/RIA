@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
 import * as dotenv from 'dotenv';
 import { useQuery, useMutation, gql } from '@apollo/client';
@@ -19,13 +19,10 @@ import {
   DialogContentText,
   DialogActions,
   Button,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Input,
-  Link,
-  InputAdornment
+  FormControlLabel,
+  Switch
 } from '@material-ui/core'
+import Fade from 'react-reveal/Fade';
 import SearchIcon from '@material-ui/icons/Search'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -75,19 +72,8 @@ const useStyles = makeStyles(() => ({
 }))
 
 const GqlList = () => {
-  const classes = useStyles()
-  
-  const [searchValue, setSearchValue] = useState("")
-  const [deleteOpen, setDeleteOpen] = useState(false)
-  const [editOpen, setEditOpen] = useState(false)
-  const [addOpen, setAddOpen] = useState(false)
-  const [selectedRecipe, setSelectedRecipe] = useState({title: ''})
-  const urlRegex = '/(https?:\/\/[^ ]*)/';
-  // const baseURI="https://spoonacular.com/recipeImages/"
-  
+ 
 
-
-  
     //GQL QUERIES
     const ALL_RECIPES = gql`
     query{
@@ -134,9 +120,10 @@ const GqlList = () => {
     `
 
     const CREATE_RECIPE = gql`
-    mutation createRecipe ($id:Int!, $title:String!, $readyInMinutes: Int!, $servings:Int!, $sourceUrl: String, $image:String!){
+    mutation createRecipe($id:Int!, $title:String!, $readyInMinutes: Int!, $servings:Int!, $sourceUrl: String, $image:String!){
       createRecipe(
-        data: {title:$title,
+        data: 
+        {title:$title,
         servings: $servings,
         readyInMinutes: $readyInMinutes,
         image: $image,
@@ -159,12 +146,21 @@ const GqlList = () => {
 
     `
 
-
-  const { loading, error, data} = useQuery(ALL_RECIPES)
+    const classes = useStyles()
   
-  const [updateRecipe] = useMutation(UPDATE_RECIPE)
-  const [deleteRecipe] = useMutation(DELETE_RECIPE)
-  const [createRecipe] = useMutation(CREATE_RECIPE)
+    const [searchValue, setSearchValue] = useState("")
+    const [deleteOpen, setDeleteOpen] = useState(false)
+    const [editOpen, setEditOpen] = useState(false)
+    const [addOpen, setAddOpen] = useState(false)
+    const [selectedRecipe, setSelectedRecipe] = useState({title: ''})
+    const urlRegex = '/(https?:\/\/[^ ]*)/';
+  
+    const [checked, setChecked] = useState (false);
+    const { loading, error, data} = useQuery(BY_SERVINGS, ALL_RECIPES)
+    
+    const [updateRecipe] = useMutation(UPDATE_RECIPE)
+    const [deleteRecipe] = useMutation(DELETE_RECIPE)
+    const [createRecipe] = useMutation(CREATE_RECIPE)
 
   if(loading){
     return(
@@ -183,12 +179,11 @@ const GqlList = () => {
   const recipeList = data.allRecipes
   const servingList = data.byServings
 
+  const handleChange = () => {
+    setChecked (prev => !prev);
+  };
   
-
-
-  const handleChange = (event) =>{
-    setSearchValue(event.target.value);
-  }
+ 
 
   const handleClickDeleteOpen = (recipe) => {
      setSelectedRecipe(recipe.recipe)
@@ -231,7 +226,9 @@ const GqlList = () => {
         sourceUrl: values.sourceUrl
       }
       
-    })}catch(err){
+    })
+  
+  }catch(err){
       console.log(err)
     }
 
@@ -240,6 +237,7 @@ const GqlList = () => {
   }
 
   const handleAdd = async (values) =>{
+    try{
     createRecipe({
       variables:{
         id: values.id,
@@ -249,8 +247,11 @@ const GqlList = () => {
         image: values.image,
         sourceUrl: values.sourceUrl
       }
-    })
-   
+    
+    })}catch(err){
+      console.log(err)
+    }
+   console.log(recipeList)
   }
 
   const handleDelete =  async () => {
@@ -266,19 +267,25 @@ const GqlList = () => {
   }
 
 
-
+if(checked == false){
   return (
+    
     <>
       <form>
         <Container className={classes.add}><Typography>Add New Recipe</Typography><IconButton aria-label="add recipe">
           <AddCircleIcon onClick={() => handleClickAddOpen()}/>
         </IconButton></Container>
-        
-        
+        <FormControlLabel
+            control={<Switch checked={checked} onChange={handleChange} />}
+            label="Sort by Servings"
+          />
       </form>
       <Container className={classes.root}>
-        {recipeList.map((recipe) => {
+        {servingList.map((recipe) => {
+          
           return (
+            <Fragment>
+          <Fade bottom>
             <Card className={classes.card} key={recipe.id}>
               <CardMedia
                 component='img'
@@ -325,7 +332,10 @@ const GqlList = () => {
                 </IconButton>
               </CardActions>
             </Card>
+            </Fade>
+            </Fragment>
           )
+          
         })}
       </Container>
       {/*--this begins ADD RECIPE dialog ==*/}
@@ -636,7 +646,389 @@ const GqlList = () => {
         </DialogActions>
       </Dialog>
     </>
-  )
+  )}
+  else if(checked == true){
+    return (
+      <>
+      <form>
+        <Container className={classes.add}><Typography>Add New Recipe</Typography><IconButton aria-label="add recipe">
+          <AddCircleIcon onClick={() => handleClickAddOpen()}/>
+        </IconButton></Container>
+        <FormControlLabel
+            control={<Switch checked={checked} onChange={handleChange} />}
+            label="Undo Sort"
+          />
+        
+        
+      </form>
+      <Container className={classes.root}>
+        {recipeList.map((recipe) => {
+          
+          return (
+            <Fragment>
+          <Fade bottom>
+            <Card className={classes.card} key={recipe.id}>
+              <CardMedia
+                component='img'
+                height='300'
+                className={classes.media}
+                image={recipe.image}
+                title={recipe.title}
+              ></CardMedia>
+              <CardContent>
+                <Typography gutterBottom variant='h5' component='h2'>
+                  {recipe.title}
+                </Typography>
+                <Box className={classes.content}>
+                  <Typography variant='subtitle1' color='textSecondary'>
+                    Servings: {recipe.servings}
+                  </Typography>
+                  <Typography variant='subtitle1' color='textSecondary'>
+                    Ready in: {recipe.readyInMinutes} minutes
+                  </Typography>
+                  
+                  
+                </Box>
+                <Box className={classes.source}>
+                <Typography variant='subtitle1' color='textSecondary'>Source:</Typography>
+                <Typography className={classes.sourceText}variant='caption' color='secondary'>
+                    <a href={recipe.sourceUrl} target="_blank">Go to Source</a>
+                    </Typography>
+                </Box>
+                {/* <Accordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography>Source</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails flexWrap='wrap'>
+                    
+                  </AccordionDetails>
+                </Accordion> */}
+              </CardContent>
+              <CardActions>
+                <IconButton aria-label='edit' onClick={() => handleClickEditOpen({recipe})}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton aria-label='delete' onClick={() => handleClickDeleteOpen({recipe})}>
+                  <DeleteIcon />
+                </IconButton>
+              </CardActions>
+            </Card>
+            </Fade>
+            </Fragment>
+          )
+          
+        })}
+      </Container>
+      {/*--this begins ADD RECIPE dialog ==*/}
+      <Dialog
+        open={addOpen}
+        onClose={handleCloseAdd}
+        aria-labelledby='add-dialog-title'
+      >
+        <Formik
+          initialValues={{
+            title: "Your Title Here",
+            servings: 0,            
+          }}
+          validationSchema={Yup.object().shape({
+            title: Yup.string('Enter recipe title.').required(
+              'Recipe title is required',
+            ),
+            servings: Yup.number('servings'),
+            image: Yup.string('Image URL'),
+            sourceUrl:Yup.string('Source URL here'),
+            readyInMinutes:Yup.number('Time til ready'),
+            id:Yup.number('Recipe ID here')
+          })}
+          onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+            try {
+              await handleAdd(values)
+              console.log("tried handleAdd")
+              handleCloseAdd()
+            } catch (err) {
+              console.error(err)
+              setStatus({ success: false })
+              setErrors({ submit: err.message })
+              setSubmitting(false)
+            }
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <form
+              noValidate
+              autoComplete='off'
+              onSubmit={handleSubmit}
+              className={classes.dialogContent}
+            >
+              <DialogTitle id='edit-dialog-title'>Add Recipe</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Add Your Recipe Below
+                </DialogContentText>
+                <TextField
+                  autoFocus
+                  id='title'
+                  name='title'
+                  label='Recipe Title'
+                  type='text'
+                  fullWidth
+                  value={values.title}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.title && errors.title)}
+                  helperText={touched.title && errors.title}
+                />
+                <Box className={classes.content}>
+                  <TextField
+                    autoFocus
+                    name='servings'
+                    id='servings'
+                    label='Servings'
+                    type='number'
+                    
+                    value={values.servings}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={Boolean(touched.servings && errors.servings)}
+                    helperText={touched.servings && errors.servings}
+                  />
+                </Box>
+                <TextField
+                  autoFocus
+                  id='readyInMinutes'
+                  name='time'
+                  label='Time til ready'
+                  type='number'
+                 
+                  value={values.readyInMinutes}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.readyInMinutes && errors.readyInMinutes)}
+                  helperText={touched.readyInMinutes && errors.readyInMinutes}
+                />
+                <TextField
+                  id="image"
+                  name="image"
+                  label="Image URL"
+                  type="text"
+                  fullWidth
+                  value={values.image}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.image && errors.image)}
+                  helperText={touched.image && errors.image}
+                />
+                 <TextField
+                  autoFocus
+                  id='source'
+                  name='sourceUrl'
+                  label='Source URL'
+                  type='text'
+                  fullWidth
+                  value={values.sourceUrl}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.sourceUrl && errors.sourceUrl)}
+                  helperText={touched.sourceUrl && errors.sourceUrl}
+                />
+                <TextField
+                  autoFocus
+                  id='id'
+                  name='id'
+                  label='Recipe ID'
+                  type='number'
+                  fullWidth
+                  value={values.id}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.id && errors.id)}
+                  helperText={touched.id && errors.id}
+                />
+               
+                <Box className={classes.content}>
+                  
+                </Box>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseAdd} color='primary'>
+                  Cancel
+                </Button>
+                <Button type='submit' color='primary' >
+                  Add
+                </Button>
+              </DialogActions>
+            </form>
+          )}
+        </Formik>
+      </Dialog>
+      <Dialog
+        open={editOpen}
+        onClose={handleCloseEdit}
+        aria-labelledby='edit-dialog-title'
+      >
+        <Formik
+          initialValues={{
+            title: selectedRecipe?.title,
+            servings: selectedRecipe?.servings,
+            image: selectedRecipe?.image,
+            sourceUrl: selectedRecipe?.sourceUrl,
+            readyInMinutes: selectedRecipe?.readyInMinutes,
+            
+          }}
+          validationSchema={Yup.object().shape({
+            title: Yup.string('Enter recipe title.').required(
+              'Recipe title is required',
+            ),
+            servings: Yup.number('servings'),
+            image: Yup.string('Image URL'),
+            
+           sourceUrl: Yup.string('Source Url'),
+            readyInMinutes:Yup.number('Time til ready')
+          })}
+          onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+            try {
+              await handleUpdate(values)
+              console.log("called handleUpdate")
+              handleCloseEdit()
+            } catch (err) {
+              console.error(err)
+              setStatus({ success: false })
+              setErrors({ submit: err.message })
+              setSubmitting(false)
+            }
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <form
+              noValidate
+              autoComplete='off'
+              onSubmit={handleSubmit}
+              className={classes.dialogContent}
+            >
+              <DialogTitle id='edit-dialog-title'>Edit Recipe</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Make changes below to the data about this recipe:
+                </DialogContentText>
+                <TextField
+                  autoFocus
+                  id='title'
+                  name='title'
+                  label='Recipe Title'
+                  type='text'
+                  fullWidth
+                  value={values.title}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.title && errors.title)}
+                  helperText={touched.title && errors.title}
+                />
+                <Box className={classes.content}>
+                  <TextField
+                    autoFocus
+                    name='servings'
+                    id='servings'
+                    label='Servings'
+                    type='number'
+                    value={values.servings}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={Boolean(touched.servings && errors.servings)}
+                    helperText={touched.servings && errors.servings}
+                  />
+                </Box>
+                <TextField
+                  autoFocus
+                  id='readyInMinutes'
+                  name='readyInMinutes'
+                  label='Time til ready'
+                  type='number'
+                  fullWidth
+                  value={values.readyInMinutes}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.readyInMinutes && errors.readyInMinutes)}
+                  helperText={touched.readyInMinutes && errors.readyInMinutes}
+                />
+
+                <TextField
+                  id="image"
+                  name="image"
+                  label="Image URL"
+                  type="text"
+                  fullWidth
+                  value={values.image}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.image && errors.image)}
+                  helperText={touched.image && errors.image}
+                />
+                 <TextField
+                  autoFocus
+                  id='source'
+                  name='sourceUrl'
+                  label='Source URL'
+                  type='text'
+                  fullWidth
+                  value={values.sourceUrl}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.sourceUrl && errors.sourceUrl)}
+                  helperText={touched.sourceUrl && errors.sourceUrl}
+                />
+               
+               
+                <Box className={classes.content}>
+                  
+                </Box>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseEdit} color='primary'>
+                  Cancel
+                </Button>
+                <Button type='submit' color='primary'>
+                  Save
+                </Button>
+              </DialogActions>
+            </form>
+          )}
+        </Formik>
+      </Dialog>
+      <Dialog open={deleteOpen} onClose={handleCloseDelete}>
+        <DialogTitle>Delete Recipe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this recipe {selectedRecipe.title}?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDelete} color='primary'>
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color='primary'>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+    )
+  }
 }
 
 export default GqlList

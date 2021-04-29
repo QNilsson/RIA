@@ -104,31 +104,30 @@ const GqlList = () => {
     `
     //GQL MUTATIONS
     const UPDATE_RECIPE = gql`
-    mutation updateRecipe ($id: Int!, $data: RecipeCreateInput! ){
-    updateRecipe(id: $id, data:$data){
-        title
-        servings
-        readyInMinutes
-        sourceUrl
-        image
+    mutation updateRecipe ($id: Int!, $title: String!, $readyInMinutes: Int!, $servings:Int!, $sourceUrl: String, $image:String! ){
+    updateRecipe(id: $id,
+      data:{
+        title:$title,
+        servings: $servings,
+        readyInMinutes: $readyInMinutes,
+        image: $image,
+        sourceUrl: $sourceUrl
       }
       ){
         id
       }
     }
     `
-
+    
     const CREATE_RECIPE = gql`
-    mutation createRecipe($id:Int!, $data: RecipeCreateInput!){
-      createRecipe(data:$data){
-        title
-        servings
-        readyInMinutes
-        sourceUrl
-        image
-        id
-      
-        
+    mutation createRecipe($id:Int!, $title:String!, $readyInMinutes: Int!, $servings:Int!, $sourceUrl: String, $image:String!){
+      createRecipe(
+        data: 
+        {title:$title,
+        servings: $servings,
+        readyInMinutes: $readyInMinutes,
+        image: $image,
+        sourceUrl: $sourceUrl
         }
       ){
         id

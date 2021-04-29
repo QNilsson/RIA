@@ -4,5 +4,8 @@
 ### Heroku Link for NodeJS Server: https://quinn-node-server.herokuapp.com/recipe
 ### Link for Graphql server in progress
 
-## To access startup instructions for graphql server, go here:
+## To access startup instructions for NodeJs server, go here:
 ### Node Sever Github URL: https://github.com/QNilsson/DGM4790Node
+
+## For startup instructions for Graphql server, go here:
+### Graphql server Github URL: https://github.com/QNilsson/graphql

@@ -192,11 +192,11 @@ const ChocolateList = () => {
   return (
     <>
       <form>
-        <Input placeholder='Search' />
+        {/* <Input placeholder='Search' />
         <IconButton aria-label="search" >
           <SearchIcon/>
          
-          
+           */}
         </IconButton>
         <IconButton aria-label="add recipe">
           <AddCircleIcon onClick={() => handleClickAddOpen()}/>

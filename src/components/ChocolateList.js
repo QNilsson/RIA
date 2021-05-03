@@ -196,8 +196,8 @@ const ChocolateList = () => {
         <IconButton aria-label="search" >
           <SearchIcon/>
          
-           */}
-        </IconButton>
+          
+        </IconButton> */}
         <IconButton aria-label="add recipe">
           <AddCircleIcon onClick={() => handleClickAddOpen()}/>
         </IconButton>

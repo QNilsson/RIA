@@ -163,9 +163,9 @@ const GqlList = () => {
 
    
     
-    const [updateRecipe] = useMutation(UPDATE_RECIPE)
-    const [deleteRecipe] = useMutation(DELETE_RECIPE)
-    const [createRecipe] = useMutation(CREATE_RECIPE)
+    const [updateRecipe] = useMutation(UPDATE_RECIPE, {refetchQueries:[{ query: ALL_RECIPES}]})
+    const [deleteRecipe] = useMutation(DELETE_RECIPE, {refetchQueries:[{query: ALL_RECIPES}]})
+    const [createRecipe] = useMutation(CREATE_RECIPE, {refetchQueries:[{query: ALL_RECIPES}]})
 
   if(loading){
     return(

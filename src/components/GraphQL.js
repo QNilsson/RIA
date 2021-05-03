@@ -160,9 +160,6 @@ const GqlList = () => {
     const [checked, setChecked] = useState (false);
     const { loading, error, data} = useQuery(ALL_RECIPES);
     
-
-   
-    
     const [updateRecipe] = useMutation(UPDATE_RECIPE, {refetchQueries:[{ query: ALL_RECIPES}]})
     const [deleteRecipe] = useMutation(DELETE_RECIPE, {refetchQueries:[{query: ALL_RECIPES}]})
     const [createRecipe] = useMutation(CREATE_RECIPE, {refetchQueries:[{query: ALL_RECIPES}]})

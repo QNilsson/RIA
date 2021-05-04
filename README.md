@@ -1,5 +1,53 @@
 # Client For Node Sever & GraphQL Server
 
+# Project Requirements
+
+## 1. Effectively use conditional logic, JavaScript array methods, and front-end framework elements to render large lists on the web client
+```javascript
+<Container className={classes.root}>
+        {recipeList.map((recipe) => {
+          
+          return (
+            <Fragment>
+          <Fade bottom>
+            <Card className={classes.card} key={recipe.id}>
+              <CardMedia
+                component='img'
+                height='300'
+                className={classes.media}
+                image={recipe.image}
+                title={recipe.title}
+              ></CardMedia>
+              <CardContent>
+                <Typography gutterBottom variant='h5' component='h2'>
+                  {recipe.title}
+                </Typography>
+                <Box className={classes.content}>
+                  <Typography variant='subtitle1' color='textSecondary'>
+                    Servings: {recipe.servings}
+                  </Typography>
+                  <Typography variant='subtitle1' color='textSecondary'>
+                    Ready in: {recipe.readyInMinutes} minutes
+                  </Typography>
+                </Box>
+                <Box className={classes.source}>
+                <Typography variant='subtitle1' color='textSecondary'>Source:</Typography>
+                <Typography className={classes.sourceText}variant='caption' color='secondary'>
+                    <a href={recipe.sourceUrl} target="_blank">Go to Source</a>
+                    </Typography>
+                </Box>
+              </CardContent>
+           
+```
+## 2. Work with the proper libraries (e.g. VueJS, React) to create and manage the front-end portion of your project using a real development toolset.
+Project is built with react 
+
+## 3. Work with NPM and NodeJS to create and manage the back-end portion of your project.
+Created and managed with NPM. Used NodeJS for part of the back-end as well.
+
+## 4. Seed" script provides way to populate the datastore after the Docker install and launch
+https://github.com/QNilsson/Graphql/blob/72b2f595801cc1bc1d1371ad95b12b4b18292598/prisma/seed.js#L1-L2
+
 #### Front-End Netlify Link: https://serene-einstein-be8031.netlify.app/recipes
 #### Heroku Link for NodeJS Server: https://quinn-node-server.herokuapp.com/recipe
 #### Link for Graphql server in progress

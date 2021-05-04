@@ -82,15 +82,14 @@ https://github.com/QNilsson/Graphql/blob/72b2f595801cc1bc1d1371ad95b12b4b1829259
 
 #### Go to https://serene-einstein-be8031.netlify.app
 #### Login OR go straight to 'Chocolate List(Node JS) or 'Graphql' to see CRUD & Graphql components
-#### Chocolate List items will take a minute to load as they are coming from a heroku server*
+#### Chocolate List items will take a minute to load as they are coming from a heroku server:heavy_exclamation_mark:
 #### Go to https://github.com/QNilsson/graphql to see Graphql server startup instructions
 
 ### Other Resources:
 #### CRUD server Github URL: https://github.com/QNilsson/DGM4790Node
 
 #### Graphql server Github URL: https://github.com/QNilsson/graphql
-
-* Heroku Link for NodeJS Server: https://quinn-node-server.herokuapp.com/recipe
+:heavy_exclamation_mark:Heroku Link for NodeJS Server: https://quinn-node-server.herokuapp.com/recipe
 
 
 

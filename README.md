@@ -50,7 +50,7 @@ https://github.com/QNilsson/Graphql/blob/72b2f595801cc1bc1d1371ad95b12b4b1829259
 
 ### 6. Present a User Interface route or "page" that allows the user to:
 1. CREATE a meaningful (at least 5 data fields) resource through a REST endpoint that is stored in the datastore
-        https://github.com/QNilsson/DGM4790Node/blob/514cb608db6247d47382a0bcd5620dd6bb039b46/controllers/recipe.controller.js#L12-L22
+        https://github.com/QNilsson/DGM4790Node/blob/master/controllers/recipe.controller.js
 3. Read or GET meaningful data from 3 different REST endpoints
 4. UPDATE at least 1 portion of meaningful data through the appropriate endpoint
 5. DELETE some resource via the proper endpoint

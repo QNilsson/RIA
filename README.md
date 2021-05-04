@@ -1,8 +1,6 @@
-# Client For Node Sever & GraphQL Server
+# DGM4790 Final Project Requirements
 
-# Project Requirements
-
-## 1. Effectively use conditional logic, JavaScript array methods, and front-end framework elements to render large lists on the web client
+### 1. Effectively use conditional logic, JavaScript array methods, and front-end framework elements to render large lists on the web client
 ```javascript
 <Container className={classes.root}>
         {recipeList.map((recipe) => {
@@ -39,14 +37,23 @@
               </CardContent>
            
 ```
-## 2. Work with the proper libraries (e.g. VueJS, React) to create and manage the front-end portion of your project using a real development toolset.
+### 2. Work with the proper libraries (e.g. VueJS, React) to create and manage the front-end portion of your project using a real development toolset.
 Project is built with react 
 
-## 3. Work with NPM and NodeJS to create and manage the back-end portion of your project.
+### 3. Work with NPM and NodeJS to create and manage the back-end portion of your project.
 Created and managed with NPM. Used NodeJS for part of the back-end as well.
 
-## 4. Seed" script provides way to populate the datastore after the Docker install and launch
+### 4. Seed" script provides way to populate the datastore after the Docker install and launch
 https://github.com/QNilsson/Graphql/blob/72b2f595801cc1bc1d1371ad95b12b4b18292598/prisma/seed.js#L1-L2
+
+### 5. Properly use Git for your source version control with an established record of at least 4 days of commits each week from February 19th through April 30th.
+
+### 6. Present a User Interface route or "page" that allows the user to:
+1. CREATE a meaningful (at least 5 data fields) resource through a REST endpoint that is stored in the datastore
+2. Read or GET meaningful data from 3 different REST endpoints
+3. UPDATE at least 1 portion of meaningful data through the appropriate endpoint
+4. DELETE some resource via the proper endpoint
+
 
 #### Front-End Netlify Link: https://serene-einstein-be8031.netlify.app/recipes
 #### Heroku Link for NodeJS Server: https://quinn-node-server.herokuapp.com/recipe

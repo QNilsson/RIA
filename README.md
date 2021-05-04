@@ -78,7 +78,7 @@ https://github.com/QNilsson/Graphql/blob/72b2f595801cc1bc1d1371ad95b12b4b1829259
         
 ### 8. You will submit the GitHub URL for your project with a detailed ReadMe explaining how to install and run your server(s) on Docker or from your deployed sites.
 
-### Deployment Instructions Below:
+## Deployment Instructions Below:
 
 #### Front-End Netlify Link: https://serene-einstein-be8031.netlify.app/recipes
 

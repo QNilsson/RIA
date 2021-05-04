@@ -86,7 +86,7 @@ https://github.com/QNilsson/Graphql/blob/72b2f595801cc1bc1d1371ad95b12b4b1829259
 #### Go to https://github.com/QNilsson/graphql to see Graphql server startup instructions
 
 ### Other Resources:
-#### CRUD server Github URL: https://github.com/QNilsson/DGM4790Node
+#### CRUD (NodeJS) server Github URL: https://github.com/QNilsson/DGM4790Node
 
 #### Graphql server Github URL: https://github.com/QNilsson/graphql
 :heavy_exclamation_mark:Heroku Link for NodeJS Server: https://quinn-node-server.herokuapp.com/recipe

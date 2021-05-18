@@ -1,4 +1,15 @@
-# DGM4790 Final Project Requirements
+## Deployment Instructions Below:
+
+#### Go to https://serene-einstein-be8031.netlify.app
+#### Login OR go straight to 'Chocolate Recipes (Node JS) or 'Graphql' to see CRUD & Graphql components
+#### Chocolate List items will take a minute to load as they are coming from a heroku server:heavy_exclamation_mark:
+#### Go to https://github.com/QNilsson/graphql to see Graphql server startup instructions
+
+### Other Resources:
+#### CRUD (NodeJS) server Github URL: https://github.com/QNilsson/DGM4790Node
+
+#### Graphql server Github URL: https://github.com/QNilsson/graphql
+:heavy_exclamation_mark:Heroku Link for NodeJS Server: https://quinn-node-server.herokuapp.com/recipe
 
 ### 1. Effectively use conditional logic, JavaScript array methods, and front-end framework elements to render large lists on the web client
 ```javascript
@@ -78,18 +89,7 @@ https://github.com/QNilsson/Graphql/blob/72b2f595801cc1bc1d1371ad95b12b4b1829259
         
 ### 8. You will submit the GitHub URL for your project with a detailed ReadMe explaining how to install and run your server(s) on Docker or from your deployed sites.
 
-## Deployment Instructions Below:
 
-#### Go to https://serene-einstein-be8031.netlify.app
-#### Login OR go straight to 'Chocolate Recipes (Node JS) or 'Graphql' to see CRUD & Graphql components
-#### Chocolate List items will take a minute to load as they are coming from a heroku server:heavy_exclamation_mark:
-#### Go to https://github.com/QNilsson/graphql to see Graphql server startup instructions
-
-### Other Resources:
-#### CRUD (NodeJS) server Github URL: https://github.com/QNilsson/DGM4790Node
-
-#### Graphql server Github URL: https://github.com/QNilsson/graphql
-:heavy_exclamation_mark:Heroku Link for NodeJS Server: https://quinn-node-server.herokuapp.com/recipe
 
 
 
